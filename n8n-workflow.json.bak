@@ -1,0 +1,657 @@
+{
+  "name": "OmniDimension Master AI CRM (Voice & Text)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "omnidim-post-call",
+        "options": {}
+      },
+      "id": "e42e12a0-4b9b-4375-9c8e-324c1c9c45f4",
+      "name": "1. Post-Call Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        300
+      ],
+      "webhookId": "omnidim-post-call"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "YOUR_GOOGLE_SHEET_ID_HERE",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Phone Number": "={{ $json.body.caller_number || $json.body.phone_number }}",
+            "Duration": "={{ $json.body.duration }}",
+            "Summary": "={{ $json.body.summary }}",
+            "Status": "={{ ($json.body.summary && $json.body.summary.includes('HANDOFF')) ? 'Handoff Required' : (($json.body.summary && $json.body.summary.includes('COMPLAINT')) ? 'Priority Complaint' : 'Completed') }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "f51b9e6c-7e8c-482a-a9f4-123456789abc",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.summary }}",
+                    "rightValue": "HANDOFF",
+                    "operator": {
+                      "type": "string",
+                      "operation": "contains"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Urgent Handoff"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "none"
+        }
+      },
+      "id": "a1b2c3d4-e5f6-7890-abcd-1234567890ab",
+      "name": "Check for Handoff",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v17.0/YOUR_PHONE_NUMBER_ID/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_META_SYSTEM_USER_TOKEN"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"messaging_product\": \"whatsapp\",\n  \"to\": \"YOUR_MANAGER_PHONE_NUMBER\",\n  \"type\": \"template\",\n  \"template\": {\n    \"name\": \"manager_alert\",\n    \"language\": {\n      \"code\": \"en_US\"\n    },\n    \"components\": [\n      {\n        \"type\": \"body\",\n        \"parameters\": [\n          {\n            \"type\": \"text\",\n            \"text\": \"{{ $json.body.caller_number || $json.body.phone_number || 'Unknown Caller' }}\"\n          }\n        ]\n      }\n    ]\n  }\n}",
+        "options": {}
+      },
+      "id": "11223344-5566-7788-9900-aabbccddeeff",
+      "name": "Meta API WhatsApp Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        860,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "omnidim-manager-alert",
+        "options": {}
+      },
+      "id": "text-handoff-webhook-id",
+      "name": "2. Text Chat Alert Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        500
+      ],
+      "webhookId": "omnidim-manager-alert"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"Success\",\n  \"message\": \"Manager alerted successfully.\"\n}",
+        "options": {}
+      },
+      "id": "text-handoff-response",
+      "name": "Respond to OmniDim",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "omnidim-calendar-tool",
+        "options": {}
+      },
+      "id": "cal-webhook-id",
+      "name": "3. Calendar Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        740
+      ],
+      "webhookId": "omnidim-calendar-tool"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "check_slots",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Check Availability"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "book",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Book Appointment"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "none"
+        }
+      },
+      "id": "cal-switch-id",
+      "name": "Route by Action",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        420,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list",
+          "cachedResultName": "primary"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "={{ $json.body.date }}T00:00:00Z",
+          "timeMax": "={{ $json.body.date }}T23:59:59Z"
+        }
+      },
+      "id": "cal-get-id",
+      "name": "Get Events (Google Calendar)",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        680,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list",
+          "cachedResultName": "primary"
+        },
+        "start": "={{ $json.body.date }}T{{ $json.body.time }}",
+        "end": "={{ $json.body.date }}T{{ $json.body.time }}",
+        "additionalFields": {
+          "summary": "={{ $json.body.name }}"
+        }
+      },
+      "id": "cal-create-id",
+      "name": "Create Event (Google Calendar)",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        680,
+        840
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"success\",\n  \"slots\": \"2:00 PM, 3:30 PM, 5:00 PM\"\n}",
+        "options": {}
+      },
+      "id": "cal-resp-check",
+      "name": "Return Slots to OmniDim",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        920,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"success\",\n  \"message\": \"Appointment booked successfully\"\n}",
+        "options": {}
+      },
+      "id": "cal-resp-book",
+      "name": "Return Booked to OmniDim",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        920,
+        840
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "body.phone_number",
+              "value": "={{ $json.body.phone_number }}"
+            },
+            {
+              "name": "body.duration",
+              "value": "Text Chat"
+            },
+            {
+              "name": "body.summary",
+              "value": "COMPLAINT: {{ $json.body.complaint }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-complaint-id",
+      "name": "Format Complaint",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        500,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "omnidim-text-summary",
+        "options": {}
+      },
+      "id": "text-summary-webhook-id",
+      "name": "4. Text Chat Summary Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        940
+      ],
+      "webhookId": "omnidim-text-summary"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "body.phone_number",
+              "value": "={{ $json.body.phone_number }}"
+            },
+            {
+              "name": "body.duration",
+              "value": "Text Chat"
+            },
+            {
+              "name": "body.summary",
+              "value": "={{ $json.body.summary }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-summary-id",
+      "name": "Format Summary",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        500,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"success\"\n}",
+        "options": {}
+      },
+      "id": "text-summary-response",
+      "name": "Respond to Summary",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        800,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "body.phone_number",
+              "value": "={{ $json.body.phone_number }}"
+            },
+            {
+              "name": "body.duration",
+              "value": "Text Chat"
+            },
+            {
+              "name": "body.summary",
+              "value": "COMPLAINT: {{ $json.body.complaint }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-complaint-id",
+      "name": "Format Complaint",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        500,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "omnidim-text-summary",
+        "options": {}
+      },
+      "id": "text-summary-webhook-id",
+      "name": "4. Text Chat Summary Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        940
+      ],
+      "webhookId": "omnidim-text-summary"
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "body.phone_number",
+              "value": "={{ $json.body.phone_number }}"
+            },
+            {
+              "name": "body.duration",
+              "value": "Text Chat"
+            },
+            {
+              "name": "body.summary",
+              "value": "={{ $json.body.summary }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "format-summary-id",
+      "name": "Format Summary",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        500,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"success\"\n}",
+        "options": {}
+      },
+      "id": "text-summary-response",
+      "name": "Respond to Summary",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        800,
+        940
+      ]
+    }
+  ],
+  "connections": {
+    "1. Post-Call Webhook": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Check for Handoff",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check for Handoff": {
+      "main": [
+        [
+          {
+            "node": "Meta API WhatsApp Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "2. Text Chat Alert Webhook": {
+      "main": [
+        [
+          {
+            "node": "Meta API WhatsApp Alert",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Format Complaint",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Format Complaint",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta API WhatsApp Alert": {
+      "main": [
+        [
+          {
+            "node": "Respond to OmniDim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Calendar Webhook": {
+      "main": [
+        [
+          {
+            "node": "Route by Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Action": {
+      "main": [
+        [
+          {
+            "node": "Get Events (Google Calendar)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create Event (Google Calendar)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events (Google Calendar)": {
+      "main": [
+        [
+          {
+            "node": "Return Slots to OmniDim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Event (Google Calendar)": {
+      "main": [
+        [
+          {
+            "node": "Return Booked to OmniDim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Complaint": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Text Chat Summary Webhook": {
+      "main": [
+        [
+          {
+            "node": "Format Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Summary": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond to Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "versionId": "meta-api-routing-v2"
+}

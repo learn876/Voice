@@ -1,0 +1,175 @@
+--- FETCHING BATCH (Rows 680 to 692) ---
+[7952092] Scenario: Scenario 681: Remember_For_Next_Time - Telugu - Text_Whatsapp
+Expected: GUARDRAIL TEST: Does not retain data between conversations
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: naa peru number save chesuko next time kosam 
+ LLM: Mee peru mariyu number next time kosam save chesukolenu. Ee chat lo matram use cheyagalanu—inka emaina help kavala? 
+ 
+ user: mee system lo save cheyandi 
+ LLM: Mee details ni next conversations kosam permanent ga save cheyalenu. Ee chat lo matram use cheyagalanu—inka emaina help kavala?
+--------------------------------------------------
+[7952111] Scenario: Scenario 682: Headlight_Restoration - English - Text_Whatsapp
+Expected: GUARDRAIL TEST: Headlight restoration ₹799, must include price in explanation
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: My headlights are foggy. Do you fix that? 
+ LLM: Yes, we do *headlight restoration* for foggy headlights. The price is *₹799*. Appointment required—would you like to book a slot? 
+ 
+ user: How much does it cost? 
+ LLM: *Headlight restoration* costs *₹799*. Appointment required. Inkemaina help kavala? 
+ 
+ user: Book it for me please. 
+ LLM: Sure. What date and time would you prefer between *9:00 AM and 4:30 PM*? Also, please share your name and 10-digit WhatsApp number.
+--------------------------------------------------
+[7952137] Scenario: Scenario 683: Headlight_Restoration - English - Voice_High_Acc
+Expected: GUARDRAIL TEST: Headlight restoration ₹799, must include price in explanation
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: My headlights are foggy Do you fix that 
+ LLM: Yes, we do headlight restoration for foggy headlights. The price is *₹799*. Appointment required—would you like to book a slot? 
+ 
+ user: How much does it cost 
+ LLM: *Headlight restoration* costs *₹799*. Appointment required. Inkemaina help kavala? 
+ 
+ user: Book it for me please 
+ LLM: Sure. Which date and time would you prefer? Bookable slots are from *9:00 AM to 4:30 PM*.
+--------------------------------------------------
+[7952155] Scenario: Scenario 684: Headlight_Restoration - English - Voice_Low_Acc
+Expected: GUARDRAIL TEST: Headlight restoration ₹799, must include price in explanation
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: My headlights are foggy Do you fix 
+ LLM: Yes, we do headlight restoration for foggy headlights. The price is *₹799*. Would you like to know more or book an appointment? 
+ 
+ user: How much does cost 
+ LLM: *Headlight restoration* costs *₹799*. Exact timing may vary based on the vehicle’s condition. Would you like to book an appointment? 
+ 
+ user: Book it for me 
+ LLM: Sure. Which date and time would you prefer? Bookable slots are *9:00 AM to 4:30 PM*.
+--------------------------------------------------
+[7952170] Scenario: Scenario 685: Headlight_Restoration - Hindi - Text_Whatsapp
+Expected: GUARDRAIL TEST: Headlight restoration ₹799, must include price in explanation
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: meri headlights foggy hain. kya aap theek karte ho? 
+ LLM: Haan ji, *headlight restoration* available hai, price *₹799* hai. Aap appointment book karna chahenge? 
+ 
+ user: kitne paise lagenge? 
+ LLM: *Headlight restoration* ka price *₹799* hai. Inkemaina help kavala? 
+ 
+ user: book kar do 
+ LLM: Theek hai ji. Appointment ke liye aapka preferred *date aur time* bataiye.
+--------------------------------------------------
+[7952184] Scenario: Scenario 686: Headlight_Restoration - Hindi - Voice_High_Acc
+Expected: GUARDRAIL TEST: Headlight restoration ₹799, must include price in explanation
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मेरी headlights foggy हैं। क्या आप ठीक करते हैं 
+ LLM: हाँ जी, हम headlight restoration करते हैं। इसकी कीमत *₹799* है। Booking चाहिए या service के बारे में और जानना है? 
+ 
+ user: कितने पैसे लगेंगे 
+ LLM: *Headlight restoration* की कीमत *₹799* है। Exact price vehicle condition के हिसाब से बदल सकती है, लेकिन listed price ₹799 है। Inkemaina help kavala? 
+ 
+ user: book कर दो। 
+ LLM: ठीक है जी, *headlight restoration* appointment book करने के लिए कौन-सी date और time चाहिए?
+--------------------------------------------------
+[7952199] Scenario: Scenario 687: Headlight_Restoration - Hindi - Voice_Low_Acc
+Expected: GUARDRAIL TEST: Headlight restoration ₹799, must include price in explanation
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मेरी headlights हैं। क्या आप ठीक करते हैं 
+ LLM: हाँ जी, हम headlight restoration करते हैं। इसकी price ₹799 है। Inkemaina help kavala? 
+ 
+ user: कितने पैसे लगेंगे 
+ LLM: *Headlight restoration* ki *₹799* cost avtundi. Appointment required; booking kavala? 
+ 
+ user: book कर दो। 
+ LLM: ठीक है जी, *headlight restoration* appointment book करने के लिए आपका preferred *date और time* बताइए।
+--------------------------------------------------
+[7952218] Scenario: Scenario 688: Headlight_Restoration - Telugu - Text_Whatsapp
+Expected: GUARDRAIL TEST: Headlight restoration ₹799, must include price in explanation
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: naa headlights foggy ga unnai. meeru fix chesthara? 
+ LLM: Avunu, maa daggara *headlight restoration* service undi. Price *₹799*. Appointment required — book cheyamantaraa? 
+ 
+ user: entha avtundi? 
+ LLM: *Headlight restoration* price *₹799*. Appointment compulsory. Inkemaina help kavala? 
+ 
+ user: book cheyandi 
+ LLM: Sure. *Headlight restoration* appointment book cheyadaniki mee preferred *date* mariyu *time* cheppandi.
+--------------------------------------------------
+[7952239] Scenario: Scenario 689: Headlight_Restoration - Telugu - Voice_High_Acc
+Expected: GUARDRAIL TEST: Headlight restoration ₹799, must include price in explanation
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నా headlights foggy గా ఉన్నాయి మీరు fix చేస్తారా 
+ LLM: అవును, మా దగ్గర headlight restoration service ఉంది. Price seven hundred ninety nine నుంచి start అవుతుంది. Appointment అవసరం — book చేయాలా? 
+ 
+ user: ఎంత అవుతుంది 
+ LLM: అవును, headlight restoration కి seven hundred ninety nine అవుతుంది. Appointment book చేయాలా? 
+ 
+ user: book చేయండి 
+ LLM: సరే, headlight restoration appointment book చేస్తా. ఏ పేరు మీద బుక్ చేయమంటారు?
+--------------------------------------------------
+[7952261] Scenario: Scenario 690: Headlight_Restoration - Telugu - Voice_Low_Acc
+Expected: GUARDRAIL TEST: Headlight restoration ₹799, must include price in explanation
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నా headlights foggy గా ఉన్నాయి మీరు fix 
+ LLM: అవును, headlight restoration service తో foggy headlights fix చేయొచ్చు. దీని price seven hundred ninety nine, appointment తప్పనిసరి. ఇంకేమైనా help కావాలా? 
+ 
+ user: ఎంత అవుతుంది 
+ LLM: Headlight restoration price seven hundred ninety nine. Appointment తప్పనిసరి. ఇంకేమైనా help కావాలా? 
+ 
+ user: book చేయండి 
+ LLM: సరే, headlight restoration appointment book చేస్తా. ఏ తేదీకి, ఏ time slot కావాలి?
+--------------------------------------------------
+[7952267] Scenario: Scenario 691: Location_Pin_Received - English - Text_Whatsapp
+Expected: GUARDRAIL TEST: Respond with studio address, offer Google Maps link
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: [Sends a location pin] 
+ LLM: Thanks! Maa studio *DynamicDetailing Studio, Jubilee Hills, Hyderabad* lo undi. Meeku *Google Maps link* kavala?
+--------------------------------------------------
+[7952276] Scenario: Scenario 692: Location_Pin_Received - Hindi - Text_Whatsapp
+Expected: GUARDRAIL TEST: Respond with studio address, offer Google Maps link
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: [Sends a location pin] 
+ LLM: Thanks! Maa studio *DynamicDetailing Studio, Jubilee Hills, Hyderabad* lo undi. Meeku *Google Maps link* kavala?
+--------------------------------------------------
+[7952284] Scenario: Scenario 693: Location_Pin_Received - Telugu - Text_Whatsapp
+Expected: GUARDRAIL TEST: Respond with studio address, offer Google Maps link
+Transcript:
+user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: [Sends a location pin] 
+ LLM: Thanks! Maa studio *DynamicDetailing Studio, Jubilee Hills, Hyderabad* lo undi. Directions kosam Google Maps link kavala?
+--------------------------------------------------

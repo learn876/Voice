@@ -1,0 +1,50 @@
+{
+  "OMNIDIM_PROMPT.md": [
+    "e2e_tester/test_scenarios.json",
+    ".agents/CONTEXT.md",
+    "update_agent_prompt.py",
+    "e2e_tester/run_e2e_tests.py",
+    "N8N_WORKFLOW.md",
+    "n8n-workflow.json"
+  ],
+  "N8N_WORKFLOW.md": [
+    "OMNIDIM_PROMPT.md",
+    "e2e_tester/content.md",
+    "n8n-workflow.json",
+    "app/page.tsx",
+    "e2e_tester/e2e_reporter.py"
+  ],
+  "n8n-workflow.json": [
+    "OMNIDIM_PROMPT.md",
+    "N8N_WORKFLOW.md"
+  ],
+  "e2e_tester/test_scenarios.json": [
+    "e2e_tester/content.md",
+    "e2e_tester/README.md",
+    "OMNIDIM_PROMPT.md",
+    "e2e_tester/run_e2e_tests.py"
+  ],
+  "e2e_tester/run_e2e_tests.py": [
+    "e2e_tester/test_scenarios.json",
+    "e2e_tester/e2e_reporter.py"
+  ],
+  "e2e_tester/e2e_reporter.py": [
+    "e2e_tester/e2e_test_report.csv"
+  ],
+  "e2e_tester/e2e_test_report.csv": [
+    "e2e_tester/counsel_get_batch.py",
+    "e2e_tester/counsel_save_batch.py",
+    "e2e_tester/e2e_test_report_analyzed.csv"
+  ],
+  "e2e_tester/counsel_save_batch.py": [
+    "e2e_tester/e2e_test_report_analyzed.csv",
+    "e2e_tester/e2e_test_report.csv"
+  ],
+  "app/page.tsx": [
+    "N8N_WORKFLOW.md",
+    "n8n-workflow.json"
+  ],
+  "update_agent_prompt.py": [
+    "OMNIDIM_PROMPT.md"
+  ]
+}

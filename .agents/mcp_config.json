@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase/mcp-server"
+      ]
+    },
+    "omnidimension": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@omnidim-ai/mcp-server"
+      ],
+      "env": {
+        "OMNIDIM_API_KEY": "DLOAJWjRpuyDwg9qyCBlil2QBHJCzk-qR5yFmdCFjG0"
+      }
+    }
+  }
+}

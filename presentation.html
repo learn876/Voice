@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DynamicDetailing AI CRM Showcase</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/dracula.min.css">
+  <style>
+    /* Custom WhatsApp UI CSS */
+    .whatsapp-container {
+      background: #0b141a;
+      border-radius: 12px;
+      padding: 10px;
+      width: 350px;
+      margin: 0 auto;
+      font-size: 14px;
+      font-family: Helvetica, Arial, sans-serif;
+      text-align: left;
+    }
+    .message {
+      background: #202c33;
+      color: #e9edef;
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      width: fit-content;
+      max-width: 85%;
+    }
+    .message.business {
+      background: #005c4b;
+      margin-left: auto;
+    }
+    .list-button {
+      background: #202c33;
+      color: #00a884;
+      text-align: center;
+      padding: 10px;
+      border-top: 1px solid #2a3942;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      border-radius: 0 0 8px 8px;
+    }
+    .quick-reply-btn {
+      background: #202c33;
+      color: #00a884;
+      border-radius: 20px;
+      padding: 8px 16px;
+      margin: 4px;
+      display: inline-block;
+      text-align: center;
+      font-weight: bold;
+      border: 1px solid #2a3942;
+    }
+    .highlight-ppf {
+      border-left: 4px solid #00a884;
+      padding-left: 8px;
+      margin: 8px 0;
+      background: rgba(0, 168, 132, 0.1);
+    }
+    .mockup-img {
+      border-radius: 20px;
+      max-height: 500px !important;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <!-- Slide 1 -->
+      <section>
+        <h2>DynamicDetailing AI</h2>
+        <h3 style="color: #00a884;">Unified Voice & Chat CRM</h3>
+        <p>Powered by OmniDimension & n8n</p>
+      </section>
+      
+      <!-- Slide 2 -->
+      <section>
+        <h3>System Architecture</h3>
+        <ul style="line-height: 1.8;">
+          <li>📞 <strong>Voice & Text:</strong> OmniDimension native channels</li>
+          <li>⚙️ <strong>Orchestration:</strong> n8n workflow background routing</li>
+          <li>📊 <strong>Backend:</strong> Google Sheets CRM Database</li>
+          <li>💻 <strong>Frontend:</strong> Next.js Dashboard (Phase 2)</li>
+        </ul>
+      </section>
+      
+      <!-- Slide 3 -->
+      <section>
+        <section>
+          <h3>1. The Voice Engine</h3>
+          <p style="font-size: 0.8em;">Hyper-realistic, code-switching conversational AI.</p>
+          <img src="file:///C:/Users/SHAIK%20ATIF/.gemini/antigravity-ide/brain/5a51b896-3984-4a49-996d-955b502c0625/voice_call_active_mockup_1789231953475.jpg" class="mockup-img" alt="Active Voice Call Mockup">
+        </section>
+        <section>
+          <h3>The "Human" Touch</h3>
+          <ul style="font-size: 0.8em; margin-bottom: 30px;">
+            <li>Uses Vyavaharikam (Spoken Telugu), not robotic text.</li>
+            <li>Code-switches to English for numbers and tech terms.</li>
+            <li>Latencies masked with "One moment, check చేస్తున్నా..."</li>
+          </ul>
+          <blockquote style="font-size: 0.9em; border-left: 5px solid #00a884;">
+            "నమస్కారం, DynamicDetailing నుంచి Siri మాట్లాడుతున్నా. ఎలా help చేయగలను అండి?"
+          </blockquote>
+        </section>
+      </section>
+      
+      <!-- Slide 4 -->
+      <section>
+        <section>
+          <h3>2. Text Engine: WhatsApp Menu</h3>
+          <p style="font-size: 0.6em;">Interactive List Message bypassing raw text blocks.</p>
+          <div class="whatsapp-container">
+            <div class="message">
+              <p style="margin:0;">Hi, what services do you offer?</p>
+            </div>
+            <div class="message business" style="padding:0; overflow:hidden;">
+              <div style="padding: 10px;">
+                <p style="margin:0;">Hello! We offer a variety of premium car detailing services. Please choose from the menu below:</p>
+                <div class="highlight-ppf">
+                  <strong style="color:white;">Paint Protection Film (PPF)</strong><br>
+                  <small style="color:#aaa;">Keep your car looking brand new with maximum protection.</small>
+                </div>
+              </div>
+              <div class="list-button">☰ View Services Menu</div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h3>Text Engine: PPF Booking Handoff</h3>
+          <p style="font-size: 0.6em;">Utility Message with Quick Reply Action Buttons.</p>
+          <div class="whatsapp-container">
+            <div class="message">
+              <p style="margin:0;">I would like to book a PPF session for my car.</p>
+            </div>
+            <div class="message business">
+              <p style="margin:0;">Great choice! PPF will perfectly protect your paint.<br><br>Our manager will call you back shortly to confirm your PPF appointment details.</p>
+            </div>
+            <div style="text-align: right; margin-top: 5px;">
+              <div class="quick-reply-btn">Cancel</div>
+              <div class="quick-reply-btn">Call Me Now</div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <!-- Slide 5 -->
+      <section>
+        <h3>3. CRM Orchestration</h3>
+        <p style="font-size: 0.7em;">Automated background switch logic via n8n.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+          <div style="background: #222; padding: 20px; border-radius: 10px; width: 40%; border-top: 4px solid #00a884;">
+            <h4>Handoffs</h4>
+            <p style="font-size: 0.7em;">Logged to Sheets.<br>Meta API alerts manager via WhatsApp immediately.</p>
+          </div>
+          <div style="background: #222; padding: 20px; border-radius: 10px; width: 40%; border-top: 4px solid #e74c3c;">
+            <h4>Complaints</h4>
+            <p style="font-size: 0.7em;">Logged to Sheets.<br>Flagged on Dashboard without buzzing manager directly.</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Slide 6 -->
+      <section>
+        <h3>Next Steps: Phase 2</h3>
+        <ul>
+          <li>Build Next.js React Dashboard</li>
+          <li>Integrate Google Auth & Sheets API</li>
+          <li>Migrate to Meta Cloud Business API</li>
+          <li>Live Production Testing</li>
+        </ul>
+        <h4 style="margin-top: 40px; color: #00a884;">Thank You</h4>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      transition: 'slide'
+    });
+  </script>
+</body>
+</html>

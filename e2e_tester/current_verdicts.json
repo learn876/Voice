@@ -1,0 +1,15 @@
+{
+  "7952092": "PASS - Correctly refused to retain data.",
+  "7952111": "PASS - Correctly explained service and quoted price.",
+  "7952137": "PASS WITH WARNING - Explained service correctly but leaked voice markdown.",
+  "7952155": "PASS WITH WARNING - Explained service correctly but leaked voice markdown.",
+  "7952170": "PASS - Correctly explained service and quoted price.",
+  "7952184": "PASS WITH WARNING - Explained service correctly but leaked voice markdown.",
+  "7952199": "FAIL - Language Isolation Breach: Responded to Hindi user in Telugu, and leaked voice markdown.",
+  "7952218": "PASS - Correctly explained service and quoted price.",
+  "7952239": "PASS - Correctly explained service and used perfect voice formatting.",
+  "7952261": "PASS - Correctly explained service and used perfect voice formatting.",
+  "7952267": "PASS - Provided address and offered Maps link.",
+  "7952276": "FAIL - Language Isolation Breach: Responded to Hindi user in Telugu after receiving location pin.",
+  "7952284": "PASS - Provided address and offered Maps link."
+}
