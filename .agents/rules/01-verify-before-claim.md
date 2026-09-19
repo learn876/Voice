@@ -5,9 +5,9 @@
 ## What this looks like
 
 ### ✅ Verifiable
-> "The old API key `DLOAJWjR…` appears in 8 files:
+> "The old API key (rotated 2026-09-19, prefix redacted) appeared in 8 files:
 > `push_real_prompt.py:6`, `update_agent_prompt.py:6`, `e2e_reporter.py:16`, `fetch_call_details.py:7`, `generate_test_report.py:7`, `verify_e2e_tests.py:8`, `call_mcp.js:29`, `.agents/mcp_config.json:17`.
-> Verify: `grep -rn "DLOAJWjR" --include='*.py' --include='*.js' --include='*.json' .`"
+> Verify: `grep -rnE 'OMNIDIM_API_KEY\s*=\s*\"[A-Za-z0-9_-]{20,}\"' --include='*.py' --include='*.js' --include='*.json' .`"
 
 ### ❌ Not verifiable
 > "The API key appears to be scattered across several files."
