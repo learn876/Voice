@@ -1,0 +1,165 @@
+{
+  "slice": "06_intent_multi_part",
+  "total_scenarios": 87,
+  "analyzed": 84,
+  "not_found": 3,
+  "defects": [
+    {
+      "defect_id": "intent-001",
+      "title": "Conversation reset on empty/silent user input",
+      "severity": "critical",
+      "category": "state_loss",
+      "affected_scenarios": ["646 (7951055)", "649 (7951249)", "651 (7951436)"],
+      "evidence": "After the single 'book cheyamantaraa?' nudge, two consecutive empty user turns caused the agent to re-emit the full opening greeting 'Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi?' TWICE, discarding all captured context (service, price, prior nudge state).",
+      "expected": "On silence/empty input, brief prompt or wait; never re-introduce as if it's a new call.",
+      "impact": "Complete state amnesia mid-conversation; user has to restart."
+    },
+    {
+      "defect_id": "intent-002",
+      "title": "Nudge repeated more than once (Nudge_Repeat_Test guardrail violation)",
+      "severity": "high",
+      "category": "guardrail_violation",
+      "affected_scenarios": ["650 (7951342)"],
+      "evidence": "Turn sequence: 'hmm ok' -> 'Sare! Booking kavala?'; 'hmm ok' -> 'appointment kavali ante cheppandi.'; '...' -> 'Cheppandi, interior cleaning appointment book cheyala?'; '...' -> 'meeku em help kavali cheppandi.' The book-nudge fires 3+ times back-to-back.",
+      "expected": "Ask 'shall we book' exactly ONCE, then stop pushing.",
+      "impact": "Explicit guardrail failure; nagging UX."
+    },
+    {
+      "defect_id": "intent-003",
+      "title": "Language leaks - Kannada and Gujarati script mid-turn",
+      "severity": "high",
+      "category": "language_leak",
+      "affected_scenarios": ["153 (7949044) Gujarati", "165 (7950273) Gujarati", "171 (7951223) Kannada", "177 (7951570) Kannada"],
+      "evidence": "Scenario 153/165: 'તમને કઈ service વિશે જાણવું છે?' (Gujarati) injected mid-turn. Scenario 171: 'ಇನ್ನೇಮైనా help కావాలా?' (Kannada). Scenario 177: 'ನಿಮಗೆ ఏ service' (Kannada). None of these languages are in the supported set.",
+      "expected": "Only Tanglish / Hinglish / English / Telugu / Hindi script per user's language.",
+      "impact": "User cannot read the reply; catastrophic in voice."
+    },
+    {
+      "defect_id": "intent-004",
+      "title": "Telugu closer 'Inkemaina help kavala?' leaks into Hindi conversations",
+      "severity": "medium",
+      "category": "language_leak",
+      "affected_scenarios": ["157 (7949447)", "160 (7949779)", "230 (7952503)", "231 (7952514)", "232 (7952490)", "234 (7952535)", "235 (7952520)"],
+      "evidence": "In Hindi/Hinglish scenarios, replies end with hardcoded Telugu 'Inkemaina help kavala?' instead of the Hindi equivalent 'aur kuch chahiye?'.",
+      "expected": "Closing phrase should match conversation language.",
+      "impact": "Consistency defect; feels like copy-paste template."
+    },
+    {
+      "defect_id": "intent-005",
+      "title": "State tracking failure - only echoes ONE captured field when user gives BOTH",
+      "severity": "high",
+      "category": "state_tracking",
+      "affected_scenarios": ["226 (7952442)", "233 (7952527)", "239 (7952583)", "243 (7952623)", "245 (7952641)"],
+      "evidence": "User gives 'name is Emily, number 9422223221' in one turn. Agent replies 'Mee WhatsApp number 94222 23221, correct aa?' - ignores name completely, forces extra confirmation turn. Same pattern in Amit, Sneha, Bhavya, Deepthi cases.",
+      "expected": "Acknowledge BOTH fields and proceed to booking OR confirm both together.",
+      "impact": "Extra turn(s); risk of dropping name silently."
+    },
+    {
+      "defect_id": "intent-006",
+      "title": "Time context lost across turns; agent re-asks for time already given",
+      "severity": "high",
+      "category": "state_tracking",
+      "affected_scenarios": ["240 (7952591)", "246 (7952646)"],
+      "evidence": "Scenario 240: user says 'kal 2 baje free hain' (established 2 PM). Later after name+number, agent still asks 'kaunsa time rakhoon, 9:00 AM se 4:30 PM ke beech?'. Scenario 246: agent responded to opening multi-part with 'Thank you for calling. Please reach out to 7893686581' (a hang-up message injected at the start).",
+      "expected": "Persist captured time slot; only re-ask if user contradicts.",
+      "impact": "Multi-part guardrail violation - loses one of the three parts."
+    },
+    {
+      "defect_id": "intent-007",
+      "title": "'Free' misinterpreted as promotional offer instead of availability",
+      "severity": "medium",
+      "category": "intent_misparse",
+      "affected_scenarios": ["240 (7952591)"],
+      "evidence": "User: 'kal 2 free hain' (are you free at 2?). Agent replies with slot list AND 'Free offers available nahi hain.' - injected a discount/offer denial that user never asked about.",
+      "expected": "Parse 'free' as availability in this context.",
+      "impact": "Confusing; introduces topic user did not raise."
+    },
+    {
+      "defect_id": "intent-008",
+      "title": "Hallucinated 'call another number' message on live turn",
+      "severity": "critical",
+      "category": "hallucination",
+      "affected_scenarios": ["246 (7952646)"],
+      "evidence": "First LLM response to a valid multi-part enquiry: 'Thank you for calling. Please reach out to 7893686581 for inquiries, and thank you.' - agent gave up on turn 1.",
+      "expected": "Answer the multi-part question.",
+      "impact": "Terminal failure; user routed away for no reason."
+    },
+    {
+      "defect_id": "intent-009",
+      "title": "Multi-part booking promised as complete before all fields captured",
+      "severity": "high",
+      "category": "false_confirmation",
+      "affected_scenarios": ["224 (7952343)"],
+      "evidence": "User said 'My number is name is Isabella' (no number). Agent noted name; user said 'thank you'; agent replied 'Mee WhatsApp number share chesthe, PPF and ceramic coating appointment booking complete chestha.' - implies booking readiness though nothing is booked and troll pattern likely.",
+      "expected": "Do not imply a pending booking is queued; explicitly say 'no booking made'.",
+      "impact": "User may believe booking is queued; risk of no-show or missed record."
+    },
+    {
+      "defect_id": "intent-010",
+      "title": "Vague-question responses exceed 2-sentence cap with unsolicited price list",
+      "severity": "medium",
+      "category": "verbosity",
+      "affected_scenarios": ["147 (7948513)", "154 (7949150)", "156 (7949356)", "167 (7951013)", "172 (7951122)", "175 (7951296)", "178 (7951454)"],
+      "evidence": "Vague 'What kind of services do you do?' returns a 6-line bulleted price list including every service and rate, instead of asking one clarifier or naming services in one sentence.",
+      "expected": "One clarifying question OR one-sentence service list.",
+      "impact": "Format bleed and verbosity violation; overwhelming on voice."
+    },
+    {
+      "defect_id": "intent-011",
+      "title": "Format bleed - Devanagari/Telugu characters spliced into English words",
+      "severity": "low",
+      "category": "format_bleed",
+      "affected_scenarios": ["227 (7952399)", "236 (7952552)"],
+      "evidence": "Scenario 227: 'Book cheyamantారా?' (Telugu 'ారా' suffix on English root). Scenario 236: mixed script within a single word.",
+      "expected": "Single script per word.",
+      "impact": "TTS will mispronounce; text renders jaggedly."
+    },
+    {
+      "defect_id": "intent-012",
+      "title": "Double-nudge after user acknowledgement",
+      "severity": "medium",
+      "category": "verbosity",
+      "affected_scenarios": ["247 (7952604)"],
+      "evidence": "User 'sare, thanks' -> Agent 'Booking complete cheyadaniki mee 2:00 PM slot 17 Sep ki, Kalyan peru meeda PPF + ceramic coating confirm chesthunna. Ippudu calendar lo book cheyala?' - asks book confirmation a second time after user already agreed.",
+      "expected": "Confirm and finalize on 'sare'.",
+      "impact": "Adds friction; may cause loops."
+    },
+    {
+      "defect_id": "intent-013",
+      "title": "Scenarios tagged Multi_Part actually handled as single-service; not truly multi-part",
+      "severity": "low",
+      "category": "scope_scope_mismatch",
+      "affected_scenarios": ["218 (7914218)", "219 (7914390)", "221 (7915343)"],
+      "evidence": "Scenarios named 'Multi_Part' but the user only asks about ceramic coating with sub-questions (process, duration). Agent handled them serially, correctly - but this does not test true multi-part behavior.",
+      "expected": "Test design should ask 3 distinct things in one message.",
+      "impact": "Coverage gap in test dataset itself, not agent defect."
+    },
+    {
+      "defect_id": "intent-014",
+      "title": "Missing calls / execution failures",
+      "severity": "medium",
+      "category": "infra",
+      "affected_scenarios": ["166", "179", "647"],
+      "evidence": "Three scenarios logged 'No matching call found in recent logs. Test may have failed to execute.'",
+      "expected": "Full coverage.",
+      "impact": "3.4% coverage loss."
+    },
+    {
+      "defect_id": "intent-015",
+      "title": "n8n / Google Sheet sync failures - captured names not persisted",
+      "severity": "high",
+      "category": "backend_persistence",
+      "affected_scenarios": ["217 (Sarah)", "220 (Sarah)", "222 (Sarah)", "224 (Isabella)", "225 (David)", "226 (Emily)", "227 (David)", "230 (Vikas)", "231 (Sunil)", "232 (Sneha)", "233 (Amit)", "234 (Amit)", "235 (Neha)", "239 (Sneha)", "240 (Amit)", "241 (Meenakshi)", "242 (Swathi)", "243 (Bhavya)", "244 (Karthik)", "245 (Deepthi)", "246 (Divya)", "247 (Kalyan)", "250 (Sowmya)", "251 (Swathi)"],
+      "evidence": "Every scenario where a name was extracted shows '[FAILED] <name> missing from Google Sheet'. Even 'Not provided' rows fail.",
+      "expected": "Extracted names should reach the sheet.",
+      "impact": "Complete backend write failure - critical."
+    }
+  ],
+  "summary_top_5": {
+    "1_state_reset_on_silence": "The most damaging pattern: on any empty/silent user turn, the agent replays its full greeting and forgets everything captured (scenarios 646, 649, 651). Users cannot pause. Fix: treat silence as a soft nudge, cap re-greeting to zero mid-session, and preserve slot state (service, name, number, time) across empty turns.",
+    "2_backend_write_failure": "Every extracted name across the Multi_Part slice fails to reach Google Sheet (24+ cases). Booking flow says 'confirmed' but nothing is persisted. This dwarfs every conversational defect - a working chat that never records the appointment is worse than a broken one. Investigate n8n webhook payload and sheet column mapping first.",
+    "3_language_leaks_and_hardcoded_closers": "Kannada and Gujarati fragments appear mid-response (153, 165, 171, 177). Separately, Telugu 'Inkemaina help kavala?' is templated in as the closer even in Hindi conversations (157, 160, 230-235). Suggests a hardcoded suffix rather than dynamic language selection. Fix: language-aware closer table.",
+    "4_state_tracking_gaps": "When users hand over name+number in one message, the agent only echoes one field for confirmation (226, 233, 239, 245). When time is stated in the multi-part question, it gets dropped by the booking step (240, 246). Multi-part guardrail literally exists to prevent this, so the flow is structurally not honoring 'address all parts'.",
+    "5_vagueness_response_overshoot": "For open questions like 'what services?', responses balloon to 6-line bulleted price lists (147, 154, 156, 167, 172, 175, 178) instead of one clarifier + one sentence. Rule 'ask ONE clarifying question, not five' is not applied; verbosity cap breached. Additionally, Nudge_Repeat guardrail is violated in 650 with 3+ book prompts; 224 falsely promises a queued booking with no number captured; hallucinated hang-up injected in 246 ('call 7893686581')."
+  }
+}

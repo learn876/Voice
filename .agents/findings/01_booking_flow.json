@@ -1,0 +1,250 @@
+[
+  {
+    "severity": "CRITICAL",
+    "defect_id": "book-01",
+    "pattern": "Agent hallucinates 'appointment confirmed' while n8n/Google Sheet insertion actually failed",
+    "evidence": [
+      {"scenario": "Scenario 1: Booking - English - Cooperative - Text_Whatsapp", "quote": "Your *full detailing* appointment is confirmed for *17 Sep, 2:00 PM*. Details will be sent to your WhatsApp."},
+      {"scenario": "Scenario 4: Booking - English - Angry - Text_Whatsapp", "quote": "Your *exterior wash* appointment for *Sophia* is confirmed for *17 Sep, 2:00 PM*. Details will be sent to WhatsApp."},
+      {"scenario": "Scenario 17: Booking - Hindi - Angry - Voice_High_Acc", "quote": "ठीक है Priyanka जी, आपका ceramic coating appointment कल *17 September*, *2:00 PM* पर confirm हो गया है।"}
+    ],
+    "frequency": 27,
+    "root_cause": "prompt",
+    "proposed_fix": "Do not utter 'confirmed' until the n8n webhook returns success. Change prompt: after collecting name+number, respond 'Booking submit chestunna...' then only confirm on tool-success. On tool-fail, apologize and offer callback (7893686581).",
+    "demo_blocking": true
+  },
+  {
+    "severity": "CRITICAL",
+    "defect_id": "book-02",
+    "pattern": "Agent skips WhatsApp-number confirmation step and confirms booking immediately after user gives digits",
+    "evidence": [
+      {"scenario": "Scenario 1: Booking - English - Cooperative - Text_Whatsapp", "quote": "user: And my phone number is 9206744077. LLM: Your *full detailing* appointment is confirmed for *17 Sep, 2:00 PM*."},
+      {"scenario": "Scenario 5: Booking - English - Angry - Voice_High_Acc", "quote": "user: And my phone number is 9167579474 LLM: Your *full detailing* appointment is confirmed for *17 Sep 2026 at 2:00 PM*. Details will be sent to WhatsApp number *91675 79474*."},
+      {"scenario": "Scenario 23: Booking - Hindi - Elderly - Voice_High_Acc", "quote": "user: नंबर 9587052640 है। LLM: September seventeen, afternoon two o'clock के लिए Kirti जी का interior cleaning appointment confirm हो गया है।"}
+    ],
+    "frequency": 13,
+    "root_cause": "prompt",
+    "proposed_fix": "Insert a hard gate in the booking flow: after receiving 10-digit number, ALWAYS ask 'X number correct aa?' and wait for explicit 'yes/haan/avunu' before writing to n8n or saying 'confirmed'.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "CRITICAL",
+    "defect_id": "book-03",
+    "pattern": "Agent accepts and confirms a slot without any real availability check (always books 2 PM tomorrow instantly)",
+    "evidence": [
+      {"scenario": "Scenario 1: Booking - English - Cooperative - Text_Whatsapp", "quote": "user: At 2 PM if possible. LLM: Tomorrow *17 Sep, 2:00 PM* slot kosam check chestunnam. Booking complete cheyadaniki..."},
+      {"scenario": "Scenario 10: Booking - English - Elderly - Text_Whatsapp", "quote": "*Ceramic coating* appointment ni *September 17, 2:00 PM* ki lock chestunnanu. Mee *full name* cheppandi."},
+      {"scenario": "Scenario 658: Booking_No_Service_Named - Telugu - Text_Whatsapp", "quote": "*Ceramic coating* appointment *17 Sep 2026, 2:00 PM* ki lock chestanu."}
+    ],
+    "frequency": 25,
+    "root_cause": "prompt",
+    "proposed_fix": "Prompt must instruct agent to say slot is being REQUESTED (not locked/confirmed) until n8n availability check returns. Change 'lock chestunnanu' -> 'availability check chestunna'. Only 'confirmed' language after DB write succeeds.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "CRITICAL",
+    "defect_id": "book-04",
+    "pattern": "Wrong date: agent said 'Repu (tomorrow) = September 15' when today is 2026-09-16 (tomorrow should be Sep 17)",
+    "evidence": [
+      {"scenario": "Scenario 13: Booking - Hindi - Cooperative - Text_Whatsapp", "quote": "Repu, September 15, available slots confirm cheyyadaniki team check chestundi."},
+      {"scenario": "Scenario 13: Booking - Hindi - Cooperative - Text_Whatsapp", "quote": "Sare, September 15, 2026, 2:45 PM slot book cheyyadaniki mee peru mariyu 10-digit WhatsApp number pampandi."}
+    ],
+    "frequency": 1,
+    "root_cause": "prompt",
+    "proposed_fix": "Inject current date at top of system prompt on each request. Add a check step: 'repu/tomorrow/kal = today_date + 1 day' computed from injected date, not model memory.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "book-05",
+    "pattern": "Markdown asterisk formatting appears in Text/WhatsApp channel (should be plain text - asterisks render as ugly literals in WhatsApp)",
+    "evidence": [
+      {"scenario": "Scenario 1: Booking - English - Cooperative - Text_Whatsapp", "quote": "*Full detailing* starts at *₹3,499*. Booking kosam *date and preferred time* cheppandi."},
+      {"scenario": "Scenario 28: Booking - Telugu - Angry - Text_Whatsapp", "quote": "*Full detailing* starts at *₹3,499*. Exact pricing may vary based on your vehicle's condition."},
+      {"scenario": "Scenario 675: Booking_Confirm_Services_Check - Hindi - Text_Whatsapp", "quote": "*PPF* starts at *₹19,999* *Ceramic coating* starts at *₹9,999*"}
+    ],
+    "frequency": 20,
+    "root_cause": "prompt",
+    "proposed_fix": "Split prompt by channel: for text channels, forbid markdown emphasis (*, _). For voice, forbid markdown too but keep spelled-out numerics. Add explicit examples of correct WhatsApp formatting.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "book-06",
+    "pattern": "Prices given as raw digits '₹3,499' / '₹9,999' during VOICE calls (voice must spell: 'three thousand four hundred ninety nine')",
+    "evidence": [
+      {"scenario": "Scenario 2: Booking - English - Cooperative - Voice_High_Acc", "quote": "*Interior cleaning* price *₹799*."},
+      {"scenario": "Scenario 5: Booking - English - Angry - Voice_High_Acc", "quote": "Full detailing starts at *₹3,499*"},
+      {"scenario": "Scenario 674: Booking_Confirm_Services_Check - English - Voice_High_Acc", "quote": "*Ceramic coating* starts at *₹9,999*. *PPF* starts at *₹19,999*."}
+    ],
+    "frequency": 8,
+    "root_cause": "prompt",
+    "proposed_fix": "In voice channel, prompt must force numeric-to-words conversion for currency and phone. Provide gold examples for 499, 799, 3499, 9999, 19999. TTS speaks '₹' badly anyway.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "book-07",
+    "pattern": "Phone numbers shown as raw digit groups in VOICE channel ('91675 79474') instead of spelled out",
+    "evidence": [
+      {"scenario": "Scenario 2: Booking - English - Cooperative - Voice_High_Acc", "quote": "Your WhatsApp number is *96081 56012*, correct?"},
+      {"scenario": "Scenario 5: Booking - English - Angry - Voice_High_Acc", "quote": "Details will be sent to WhatsApp number *91675 79474*."},
+      {"scenario": "Scenario 17: Booking - Hindi - Angry - Voice_High_Acc", "quote": "आपका WhatsApp नंबर इसी कॉल वाला है"}
+    ],
+    "frequency": 6,
+    "root_cause": "prompt",
+    "proposed_fix": "In voice, always spell digits individually ('nine one six seven five, seven nine four seven four'). Add explicit template in prompt for reading back WhatsApp numbers in voice.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "book-08",
+    "pattern": "Language leak: Tanglish phrases in Hindi and English flows (esp. 'Inkemaina help kavala?' closing English chats)",
+    "evidence": [
+      {"scenario": "Scenario 4: Booking - English - Angry - Text_Whatsapp", "quote": "Your *exterior wash* appointment for *Sophia* is confirmed... Inkemaina help kavala?"},
+      {"scenario": "Scenario 16: Booking - Hindi - Angry - Text_Whatsapp", "quote": "Sure, appointment book cheddam. Ye service kosam book cheyali?"},
+      {"scenario": "Scenario 579: Booking_Then_Complaint - Hindi - Text_Whatsapp", "quote": "Aapka *exterior wash* appointment *17 Sep, 10:00 AM* ke liye Karan naam par confirm ho gaya... Inkemaina help kavala?"}
+    ],
+    "frequency": 22,
+    "root_cause": "prompt",
+    "proposed_fix": "Route language per user's language state deterministically. Localize the closing 'Anything else?' per language ('Aur kuch chahiye?' for Hindi, 'Anything else?' for English) and drop Tanglish fallback in non-Telugu flows.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "book-09",
+    "pattern": "Hindi/Telugu scripts (Devanagari + Telugu characters) mixed inside a single Hindi voice/text response",
+    "evidence": [
+      {"scenario": "Scenario 18: Booking - Hindi - Angry - Voice_Low_Acc", "quote": "जी, appointment book చేయడానికి ఏ service కావాలో చెప్పండి?"},
+      {"scenario": "Scenario 656: Booking_No_Service_Named - Hindi - Voice_High_Acc", "quote": "जी, appointment book చేస్తా. ఏ service కోసం booking కావాలి?"},
+      {"scenario": "Scenario 22: Booking - Hindi - Elderly - Text_Whatsapp", "quote": "మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, ఇంకా full detailing packages ఉన్నాయి. మీకు ఏ service కావాలి అండి?"}
+    ],
+    "frequency": 7,
+    "root_cause": "prompt",
+    "proposed_fix": "Enforce single-script output per response. When user speaks Hindi/Devanagari, agent must reply in Devanagari+Latin only, never Telugu script. Add explicit forbidden-script rule in the language-routing section of prompt.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "book-10",
+    "pattern": "Broad-question guardrail violation: user asks recommendation without naming service, agent quotes prices instead of narrowing question",
+    "evidence": [
+      {"scenario": "Scenario 652: Booking_No_Service_Named - English - Text_Whatsapp", "quote": "For a generally dirty car, I'd recommend *full detailing*, starting at *₹3,499*."},
+      {"scenario": "Scenario 655: Booking_No_Service_Named - Hindi - Text_Whatsapp", "quote": "Agar car sirf bahar se gandi hai, toh *exterior wash* best rahega — *₹499*. Andar bhi cleaning chahiye toh *full detailing package* better rahega — *₹3,499 se start*."},
+      {"scenario": "Scenario 656: Booking_No_Service_Named - Hindi - Voice_High_Acc", "quote": "अगर car सिर्फ बाहर से गंदी है तो exterior wash अच्छा रहेगा, इसकी कीमत four hundred ninety nine है।"}
+    ],
+    "frequency": 6,
+    "root_cause": "prompt",
+    "proposed_fix": "Reinforce guardrail: when user has not named a specific service, response must list categories ONLY (no prices) and end with a narrowing question. Add explicit few-shot in prompt for 'dirty car' / 'recommend' triggers.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "book-11",
+    "pattern": "Prices spelled out in TEXT channels ('सात सौ निन्यानवे') — text must use digits",
+    "evidence": [
+      {"scenario": "Scenario 21: Booking - Hindi - Troll - Voice_Low_Acc", "quote": "इसकी starting price सात सौ निन्यानवे है।"},
+      {"scenario": "Scenario 675: Booking_Confirm_Services_Check - Hindi - Text_Whatsapp", "quote": "nine eight five zero zero eight two two zero six"}
+    ],
+    "frequency": 3,
+    "root_cause": "prompt",
+    "proposed_fix": "Text-channel prompt block must state: prices always in digits with ₹ (₹799), phone numbers always as 10-digit compact form. Only voice spells them.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "book-12",
+    "pattern": "Confirmation attempted or granted without collecting user's NAME (only phone captured)",
+    "evidence": [
+      {"scenario": "Scenario 6: Booking - English - Angry - Voice_Low_Acc", "quote": "user: My name is [dropped] user: And my phone is 9947616839 LLM: Mee WhatsApp number *99476 16839* correct aa? Inka mee peru cheppandi."},
+      {"scenario": "Scenario 18: Booking - Hindi - Angry - Voice_Low_Acc", "quote": "user: बुकिंग confirm दो। LLM: Booking confirm करने के लिए आपका नाम भी चाहिए जी।"},
+      {"scenario": "Scenario 15: Booking - Hindi - Cooperative - Voice_Low_Acc", "quote": "जी, आपका WhatsApp नंबर *nine six five four one six two seven zero seven* है, सही है?"}
+    ],
+    "frequency": 4,
+    "root_cause": "prompt",
+    "proposed_fix": "Agent handled these correctly (refused to confirm without name). Keep this behaviour; still a MEDIUM as some low-acc voice cases repeatedly bounce user without offering to spell/reconfirm the name.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "book-13",
+    "pattern": "Redirect phone number displayed as raw digits '7893686581' in voice channel (should be spelled)",
+    "evidence": [
+      {"scenario": "Scenario 31: Booking - Telugu - Troll - Text_Whatsapp", "quote": "Please call *7893686581* or try again shortly."},
+      {"scenario": "Scenario 444: Late_Slot_6Pm - English - Voice_Low_Acc", "quote": "please call *7893686581* to confirm with the team."},
+      {"scenario": "Scenario 631: Booking_Cancel_Text - English - Text_Whatsapp", "quote": "Please call *7893686581* to cancel or reschedule your appointment."}
+    ],
+    "frequency": 5,
+    "root_cause": "prompt",
+    "proposed_fix": "In voice, format the fallback number as 'seven eight nine three, six eight six five, eight one'. Text channels can keep 78936 86581 with a hyphen; drop asterisks.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "book-14",
+    "pattern": "Agent's opening greeting always in Tanglish even for Hindi-only and Telugu-Devanagari-only sessions (jarring register mismatch)",
+    "evidence": [
+      {"scenario": "Scenario 14: Booking - Hindi - Cooperative - Voice_High_Acc", "quote": "LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi?"},
+      {"scenario": "Scenario 17: Booking - Hindi - Angry - Voice_High_Acc", "quote": "LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi?"},
+      {"scenario": "Scenario 26: Booking - Telugu - Cooperative - Voice_High_Acc", "quote": "LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi?"}
+    ],
+    "frequency": 40,
+    "root_cause": "prompt",
+    "proposed_fix": "Opening greeting is currently hard-coded Tanglish. Make greeting language-neutral English or provide 3 pre-detected greetings and pick based on inbound language hint (channel metadata / first-turn language classifier).",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "book-15",
+    "pattern": "n8n webhook silently fails across nearly every successful-looking booking ('[FAILED] X missing from Google Sheet')",
+    "evidence": [
+      {"scenario": "Scenario 1: Booking - English - Cooperative - Text_Whatsapp", "quote": "[FAILED] 'Priya' missing from Google Sheet"},
+      {"scenario": "Scenario 26: Booking - Telugu - Cooperative - Voice_High_Acc", "quote": "[FAILED] 'Sowmya' missing from Google Sheet"},
+      {"scenario": "Scenario 673: Booking_Confirm_Services_Check - English - Text_Whatsapp", "quote": "[FAILED] 'David' missing from Google Sheet"}
+    ],
+    "frequency": 27,
+    "root_cause": "n8n",
+    "proposed_fix": "n8n booking pipeline is broken: verify webhook credentials, verify Google Sheet ID/tab, verify column mapping. Add a health-check step. Until fixed, every voice/text booking looks confirmed to caller but nothing is stored.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "book-16",
+    "pattern": "In late-slot refusals, agent sometimes offers to 'confirm with team' via callback for out-of-hours (should firmly refuse post-4:30 PM)",
+    "evidence": [
+      {"scenario": "Scenario 440: Late_Slot_5Pm - Telugu - Voice_High_Acc", "quote": "ఐదు గంటలకు రావాలంటే team తో confirm చేయాలి"},
+      {"scenario": "Scenario 444: Late_Slot_6Pm - English - Voice_Low_Acc", "quote": "For an exterior wash at 6:00 PM, please call *7893686581* to confirm with the team."},
+      {"scenario": "Scenario 450: Late_Slot_6Pm - Telugu - Voice_Low_Acc", "quote": "Six o'clock కోసం team ని confirm చేయాలి — మీరు WhatsApp ద్వారా వివరాలు తెలుసుకోవచ్చు."}
+    ],
+    "frequency": 4,
+    "root_cause": "prompt",
+    "proposed_fix": "Guardrail must be absolute: after 4:30 PM there is NO bookable slot, no callback fallback, no team-confirmation. Offer only 4:30 PM today or next morning. Remove ambiguous 'call team' language for out-of-hours.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "book-17",
+    "pattern": "Agent asks WhatsApp confirmation but then proceeds to confirm booking before user has replied 'yes/haan'",
+    "evidence": [
+      {"scenario": "Scenario 4: Booking - English - Angry - Text_Whatsapp", "quote": "user: And my phone number is 9536796144. LLM: Your *exterior wash* appointment for *Sophia* is confirmed for *17 Sep, 2:00 PM*."},
+      {"scenario": "Scenario 673: Booking_Confirm_Services_Check - English - Text_Whatsapp", "quote": "LLM: Your WhatsApp number is *99737 66248*, correct aa? user: Wait, did you book just ceramic coating or both? LLM: Both services... are being booked..."}
+    ],
+    "frequency": 8,
+    "root_cause": "prompt",
+    "proposed_fix": "State machine: after 'number correct?' question, MUST wait for explicit affirmative. Anything else (a different question, silence) means loop back and re-ask, never proceed to confirm.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "book-18",
+    "pattern": "Complaint + booking coexistence: agent still confirms fresh booking within same turn as unresolved 'you damaged my car' complaint (no manager wait)",
+    "evidence": [
+      {"scenario": "Scenario 579: Booking_Then_Complaint - Hindi - Text_Whatsapp", "quote": "Aapka *exterior wash* appointment *17 Sep, 10:00 AM* ke liye Karan naam par confirm ho gaya."},
+      {"scenario": "Scenario 580: Booking_Then_Complaint - Hindi - Voice_High_Acc", "quote": "Nisha, आपका *full detailing* appointment *17 September, 10:00 AM* के लिए confirm है।"}
+    ],
+    "frequency": 2,
+    "root_cause": "prompt",
+    "proposed_fix": "When user references prior damage/complaint, prompt should mark session as 'complaint-flagged' and defer new booking to manager callback. Do not auto-confirm new booking in same turn.",
+    "demo_blocking": false
+  }
+]

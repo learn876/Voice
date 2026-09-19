@@ -1,0 +1,357 @@
+{
+  "slice": "08_media_meta_edge",
+  "total_scenarios_reviewed": 129,
+  "scenarios_executed": 118,
+  "scenarios_not_found": 11,
+  "defects": [
+    {
+      "defect_id": "edge-001",
+      "severity": "high",
+      "category": "channel_format_bleed_text_markdown",
+      "title": "Markdown asterisks used in Text_WhatsApp responses (BANNED per channel rules)",
+      "affected_scenarios": [
+        "397 (Unsupported_Media Eng Text)",
+        "400 (Unsupported_Media Eng Angry Text)",
+        "406 (Unsupported_Media Eng Elderly Text)",
+        "409 (Unsupported_Media Hin Text)",
+        "412 (Unsupported_Media Hin Angry Text)",
+        "415 (Unsupported_Media Hin Troll Text)",
+        "421 (Unsupported_Media Tel Text)",
+        "424 (Unsupported_Media Tel Angry Text)",
+        "489 (Language_Switch Hin Text)",
+        "491 (Language_Switch Tel Text)",
+        "544 (Phone_91 Eng Text)",
+        "546 (Phone_91 Tel Text)",
+        "547 (Phone_Short Eng Text)",
+        "548 (Phone_Short Hin Text)",
+        "549 (Phone_Short Tel Text)",
+        "594 (Single_Word Tel Text)",
+        "603 (Long_Paragraph Tel Text)",
+        "607 (Social_Media Eng Text)",
+        "615 (Multi_Rapid Tel Text)",
+        "634 (Am_Filler Eng Text)",
+        "636 (Am_Filler Hin Text)",
+        "638 (Am_Filler Tel Text)",
+        "691 (Location_Pin Eng Text)",
+        "692 (Location_Pin Hin Text)",
+        "693 (Location_Pin Tel Text)"
+      ],
+      "evidence_snippets": [
+        "*headlight restoration* at *₹799* and *full detailing* from *₹3,499*",
+        "*98765 43210*",
+        "*Phani*, WhatsApp number *7893 6865 81*",
+        "*DynamicDetailing Studio, Jubilee Hills, Hyderabad*, *Google Maps link*"
+      ],
+      "expected": "Text channel: raw digits, no markdown asterisks",
+      "actual": "Systemic use of *bold* markdown asterisks across text_whatsapp responses (25+ scenarios)"
+    },
+    {
+      "defect_id": "edge-002",
+      "severity": "high",
+      "category": "channel_format_bleed_voice_markdown",
+      "title": "Markdown asterisks used in Voice responses (voice must be plain prose)",
+      "affected_scenarios": [
+        "398 (Unsupported_Media Eng Coop Voice_High)",
+        "399 (Unsupported_Media Eng Coop Voice_Low)",
+        "408 (Unsupported_Media Eng Elderly Voice_Low)",
+        "422 (Unsupported_Media Tel Voice_High)",
+        "425 (Unsupported_Media Tel Angry Voice_High)",
+        "431 (Unsupported_Media Tel Elderly Voice_High)",
+        "551 (Session_Memory Eng Voice_High)",
+        "553 (Session_Memory Hin Voice_High)",
+        "608 (Social_Media Eng Voice_High)",
+        "635/637/639 (Am_Filler Voice_High variants)"
+      ],
+      "evidence_snippets": [
+        "Full detailing* starts at *₹3,499*",
+        "*Headlight restoration* is *₹799*",
+        "*7893686581*",
+        "*78936 86581*"
+      ],
+      "expected": "Voice: no markdown, spelled-out numbers",
+      "actual": "Asterisk-wrapped tokens and raw ₹ digits appear in TTS output"
+    },
+    {
+      "defect_id": "edge-003",
+      "severity": "high",
+      "category": "channel_format_bleed_voice_to_text",
+      "title": "Spelled-out digits used in Text channel (voice format bleed into text)",
+      "affected_scenarios": [
+        "545 (Phone_91 Hin Text)",
+        "613 (Multi_Rapid Eng Text)"
+      ],
+      "evidence_snippets": [
+        "आपका number nine eight seven six five four three two one zero है",
+        "PPF nineteen thousand nine hundred ninety nine से, और ceramic coating nine thousand nine hundred ninety nine से शुरू होती है"
+      ],
+      "expected": "Text: raw digits (9876543210 / 19999 / 9999)",
+      "actual": "Full verbal spellings written into WhatsApp text — voice format leaked to text"
+    },
+    {
+      "defect_id": "edge-004",
+      "severity": "high",
+      "category": "unsupported_media_handling",
+      "title": "'Please describe' phrasing borderline OK, but agent frequently steers to send/inspect vehicle instead of politely closing media rejection",
+      "affected_scenarios": [
+        "397-432 Unsupported_Media block"
+      ],
+      "evidence_snippets": [
+        "Thanks for the photo! I can't view images yet.",
+        "our team can inspect it and confirm the quote"
+      ],
+      "expected": "Politely say cannot process media, ask user to describe in text; NEVER request more media/screenshots",
+      "actual": "Agent never asks for more media (good), but 'Thanks for the photo!' is inconsistent — thanks user for something it explicitly cannot see"
+    },
+    {
+      "defect_id": "edge-005",
+      "severity": "critical",
+      "category": "greeting_language_mismatch",
+      "title": "Agent opens in Telugu script for scenarios labeled English/Hindi Text channels",
+      "affected_scenarios": [
+        "592 (Single_Word_Greeting Eng Text)",
+        "593 (Single_Word_Greeting Hin Text)",
+        "594 (Single_Word_Greeting Tel Text)",
+        "613 (Multi_Rapid Eng Text)"
+      ],
+      "evidence_snippets": [
+        "హలో.. DynamicDetailing Studio నుంచి Siri మాట్లాడుతున్నా. ఎలా help చేయగలను అండి?"
+      ],
+      "expected": "Empty/ambiguous first message defaults to English (Tanglish Latin script) per guardrail",
+      "actual": "Greeting rendered in native Telugu script even in English Text_WhatsApp channel"
+    },
+    {
+      "defect_id": "edge-006",
+      "severity": "medium",
+      "category": "language_mirror_failure",
+      "title": "Agent replies in Tanglish when user typed Devanagari Hindi (Personal_Ai_Question)",
+      "affected_scenarios": [
+        "664 (Personal_Ai_Question Hin Voice_High)",
+        "637 (Am_Filler Hin Voice_High) — mixed"
+      ],
+      "evidence_snippets": [
+        "user: तुम्हारा नाम क्या है  →  LLM: Naa peru Siri! DynamicDetailing Studio valla AI assistant. Meeku em help kavali?"
+      ],
+      "expected": "Mirror user's Devanagari Hindi in reply",
+      "actual": "Agent replies in Telugu-flavored Tanglish (Naa peru / Meeku em help kavali)"
+    },
+    {
+      "defect_id": "edge-007",
+      "severity": "medium",
+      "category": "language_switch_over_eager",
+      "title": "Agent switches language on a SINGLE user turn (guardrail says need 2+ consecutive turns)",
+      "affected_scenarios": [
+        "489 (Language_Switch Hin Text)",
+        "490 (Language_Switch Hin Voice_High)",
+        "491 (Language_Switch Tel Text)"
+      ],
+      "evidence_snippets": [
+        "user: actually Telugu lo cheppu → LLM immediately switches to Telugu",
+        "user: actually Hindi me batao → LLM immediately switches to Hindi"
+      ],
+      "expected": "Language lock: wait for 2 consecutive same-language turns before switching",
+      "actual": "Instant switch on 1 request. Conflicts with slice guardrail (but matches 'mirror' rule — spec ambiguity)"
+    },
+    {
+      "defect_id": "edge-008",
+      "severity": "low",
+      "category": "language_leak_script",
+      "title": "Random Gujarati/Devanagari token leak in Telugu voice response",
+      "affected_scenarios": [
+        "431 (Unsupported_Media Tel Elderly Voice_High)"
+      ],
+      "evidence_snippets": [
+        "...నుంచి start అవుతుంది. તમે?"
+      ],
+      "expected": "Stay in Telugu script only",
+      "actual": "Gujarati 'તમે?' appears at end of Telugu reply"
+    },
+    {
+      "defect_id": "edge-009",
+      "severity": "high",
+      "category": "human_handoff_failure",
+      "title": "Agent ignores explicit human handoff request and re-asks scope",
+      "affected_scenarios": [
+        "474 (Are_You_Robot Hin Voice_Low)",
+        "476 (Are_You_Robot Tel Voice_High)"
+      ],
+      "evidence_snippets": [
+        "user: मुझे से बात करनी है → LLM: जी, बताइए—मैं आपकी help करती हूँ",
+        "user: నాకు human తో మాట్లాడాలి → LLM: మా manager మీకు call back చేస్తారు. మీకు ఏ విషయంలో help కావాలి?"
+      ],
+      "expected": "Note handoff, ask WhatsApp number, close",
+      "actual": "Agent either ignores handoff or immediately asks 'what topic?' instead of collecting number"
+    },
+    {
+      "defect_id": "edge-010",
+      "severity": "critical",
+      "category": "booking_backend_failure",
+      "title": "Booking pipeline fails with generic 'complete avvaledu' without cause",
+      "affected_scenarios": [
+        "594 (Single_Word_Greeting Tel Text)"
+      ],
+      "evidence_snippets": [
+        "user: yes → LLM: Sorry, booking complete avvaledu. Please call *7893686581* or try again shortly.",
+        "user: endhuku avvala? → LLM: Sorry, calendar side nunchi booking complete avvaledu."
+      ],
+      "expected": "Successful calendar booking or specific reason",
+      "actual": "Booking fails silently ('calendar side nunchi') — user frustration and lost lead"
+    },
+    {
+      "defect_id": "edge-011",
+      "severity": "medium",
+      "category": "number_confirmation_inconsistency",
+      "title": "Phone number confirmation splits digits with spaces + markdown in text (98765 43210)",
+      "affected_scenarios": [
+        "544 (Phone_91 Eng Text)",
+        "546 (Phone_91 Tel Text)",
+        "547 (Phone_Short Eng Text)",
+        "548 (Phone_Short Hin Text)",
+        "549 (Phone_Short Tel Text)",
+        "615 (Multi_Rapid Tel Text)"
+      ],
+      "evidence_snippets": [
+        "*98765 43210*",
+        "*99540 75148*",
+        "*7893 6865 81*"
+      ],
+      "expected": "Raw contiguous digits in text (9876543210); +91 stripped correctly (done)",
+      "actual": "+91 correctly stripped, but display uses spaces and markdown; the 78936 86581 split is inconsistent (5+5 vs 4+4+2)"
+    },
+    {
+      "defect_id": "edge-012",
+      "severity": "low",
+      "category": "spam_deflection_terse",
+      "title": "Spam deflection reply is one-line English despite Hindi/Telugu channel; repeats identically",
+      "affected_scenarios": [
+        "532 (Spam_Promo Eng Text)",
+        "533 (Spam_Promo Hin Text)"
+      ],
+      "evidence_snippets": [
+        "user: badhaai ho! aapne 50000 jeete hain! → LLM: I can only help with DynamicDetailing queries."
+      ],
+      "expected": "Deflect in user's language; offer redirect to DD services",
+      "actual": "English one-liner; second attempt duplicates without escalation"
+    },
+    {
+      "defect_id": "edge-013",
+      "severity": "medium",
+      "category": "test_execution_missing",
+      "title": "11 scenarios show 'Not Found — Test may have failed to execute'",
+      "affected_scenarios": [
+        "487,488 (Language_Switch Eng)",
+        "492 (Language_Switch Tel Voice_High)",
+        "602 (Long_Paragraph Hin Text)",
+        "640-642 (Empty_First_Message all 3 langs)",
+        "643-645 (Silence_Test all 3 langs)"
+      ],
+      "expected": "All scenarios execute",
+      "actual": "Silence_Test and Empty_First_Message entire cohorts missing — no coverage of these critical guardrails"
+    },
+    {
+      "defect_id": "edge-014",
+      "severity": "medium",
+      "category": "scenario_mislabel",
+      "title": "Scenario label mismatch between test name and actual conversation content",
+      "affected_scenarios": [
+        "469 (Are_You_Robot Eng Text — actually booking flow)",
+        "604 (Random_Number Eng — actually spam content)",
+        "605 (Random_Number Hin — actually spam content)"
+      ],
+      "expected": "Test dialog matches Are_You_Robot / Random_Number seed",
+      "actual": "Wrong user script injected; no robot-question or numeric context asked"
+    },
+    {
+      "defect_id": "edge-015",
+      "severity": "low",
+      "category": "voice_number_format_partial",
+      "title": "Voice responses mix spelled-out and raw ₹digits inconsistently",
+      "affected_scenarios": [
+        "425 (Tel Voice_High: 'four hundred ninety nine కాదు')",
+        "429 (Tel Voice_Low: 'four hundred ninety nine కాదు')",
+        "431 (Tel Voice_High: 'seven hundred ninety nine' + '₹9,999' elsewhere)",
+        "490 (Hin Voice: 'nine thousand nine hundred ninety nine' good, but 'two o'clock' mixed with digits)"
+      ],
+      "expected": "Consistently spelled-out numbers in voice",
+      "actual": "Selective spelling; some ₹ symbol + digits still appear in TTS text"
+    },
+    {
+      "defect_id": "edge-016",
+      "severity": "low",
+      "category": "friend_booking_acceptance",
+      "title": "Contact_Card / friend-booking scenarios accept booking on behalf of third party without validation",
+      "affected_scenarios": [
+        "667 (Contact_Card Eng Text)",
+        "668 (Contact_Card Hin Text)",
+        "669 (Contact_Card Tel Text)"
+      ],
+      "evidence_snippets": [
+        "user: This is my friend's number, book for him. → LLM: Sure, I can book for your friend."
+      ],
+      "expected": "Ask friend to contact directly OR require friend's consent/name+number typed explicitly (per Other_Customer_Data policy)",
+      "actual": "Agent proceeds to book third party without any consent gate — inconsistent with 595-600 Other_Customer_Data refusals"
+    },
+    {
+      "defect_id": "edge-017",
+      "severity": "low",
+      "category": "greeting_thanks_for_media",
+      "title": "Agent thanks user for media it explicitly cannot view",
+      "affected_scenarios": [
+        "397-432 Unsupported_Media block",
+        "691-693 Location_Pin"
+      ],
+      "evidence_snippets": [
+        "Thanks for the photo! I can't view images yet."
+      ],
+      "expected": "Acknowledge receipt without thanking for content it cannot process",
+      "actual": "Formulaic 'Thanks for the photo!' repeated across 30+ scenarios"
+    },
+    {
+      "defect_id": "edge-018",
+      "severity": "low",
+      "category": "gender_reveal_break",
+      "title": "Agent volunteers 'I am a girl' / 'ammayini' — breaks gender-neutral guardrail",
+      "affected_scenarios": [
+        "661 (Personal_Ai Eng Text)",
+        "662 (Personal_Ai Eng Voice_High)",
+        "663 (Personal_Ai Hin Text)",
+        "664 (Personal_Ai Hin Voice_High)",
+        "665 (Personal_Ai Tel Text)",
+        "666 (Personal_Ai Tel Voice_High)"
+      ],
+      "evidence_snippets": [
+        "I'm a girl. How can I help with DynamicDetailing Studio?",
+        "Main ladki hoon.",
+        "Nenu ammayini."
+      ],
+      "expected": "Gender-neutral: 'I'm an AI assistant, no gender applies'",
+      "actual": "Agent commits to female identity across all 6 Personal_Ai_Question scenarios — violates 'Gender-neutral' guardrail from scenario expected outcome"
+    },
+    {
+      "defect_id": "edge-019",
+      "severity": "low",
+      "category": "american_english_filler_borderline",
+      "title": "Agent uses 'Sure,' as opener — mostly avoids Awesome/Totally trap, but 'Sure' is still Americanism",
+      "affected_scenarios": [
+        "634,635,637 (Am_Filler variants)"
+      ],
+      "evidence_snippets": [
+        "user: Totally! Book it for me → LLM: Sure, ceramic coating appointment book cheddam."
+      ],
+      "expected": "Neutral acknowledgement (Sare/Theek hai) instead of Sure",
+      "actual": "Passes primary trap (no Awesome/Totally echo) but uses 'Sure' filler"
+    }
+  ],
+  "passing_behaviors_observed": [
+    "Voice_Note_Text (520-522): Correctly says 'sorry cannot listen, please type' in all 3 languages",
+    "Gibberish (562-564): Correctly asks for clarification, no hallucination",
+    "Session_Memory (550-555): Correctly denies discount and past-visit records",
+    "Remember_For_Next_Time (679-681): Correctly declines to persist data across sessions",
+    "Other_Customer_Data (595-600): Correctly refuses to share Rahul's booking",
+    "Are_You_Robot high-accuracy paths (470,471,472,473,475): Admits AI, offers human handoff",
+    "Phone_Number_Edge_Short (547-549): Correctly detects <10 digits and asks for full number",
+    "Phone_Number_Edge_91: +91 prefix correctly stripped",
+    "Emoji_Sticker_Only (517-519): Reasonable brief reply, no derailment",
+    "Location_Pin (691-693): Correctly responds with studio address, offers Maps link"
+  ],
+  "top5_summary": "TOP-5 FINDINGS (edge/media_meta slice, 129 scenarios): (1) CHANNEL FORMAT BLEED IS SYSTEMIC AND SEVERE — 25+ text_whatsapp scenarios embed markdown asterisks (*₹9,999*, *phone*, *service*) which will render literal in WhatsApp; conversely voice scenarios still emit ₹ symbol + raw digits and asterisks in TTS text (398,399,408,422,551,608). This is the single largest defect surface and blocks a clean shipping bar. Fix: strip markdown at channel adapter; enforce spelled-out numeric rendering for voice route. (2) GREETING LANGUAGE MISDETECTED — Empty/ambiguous first-message greeting drops into native Telugu script (హలో..) even on English/Hindi Text_WhatsApp channels (592,593,613), directly violating 'default English/Tanglish Latin' guardrail. English-user first impression is Telugu characters. (3) GENDER-NEUTRAL GUARDRAIL BROKEN 6/6 in Personal_Ai_Question — agent commits to 'I'm a girl' / 'ammayini' / 'ladki hoon' across every language and channel (661-666). Scenario expected outcome explicitly says 'Gender-neutral'; ship blocker for identity policy. (4) FRIEND-BOOKING INCONSISTENCY — Contact_Card scenarios (667-669) happily accept 'book for my friend' without any consent gate, while parallel Other_Customer_Data scenarios (595-600) refuse to reveal a friend's booking. Inconsistent authorization model — a fraudster can create bookings under someone else's name. Align both paths behind a single account-holder-verification rule. (5) TEST EXECUTION HOLES + BOOKING BACKEND FAILURE — 11 scenarios return 'Not Found', including all 3 Silence_Test and all 3 Empty_First_Message rows, leaving critical silence/timeout escalation completely uncovered. Separately, Scenario 594 shows the booking calendar failing at the final confirmation ('booking complete avvaledu / calendar side nunchi') without an explanation, causing frustration ('nuv em chesthav waste') and lead loss. Investigate calendar integration + re-run missing scenarios. Secondary issues worth queueing: language-switch instant-mirror vs 2-turn-lock spec ambiguity (489-491), Tanglish reply to Devanagari user in 664, Human-handoff request ignored in 474/476, and formulaic 'Thanks for the photo!' before denying media view (30+ instances)."
+}

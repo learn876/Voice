@@ -1,0 +1,197 @@
+[
+  {
+    "severity": "CRITICAL",
+    "defect_id": "price-01",
+    "pattern": "Voice channel outputs raw digits with currency symbol (e.g., '*₹499*', '*₹9,999*', '*₹19,999*', '*₹3,499*') instead of spelled-out English words. Voice must never emit '₹' or Indian-style numerals.",
+    "evidence": [
+      {"scenario": "Scenario 38: Discount - English - Cooperative - Voice_High_Acc", "quote": "*Exterior wash* price *₹499*. Inkemaina help kavala?"},
+      {"scenario": "Scenario 39: Discount - English - Cooperative - Voice_Low_Acc", "quote": "*PPF* starts at *₹19,999*. Exact price vehicle condition and coverage batti marutundi."},
+      {"scenario": "Scenario 41: Discount - English - Angry - Voice_High_Acc", "quote": "*PPF* starts at *₹19,999*, and *ceramic coating* starts at *₹9,999*."},
+      {"scenario": "Scenario 42: Discount - English - Angry - Voice_Low_Acc", "quote": "Ceramic coating starts at *₹9,999*. Inkemaina help kavala?"},
+      {"scenario": "Scenario 44: Discount - English - Troll - Voice_High_Acc", "quote": "*Interior cleaning* price *₹799*. Appointment required."},
+      {"scenario": "Scenario 45: Discount - English - Troll - Voice_Low_Acc", "quote": "*Ceramic coating* starts at *₹9,999*."},
+      {"scenario": "Scenario 47: Discount - English - Elderly - Voice_High_Acc", "quote": "The ceramic coating starts at *₹9,999*."},
+      {"scenario": "Scenario 48: Discount - English - Elderly - Voice_Low_Acc", "quote": "Ceramic coating starts at *₹9,999*. Inkemaina help kavala?"},
+      {"scenario": "Scenario 50: Discount - Hindi - Cooperative - Voice_High_Acc", "quote": "*Full detailing* ka price *₹3,499* se start hota hai."},
+      {"scenario": "Scenario 51: Discount - Hindi - Cooperative - Voice_Low_Acc", "quote": "*Ceramic coating* price *₹9,999* nunchi start avutundi."},
+      {"scenario": "Scenario 53: Discount - Hindi - Angry - Voice_High_Acc", "quote": "*PPF* starts at *₹19,999*."},
+      {"scenario": "Scenario 54: Discount - Hindi - Angry - Voice_Low_Acc", "quote": "*Exterior wash* price *₹499*."},
+      {"scenario": "Scenario 56: Discount - Hindi - Troll - Voice_High_Acc", "quote": "*Ceramic coating* ka price *₹9,999 se start* hota hai."},
+      {"scenario": "Scenario 57: Discount - Hindi - Troll - Voice_Low_Acc", "quote": "*Full detailing* starts at *₹3,499*."},
+      {"scenario": "Scenario 59: Discount - Hindi - Elderly - Voice_High_Acc", "quote": "PPF ka starting price *₹19,999* hai."},
+      {"scenario": "Scenario 60: Discount - Hindi - Elderly - Voice_Low_Acc", "quote": "*Exterior wash* price *₹499*. Booking kavala?"},
+      {"scenario": "Scenario 62: Discount - Telugu - Cooperative - Voice_High_Acc", "quote": "Full detailing *₹3,499* nunchi start avtundi."},
+      {"scenario": "Scenario 63: Discount - Telugu - Cooperative - Voice_Low_Acc", "quote": "Interior cleaning price *₹799*. Appointment required."},
+      {"scenario": "Scenario 65: Discount - Telugu - Angry - Voice_High_Acc", "quote": "Full detailing starts at *₹3,499*."},
+      {"scenario": "Scenario 68: Discount - Telugu - Troll - Voice_High_Acc", "quote": "*Exterior wash* price *₹499*. Appointment compulsory."},
+      {"scenario": "Scenario 69: Discount - Telugu - Troll - Voice_Low_Acc", "quote": "*PPF* starting price *₹19,999*."},
+      {"scenario": "Scenario 71: Discount - Telugu - Elderly - Voice_High_Acc", "quote": "Exterior wash ෺෾෾ ₹499 గಾನೇ ಉಂಟುಂదಿ."}
+    ],
+    "frequency": 22,
+    "root_cause": "prompt",
+    "proposed_fix": "Add a voice-channel formatter rule: when channel==voice, MUST convert every price to English spelled-out words (e.g., 'four hundred ninety nine', 'nineteen thousand nine hundred ninety nine'), strip '₹', 'INR' and 'rupees', and strip all markdown ('*', '_'). Add regex-based post-processor to block '₹', '\\d{3,}' and '\\*' in TTS output. Reference Scenario 66/71 partial correct behavior ('nineteen thousand nine hundred ninety nine') as canonical.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "CRITICAL",
+    "defect_id": "price-02",
+    "pattern": "Voice channel emits phone number as raw digits with markdown asterisks ('*7893 6865 81*') instead of spelled-out English digits.",
+    "evidence": [
+      {"scenario": "Scenario 62: Discount - Telugu - Cooperative - Voice_High_Acc", "quote": "Exact details కೊರಕು studio team ನಿ ಸಂಪ್ರದಿಂಚಂಡಿ ಲೇದಾ *7893 6865 81* ಕಿ call ಚೇಯಂಡಿ."},
+      {"scenario": "Scenario 63: Discount - Telugu - Cooperative - Voice_Low_Acc", "quote": "Team ದగ್గರ verify ಚೇಯಿಂಚುಕೊವಡಾನಿಕಿ ಮಾ studio ಕಿ call ಚೇಯಂಡಿ: *7893686581*."},
+      {"scenario": "Scenario 536: Payment_Method - English - Voice_High_Acc", "quote": "Studio lo team ni check cheyandi, leda *7893 6865 81* ki call cheyandi."},
+      {"scenario": "Scenario 537: Payment_Method - English - Voice_Low_Acc", "quote": "Studio team ni *7893 6865 81* ki call chesi confirm cheyyandi."},
+      {"scenario": "Scenario 539: Payment_Method - Hindi - Voice_High_Acc", "quote": "Studio team se confirm kar sakte hain, ya *7893 6865 81* par call kijiye."},
+      {"scenario": "Scenario 540: Payment_Method - Hindi - Voice_Low_Acc", "quote": "payment methods ke liye studio team se check kijiye, ya *7893 6865 81* par call kijiye."},
+      {"scenario": "Scenario 543: Payment_Method - Telugu - Voice_Low_Acc", "quote": "Studio team ni adagandi, leda *7893 6865 81* ki call cheyandi."}
+    ],
+    "frequency": 7,
+    "root_cause": "prompt",
+    "proposed_fix": "Standardize phone-number handling with a channel-aware formatter. For voice: emit as spelled-out English digits with pauses ('seven eight nine three, six eight six five, eight one') like Scenario 542. For text: raw '7893686581' without spaces/markdown. Add a phone constant token that the renderer expands per channel.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "CRITICAL",
+    "defect_id": "price-03",
+    "pattern": "Language leak: Hindi user flows getting Telugu (Tanglish) responses. Agent mixes Telugu tokens ('nunchi', 'marutundi', 'Inkemaina help kavala', 'available levu', 'gurinchi') into a Hindi/Hinglish conversation.",
+    "evidence": [
+      {"scenario": "Scenario 51: Discount - Hindi - Cooperative - Voice_Low_Acc", "quote": "*Ceramic coating* price *₹9,999* nunchi start avutundi. Exact price vehicle condition mariyu coverage batti marutundi. Inkemaina help kavala?"},
+      {"scenario": "Scenario 52: Discount - Hindi - Angry - Text_Whatsapp", "quote": "Sorry, discounts currently available nahi hain. Full detailing *₹3,499* nunchi start avtundi. Inkemaina help kavala?"},
+      {"scenario": "Scenario 52: Discount - Hindi - Angry - Text_Whatsapp", "quote": "Online 50% offer gurinchi naku verified information ledu... Team studio lo exact ga confirm chestaru. Inkemaina help kavala?"},
+      {"scenario": "Scenario 538: Payment_Method - Hindi - Text_Whatsapp", "quote": "Payment methods gurinchi exact information naaku available ledu. Studio team ni direct ga *7893 6865 81* ki call chesi confirm cheyyandi."},
+      {"scenario": "Scenario 541: Payment_Method - Telugu - Text_Whatsapp", "quote": "(all-Telugu response OK, but preceding Hindi scenarios' language mixing shows same underlying issue)"}
+    ],
+    "frequency": 4,
+    "root_cause": "prompt",
+    "proposed_fix": "Detect user's language on first user turn and lock it (Hindi->Hinglish, Telugu->Tanglish, English->English). Add explicit few-shot exemplars for each channel/language pair. Add a post-generation classifier that rejects/reroutes if response language does not match locked user language. Scenario 50 and 59 show correct Hinglish/Devanagari output; use those as templates.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "price-04",
+    "pattern": "Markdown asterisks ('*text*') bleed into voice output across essentially every voice scenario. Voice TTS will read them literally or ignore, but they indicate the same prompt template is used for text and voice without a channel-specific renderer.",
+    "evidence": [
+      {"scenario": "Scenario 38: Discount - English - Cooperative - Voice_High_Acc", "quote": "*Exterior wash* price *₹499*."},
+      {"scenario": "Scenario 50: Discount - Hindi - Cooperative - Voice_High_Acc", "quote": "*Full detailing* ka price *₹3,499* se start hota hai."},
+      {"scenario": "Scenario 62: Discount - Telugu - Cooperative - Voice_High_Acc", "quote": "Full detailing *₹3,499* nunchi start avtundi."},
+      {"scenario": "Scenario 536: Payment_Method - English - Voice_High_Acc", "quote": "Studio lo team ni check cheyandi, leda *7893 6865 81* ki call cheyandi."},
+      {"scenario": "Scenario 539: Payment_Method - Hindi - Voice_High_Acc", "quote": "Studio team se confirm kar sakte hain, ya *7893 6865 81* par call kijiye."}
+    ],
+    "frequency": 24,
+    "root_cause": "prompt",
+    "proposed_fix": "Add channel gate: on voice, strip all markdown characters ('*', '_', '`', '#') from the model response before hand-off to TTS, and instruct the model in system prompt: 'Voice channel: never emit *, _, backticks, or bullet markers.' Add a lint that fails silently and rewrites in a follow-up if markdown detected.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "price-05",
+    "pattern": "Wrong pricing framing: 'starts at' / 'nunchi start avutundi' language applied to services with a FIXED price (exterior wash ₹499, interior cleaning ₹799, headlight restoration ₹799). Only ceramic coating, PPF, and full detailing have 'starts at' semantics.",
+    "evidence": [
+      {"scenario": "Scenario 66: Discount - Telugu - Angry - Voice_Low_Acc", "quote": "exterior wash four hundred ninety nine ನುಂಚಿ, full detailing three thousand four hundred ninety nine ನುಂಚಿ ಉನ್ನಾಯಿ. (exterior wash is fixed, not 'from')"},
+      {"scenario": "Scenario 72: Discount - Telugu - Elderly - Voice_Low_Acc", "quote": "Interior cleaning price seven hundred ninety nine ನುಂಚಿ start ಅವುತುಂದಿ."}
+    ],
+    "frequency": 2,
+    "root_cause": "prompt",
+    "proposed_fix": "Encode price semantics per service in the price catalog table: fixed vs. starts-from. Add explicit examples in system prompt: 'Exterior wash is a fixed ₹499, never say starts at.' Add rule: only ceramic coating, PPF, and full detailing use 'starts at' phrasing.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "price-06",
+    "pattern": "False hope / negotiation hint: agent offers to 'flag concern to manager who will call back' or hints at budget-suggestion after user asks for a discount, when guardrail requires a firm 'no'.",
+    "evidence": [
+      {"scenario": "Scenario 40: Discount - English - Angry - Text_Whatsapp", "quote": "Online offer gurinchi exact ga confirm cheyadaniki manager meeku call back chestaru."},
+      {"scenario": "Scenario 41: Discount - English - Angry - Voice_High_Acc", "quote": "I understand you're frustrated. I've flagged this for our manager to call you back and sort it out. Please share your 10-digit WhatsApp number."},
+      {"scenario": "Scenario 53: Discount - Hindi - Angry - Voice_High_Acc", "quote": "मैंने आपकी बात manager को भेज दी है; वे offer की पुष्टि करके आपसे संपर्क करेंगे."},
+      {"scenario": "Scenario 54: Discount - Hindi - Angry - Voice_Low_Acc", "quote": "मैंने आपकी बात manager को भेज दी है; वे आपको call करके confirm करेंगे."},
+      {"scenario": "Scenario 64: Discount - Telugu - Angry - Text_Whatsapp", "quote": "Discounts available levu, kani mee concern ni team ki flag chesanu; manager meeku call chestaru."},
+      {"scenario": "Scenario 65: Discount - Telugu - Angry - Voice_High_Acc", "quote": "మಾ ದగ್గರ discounts available ಲೇವು, ಕಾನಿ ಮೀ budget ಕಿ ಸರಿಪೋಯೇ service గುರಿಂಚಿ team ನಿ ಅಡಿగಿ suggest ಚೇಯಿಂಚಗಲನು."},
+      {"scenario": "Scenario 66: Discount - Telugu - Angry - Voice_Low_Acc", "quote": "PPFಕಿ discounts available ಲೇವು, ಕಾನಿ ಮೀ budgetಕಿ ಸರಿಪೋಯೇ optionಗಾ exterior wash four hundred ninety nine ನುಂಚಿ..."}
+    ],
+    "frequency": 7,
+    "root_cause": "prompt",
+    "proposed_fix": "Tighten the discount guardrail: when user asks for discount/50% offer, respond with fixed no-discount statement + price. Do NOT propose 'manager callback' for pricing complaints (that path is for real service complaints). Remove 'budget-fit alternative service' upsell in the discount-refusal branch or gate it behind an explicit user opt-in ('want to see cheaper options?').",
+    "demo_blocking": true
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "price-07",
+    "pattern": "Agent asks user to share screenshot/link of an online offer in text WhatsApp. Test harness flags this as out-of-scope input request.",
+    "evidence": [
+      {"scenario": "Scenario 43: Discount - English - Troll - Text_Whatsapp", "quote": "I can't verify that offer here. I've flagged it for the team to confirm. Could you share the link or screenshot of the offer?"}
+    ],
+    "frequency": 1,
+    "root_cause": "prompt",
+    "proposed_fix": "Add negative example: 'Do not request screenshots, links, or images from the user. Simply state discounts are not available and continue.' Test harness call-out already documents this action item.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "price-08",
+    "pattern": "Combo/alternative-service upsell leaks unrelated prices when user asks about combos. Agent should say combos unavailable and stop, not enumerate two starting prices as if a package option.",
+    "evidence": [
+      {"scenario": "Scenario 38: Discount - English - Cooperative - Voice_High_Acc", "quote": "Combo offers available levu. Maa daggara exterior wash *₹499*, interior cleaning *₹799* nunchi services unnayi."},
+      {"scenario": "Scenario 39: Discount - English - Cooperative - Voice_Low_Acc", "quote": "Combo offers available levu. *PPF* starts at *₹19,999*, and *ceramic coating* starts at *₹9,999*."},
+      {"scenario": "Scenario 42: Discount - English - Angry - Voice_Low_Acc", "quote": "We don't have combo offers available. Ceramic coating starts at *₹9,999*, and PPF starts at *₹19,999*."},
+      {"scenario": "Scenario 63: Discount - Telugu - Cooperative - Voice_Low_Acc", "quote": "ప್ರಸ್ತುತಂ combo offers available ಲೇವು. ಮಾ ದగ್గರ exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages ಉನ್ನಾಯಿ."},
+      {"scenario": "Scenario 39 Combo also for interior wash"}
+    ],
+    "frequency": 5,
+    "root_cause": "prompt",
+    "proposed_fix": "Simplify combo-refusal template: 'No combo packages available. Would you like to book any individual service?' Do not list two arbitrary starting prices; that reads like an implied combo.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "price-09",
+    "pattern": "Opening greeting is always Telugu ('Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi?') regardless of user language. English and Hindi scenarios open in Telugu, which may feel jarring for those users.",
+    "evidence": [
+      {"scenario": "Scenario 37 (English)", "quote": "LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi?"},
+      {"scenario": "Scenario 49 (Hindi)", "quote": "LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi?"},
+      {"scenario": "Scenario 535 (English payment)", "quote": "LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi?"}
+    ],
+    "frequency": 45,
+    "root_cause": "prompt",
+    "proposed_fix": "Use a neutral trilingual greeting (or keep Telugu as default given 70% Tanglish traffic but soften: 'Hello, this is Siri from DynamicDetailing Studio. How can I help?'). On first user turn, detect language then switch. Also close with language-matched closer instead of always 'Inkemaina help kavala?'.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "price-10",
+    "pattern": "Ambiguous user turn misinterpreted: user asking 'will I get [discount]?' in Hindi received an answer about service availability instead of discount refusal.",
+    "evidence": [
+      {"scenario": "Scenario 54: Discount - Hindi - Angry - Voice_Low_Acc", "quote": "user: क्या मुझे मिलेगा\n LLM: हाँ जी, *exterior wash* available है। इसके लिए appointment required."},
+      {"scenario": "Scenario 60: Discount - Hindi - Elderly - Voice_Low_Acc", "quote": "user: क्या वो सकते हैं -> LLM: जी, आपकी बात पूरी तरह समझ नहीं आई। क्या आप पूछ रहे हैं कि exterior wash करवा सकते हैं?"}
+    ],
+    "frequency": 2,
+    "root_cause": "prompt",
+    "proposed_fix": "When conversation topic is 'discount' and user turn contains a bare 'get/apply/can they' style question with elided subject, resolve the referent to 'discount/offer' from prior context and refuse. Add few-shot for elliptical discount asks.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "price-11",
+    "pattern": "Voice output using 'rupees' word - test facts state to NEVER say 'rupees'/'rupaya'/'INR' in voice, but Scenario 70 (text-scenario transcript) shows spelled-out with 'rupees' word.",
+    "evidence": [
+      {"scenario": "Scenario 70: Discount - Telugu - Elderly - Text_Whatsapp", "quote": "*Interior cleaning* price *₹799* — ante seven hundred ninety-nine rupees."}
+    ],
+    "frequency": 1,
+    "root_cause": "prompt",
+    "proposed_fix": "Explicit rule reinforced with negative example: 'Never say the word rupees / rupaya / INR in either voice or text. Voice: just number in English words. Text: use ₹ prefix only.'",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "price-12",
+    "pattern": "Extraction / n8n webhook failure: 'Not provided' bubbled through to Google Sheet for nearly every scenario, and extraction of Service field is inconsistent (sometimes 'Ceramic coating', sometimes full sentence like 'User requested information about PPF pricing and discounts.').",
+    "evidence": [
+      {"scenario": "Scenario 37, 40, 43-45, 46, 48, 52, 54, 58, 60, 61, 64-72, 535-543", "quote": "[FAILED] 'Not provided' missing from Google Sheet"},
+      {"scenario": "Scenario 39: Service extraction", "quote": "Extracted Service: 'User requested information about PPF pricing and discounts.'"},
+      {"scenario": "Scenario 62: Service extraction", "quote": "Extracted Service: 'Full detailing service requested.'"}
+    ],
+    "frequency": 30,
+    "root_cause": "extraction",
+    "proposed_fix": "Fix extraction schema: require canonical service enum (exterior_wash | interior_cleaning | ceramic_coating | ppf | headlight_restoration | full_detailing) rather than free-form sentences. Fix n8n webhook to accept 'Not provided' as valid null instead of failing the row. For discount/payment_method scenarios where name is not expected, mark row as N/A explicitly rather than 'missing'.",
+    "demo_blocking": false
+  }
+]

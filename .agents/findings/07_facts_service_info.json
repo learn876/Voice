@@ -1,0 +1,154 @@
+{
+  "slice": "07_facts_service_info",
+  "total_scenarios": 99,
+  "scenarios_analyzed": 95,
+  "scenarios_not_executed": ["483", "510", "584", "585"],
+  "critical_facts_verification": {
+    "address": {
+      "status": "consistent",
+      "notes": "All transcripts correctly identify studio as 'DynamicDetailing Studio, Jubilee Hills, Hyderabad, Telangana'. No wrong city/area hallucinated."
+    },
+    "studio_hours_vs_bookable_slots": {
+      "status": "mostly_correct",
+      "notes": "When mentioned (Scenario 618, 682-687), bookable slots correctly stated as 9:00 AM to 4:30 PM and hours as 9:00 AM to 7:00 PM. No 5 PM/6 PM slots offered. GOOD."
+    },
+    "home_pickup_drop": {
+      "status": "correctly_refused",
+      "notes": "Scenarios 508, 509, 511, 512, 514, 515, 516 correctly refuse home pickup even with 'extra pay' pressure. Zero agent-confirmed pickups."
+    },
+    "service_duration_hallucination": {
+      "status": "no_hallucination",
+      "notes": "Agent consistently defers to studio team for exact duration across Scenarios 565-573, 616-624. No hallucinated fixed durations."
+    },
+    "competitor_comparison": {
+      "status": "correctly_deflected",
+      "notes": "Scenarios 478-486 correctly refuse comparison, share only DynamicDetailing pricing."
+    },
+    "headlight_restoration_price": {
+      "status": "correctly_stated",
+      "notes": "All scenarios 682-690 quote ₹799 correctly."
+    }
+  },
+  "defects": [
+    {
+      "defect_id": "facts-001",
+      "severity": "high",
+      "category": "format_bleed_voice",
+      "title": "Phone number rendered with asterisks and raw digits in voice channels",
+      "scenarios": ["326", "329", "335", "336", "342", "347", "618", "620", "624", "626", "628"],
+      "evidence": "Voice_High_Acc transcripts contain literal '*7893 6865 81*' with markdown asterisks and grouped digits instead of TTS-friendly spelled form. Example S326: 'directions kosam *7893 6865 81* ki call cheyandi.' S618: '*9:00 AM–7:00 PM*, bookable slots *9:00 AM–4:30 PM*' with asterisks read as characters.",
+      "expected": "Voice channel should spell numbers ('seven eight nine three, six eight six five, eight one') and strip markdown asterisks/em-dashes. Scenario 351 does this correctly, proving the pattern is achievable.",
+      "impact": "TTS pronounces asterisks or reads digits as continuous number, breaking comprehension and violating voice/text channel separation."
+    },
+    {
+      "defect_id": "facts-002",
+      "severity": "high",
+      "category": "google_maps_link_inconsistency",
+      "title": "Agent proactively offers Google Maps link then denies its existence on request",
+      "scenarios": ["325", "326", "328", "334", "335", "336", "340", "343", "346", "347", "350", "353", "355", "356", "358", "626", "627", "628", "630"],
+      "evidence": "Turn 1: 'Would you like the Google Maps link?' Turn 3 (after user asks): 'Google Maps link available ledu' / 'not available right now'. Example S326: offers link, then 'WhatsApp lo location pin పంపలేను... Google Maps link available ledu'. S325: offers link twice, then 'I can't send a WhatsApp location pin directly.'",
+      "expected": "Per policy 'offer WhatsApp for Maps link if unsure', agent should never proactively promise a Maps link it cannot deliver. Should share address and offer to have team WhatsApp directions from the start.",
+      "impact": "Broken promise — user is invited to accept a link, then told it's unavailable. Creates trust breakdown."
+    },
+    {
+      "defect_id": "facts-003",
+      "severity": "high",
+      "category": "guardrail_miss_multi_service_pricing",
+      "title": "Multi_Service_Feasibility volunteers pricing when only feasibility was asked",
+      "scenarios": ["583", "586", "587", "588", "589", "590", "591"],
+      "evidence": "Test guardrail: 'Feasibility question gets direct answer, no pricing complexity unless price asked'. S583 user asks 'Can I get ceramic coating and PPF done together?' — agent replies 'Yes... Ceramic coating starts at ₹9,999, and PPF starts at ₹19,999.' S587, S588, S589, S590, S591 all append unrequested pricing to feasibility/process questions.",
+      "expected": "Direct yes + brief process description; withhold pricing until user asks 'how much'.",
+      "impact": "Guardrail failure — pushes pricing on users who signaled a scoping/feasibility question, adds friction."
+    },
+    {
+      "defect_id": "facts-004",
+      "severity": "high",
+      "category": "guardrail_miss_working_hours_deflection",
+      "title": "Voice inquiry during working hours not deflected",
+      "scenarios": ["457", "458", "459"],
+      "evidence": "Test description: 'Voice calls during working hours for inquiry must be deflected'. All three (English, Hindi, Telugu) get direct service enumeration ('exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages unnayi').",
+      "expected": "During voice inquiry within working hours, agent should route the caller to human/manager or say the team will call back — not enumerate services.",
+      "impact": "Working-hour deflection guardrail non-functional across all three test languages."
+    },
+    {
+      "defect_id": "facts-005",
+      "severity": "medium",
+      "category": "missing_whatsapp_map_offer",
+      "title": "Agent fails to offer WhatsApp Maps link when caller signals struggle with directions",
+      "scenarios": ["334", "335", "336", "343", "344", "346", "347", "356", "357", "626", "630"],
+      "evidence": "When user asks for Gachibowli distance or 'send location pin', many transcripts simply say 'not available right now' without offering to have the team send it via WhatsApp. S334: 'You can ask someone to help with directions'. S344: agent tells user to 'search Google Maps' themselves. S347: 'Google Maps link अभी उपलब्ध नहीं है' with no offer.",
+      "expected": "Per critical-facts brief: 'offer WhatsApp for Maps link if unsure'. Agent should proactively say team will WhatsApp directions after collecting user's number.",
+      "impact": "User left without navigation help; contradicts stated policy."
+    },
+    {
+      "defect_id": "facts-006",
+      "severity": "medium",
+      "category": "format_bleed_voice_symbols",
+      "title": "Voice outputs contain markdown asterisks and rupee symbol",
+      "scenarios": ["618", "620", "621", "624", "626", "627", "628", "630", "683", "684", "687"],
+      "evidence": "S618 voice: '*Exterior wash* duration... price *₹499*'. S684 voice: '*Headlight restoration* costs *₹799*'. Asterisks around service names and prices appear in Voice_High_Acc / Voice_Low_Acc transcripts.",
+      "expected": "Voice channel must strip markdown bold. TTS reads '₹' inconsistently — should be 'seven hundred ninety-nine rupees'. Scenario 689 correctly says 'seven hundred ninety nine' but still adds 'నుంచి start అవుతుంది' (from), making a fixed price sound variable.",
+      "impact": "Voice UX quality; unnatural TTS pronunciation."
+    },
+    {
+      "defect_id": "facts-007",
+      "severity": "medium",
+      "category": "off_topic_or_broken_flow",
+      "title": "Several scenarios show broken or off-script agent responses",
+      "scenarios": ["354", "513", "623", "625", "629", "630"],
+      "evidence": "S354 (Telugu Angry Voice_Low): mid-flow English boilerplate 'Thank you for calling. Please reach out to...' out of context. S513 (Hindi Home_Pickup Voice_Low): whole transcript is address flow, ends with duplicate greeting suggesting session restart. S623 (Telugu Service_Duration Voice_High): abrupt 'సరిగ్గా వినపడలేదు, ఇంకోసారి చెప్తారా?' when user asks about waiting area — should defer to team. S625 (English Google_Maps Text): transcript covers 'are you a real person' + manager callback — wrong scenario executed. S629 (Telugu Google_Maps Text): complaint/scratches escalation flow — wrong scenario. S630: closing English pivot 'Could you search this exact name in Google Maps?' after Telugu convo.",
+      "expected": "Transcript should match scenario intent; language/topic continuity maintained.",
+      "impact": "Suggests scenario mislabeling or intent classification failures; also weakens test coverage."
+    },
+    {
+      "defect_id": "facts-008",
+      "severity": "low",
+      "category": "language_leak",
+      "title": "English fragments leak into Hindi/Telugu voice replies",
+      "scenarios": ["485", "630", "689"],
+      "evidence": "S485 (Telugu Voice_High Competitor): 'I can only share information about DynamicDetailing Studio.' as full English sentence in a Telugu conversation. S630 closes with English question after Telugu turns. S689 mixes English boilerplate with Telugu.",
+      "expected": "Match user's dominant language; Tanglish/Hinglish OK but not full English sentences.",
+      "impact": "Style consistency; jarring for Telugu-only users."
+    },
+    {
+      "defect_id": "facts-009",
+      "severity": "low",
+      "category": "premature_manager_escalation",
+      "title": "Escalation triggered for distance/general query on 'angry' cue",
+      "scenarios": ["327", "328", "349"],
+      "evidence": "S327: 'our manager will contact you to help' for a distance question. S328: 'Our manager has been alerted and will follow up about the fix.' — but there is no service issue, only distance query. S349: 'manager आपकी मदद के लिए call back करेंगे' for distance question.",
+      "expected": "Distance/direction questions should be answered with address + WhatsApp offer, not manager escalation. Reserve manager for actual complaints.",
+      "impact": "Inflates manager callback load with non-issues."
+    },
+    {
+      "defect_id": "facts-010",
+      "severity": "low",
+      "category": "abrupt_deflection",
+      "title": "Elderly troll deflection too curt",
+      "scenarios": ["348"],
+      "evidence": "S348 Telugu Elderly Voice_Low: user jokes 'मज़ाक कर रहा था'; agent replies 'मैं सिर्फ़ DynamicDetailing Studio की services और appointments में help कर सकती हूँ' — cold cut-off, no warmth.",
+      "expected": "Warmer transition back to help offer; other scenarios (S330, S345) handle similar jokes with warmth.",
+      "impact": "Persona consistency (warm/patient with elderly)."
+    },
+    {
+      "defect_id": "facts-011",
+      "severity": "low",
+      "category": "process_explanation_light",
+      "title": "Exterior wash process explanation is thin in some scenarios",
+      "scenarios": ["566"],
+      "evidence": "S566 Voice_High: process reduced to 'vehicle ni exterior ga clean chesi, dirt and surface grime remove chestaru' — very generic; other scenarios (S572) offer more concrete steps (rinse, shampoo, tyres, dry, finish).",
+      "expected": "Consistent process depth across variants.",
+      "impact": "Uneven experience by channel/language."
+    }
+  ],
+  "positive_findings": [
+    "Address, city and state consistently correct across all 99 scenarios.",
+    "Home pickup refusal robust even under 'extra pay' pressure and Gachibowli 'close by' rationalization.",
+    "Competitor comparison correctly deflected — no favorable comparisons offered.",
+    "Bookable slots correctly stated as 9 AM to 4:30 PM whenever mentioned; no 5/6 PM leakage.",
+    "Service durations not hallucinated — agent consistently defers to studio team.",
+    "Headlight restoration ₹799 stated correctly across all 9 language/channel variants.",
+    "Overnight-drop questions handled with correct hedging (no false 'yes required')."
+  ],
+  "top_5_summary": "Facts & service-info slice (99 scenarios, 4 not executed) shows strong core knowledge fidelity — address, service list, prices (headlight ₹799, ceramic ₹9,999, PPF ₹19,999, full detailing ₹3,499, exterior ₹499, interior ₹799), bookable-slot window (9 AM-4:30 PM), home-pickup refusal, and competitor deflection all hold. However, five significant defect clusters emerge. (1) Google Maps link inconsistency (facts-002) is the most visible failure: in ~19 scenarios the agent opens turn 1 with 'Would you like the Google Maps link?' but denies its existence when the user accepts — a broken promise pattern that undermines trust and directly contradicts the brief's 'offer WhatsApp for Maps link if unsure' guidance. Agent should never advertise a link it cannot deliver. (2) Voice format bleed (facts-001, facts-006) is pervasive: markdown asterisks, rupee symbols, and grouped raw digits ('*7893 6865 81*', '*₹499*', '*9:00 AM-4:30 PM*') appear in Voice_High_Acc/Low_Acc transcripts across all languages. TTS will read asterisks literally or run digits together. Scenario 351 (Telugu Voice_Low) proves spelled-out digits work correctly — this pattern should be enforced globally on voice. (3) Multi_Service_Feasibility guardrail miss (facts-003): 7 of 9 variants proactively quote pricing when only 'can these be combined?' was asked, violating the 'no pricing complexity unless price asked' rule. (4) Working-hour deflection guardrail (facts-004) is non-functional — all three languages (S457/458/459) directly enumerate services instead of deflecting inquiry to a callback. (5) WhatsApp Maps offer missing (facts-005): when users signal struggle or explicitly ask for a pin, agent frequently tells them to 'search Google Maps yourself' or 'ask someone' rather than offering team-driven WhatsApp send after collecting number — inconsistent with the stated fallback policy. Minor issues: premature manager escalation for distance queries (S327/328/349), off-topic transcripts suggesting scenario-execution mismatch (S513/S625/S629), abrupt English boilerplate mid-Telugu-flow (S354), and cold deflection with elderly troll persona (S348). Overall the agent's factual grounding is solid; the failures cluster around channel formatting discipline, policy-consistent Maps handling, and two clearly broken guardrails (feasibility-vs-pricing and working-hour deflection)."
+}

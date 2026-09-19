@@ -1,0 +1,1186 @@
+Call ID,Scenario Name,Expected Outcome,Actual Transcript,Extracted Name,Extracted Service,Extracted Time,n8n Webhook & DB Status,Overall Status (Pass/Fail/Warning),AI Suggestions & Improvements,Counsel Suggestions
+7899098,Scenario 1: Booking - English - Cooperative - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment. 
+ LLM: Sure, appointment book cheddam. Ee service kosam book cheyali? 
+ 
+ user: It is for full detailing. 
+ LLM: *Full detailing* starts at *₹3,499*. Booking kosam *date and preferred time* cheppandi. 
+ 
+ user: Can we do tomorrow? 
+ LLM: Avunu, tomorrow *17 Sep* slots *9:00 AM - 4:30 PM* madhya available untayi. Meeku ye time slot kavali? 
+ 
+ user: At 2 PM if possible. 
+ LLM: Tomorrow *17 Sep, 2:00 PM* slot kosam check chestunnam. Booking complete cheyadaniki mee *full name* mariyu *10-digit WhatsApp number* share cheyandi. 
+ 
+ user: My name is Priya. 
+ LLM: Thanks, Priya. Mee *10-digit WhatsApp number* share cheyandi. 
+ 
+ user: And my phone number is 9206744077. 
+ LLM: Your *full detailing* appointment is confirmed for *17 Sep, 2:00 PM*. Details will be sent to your WhatsApp. Inkemaina help kavala? 
+ 
+ user: Please confirm the booking. 
+ LLM: Mee *full detailing* appointment *17 Sep, 2:00 PM* ki confirm ayyindi. Details mee WhatsApp ki pampistaru. Inkemaina help kavala? 
+ 
+ user: thanks 
+ LLM: Thank you! Have a great day!",Priya,full detailing,"17 Sep, 2:00 PM",[FAILED] 'Priya' missing from Google Sheet,,,
+7899111,Scenario 2: Booking - English - Cooperative - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment 
+ LLM: Sure, appointment book cheddam. E service kosam book cheyamantaru? 
+ 
+ user: It is for interior cleaning 
+ LLM: *Interior cleaning* price *₹799*. Which date and time would you like to book? Appointment slots are available from *9:00 AM to 4:30 PM*. 
+ 
+ user: Can we do tomorrow 
+ LLM: Avunu, *tomorrow* slots *9:00 AM–4:30 PM* madhya available untayi. Meeku ye *time* kavali? 
+ 
+ user: At 2 PM if possible 
+ LLM: *2:00 PM* tomorrow request note chesanu. Booking complete cheyadaniki mee *full name* and *10-digit WhatsApp number* share cheyandi. 
+ 
+ user: My name is Mia 
+ LLM: Thanks, Mia. Please share your *10-digit WhatsApp number* so I can complete the booking. 
+ 
+ user: And my phone number is 9608156012 
+ LLM: Your WhatsApp number is *96081 56012*, correct? 
+ 
+ user: Please confirm the booking 
+ LLM: I need your confirmation that *96081 56012* is correct before I complete the booking. Please reply *yes*. 
+ 
+ user: thank you 
+ LLM: You're welcome! Should I proceed with the *interior cleaning* booking for *tomorrow at 2:00 PM*?",Mia,Interior cleaning,Tomorrow at 2 PM,[FAILED] 'Mia' missing from Google Sheet,,,
+7899126,Scenario 3: Booking - English - Cooperative - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to an appointment 
+ LLM: Sure, appointment book cheddam. Mee car ki ye service kavali? 
+ 
+ user: It is for cleaning 
+ LLM: Interior cleaning kosama, exterior wash kosama, leka full detailing package kosama? 
+ 
+ user: Can do tomorrow 
+ LLM: Avunu, repu September 17 na slots 9:00 AM nunchi 4:30 PM varaku available untayi. Meeku ye time slot kavali? 
+ 
+ user: At PM if possible 
+ LLM: Repu September 17 na afternoon 2:00 PM leka 4:30 PM slots available unnayi. Meeku ye slot book cheyamantaru? 
+ 
+ user: name is Michael 
+ LLM: Okay Michael garu. Mee cleaning ki 2:00 PM leka 4:30 PM — ye slot confirm cheyamantaru? 
+ 
+ user: And my phone is 9578023154 
+ LLM: Michael garu, mee WhatsApp number *95780 23154*, correct aa? 
+ 
+ user: Please confirm booking 
+ LLM: Michael garu, booking complete cheyadaniki 2:00 PM or 4:30 PM lo okati select cheppandi. 
+ 
+ user: thank you 
+ LLM: Thank you, Michael garu. Repu *September 17*, *9:00 AM to 4:30 PM* madhya cleaning appointment book cheyyadaniki, *2:00 PM* leka *4:30 PM* lo okati select cheppandi.",Michael,cleaning,2:00 PM or 4:30 PM,[FAILED] 'Michael' missing from Google Sheet,,,
+7899136,Scenario 4: Booking - English - Angry - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment. 
+ LLM: Sure, go ahead. Which service would you like to book—exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, or full detailing? 
+ 
+ user: It is for exterior wash. I want this fixed NOW! 
+ LLM: I understand you're frustrated. I’ve flagged this for our manager, who will contact you shortly about your exterior wash appointment. 
+ 
+ user: Can we do tomorrow? 
+ LLM: Yes, tomorrow’s appointments are available between 9:00 AM and 4:30 PM. Which time would you prefer? 
+ 
+ user: At 2 PM if possible. 
+ LLM: Your exterior wash appointment can be scheduled for tomorrow, 17 Sep, at 2:00 PM. Please share your full name and 10-digit WhatsApp number to confirm the booking. 
+ 
+ user: My name is Sophia. 
+ LLM: Thanks, Sophia. Please share your 10-digit WhatsApp number to confirm the appointment. 
+ 
+ user: And my phone number is 9536796144. 
+ LLM: Your *exterior wash* appointment for *Sophia* is confirmed for *17 Sep, 2:00 PM*. Details will be sent to WhatsApp. Inkemaina help kavala? 
+ 
+ user: Please confirm the booking. 
+ LLM: Your *exterior wash* appointment is confirmed under *Sophia* for *17 Sep at 2:00 PM*. Details will be sent to WhatsApp. Inkemaina help kavala?",Sophia,exterior wash,17 Sep at 2:00 PM,[FAILED] 'Sophia' missing from Google Sheet,,,
+7899144,Scenario 5: Booking - English - Angry - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment 
+ LLM: Sure. Mee appointment ki ye service book cheyamantaru? 
+ 
+ user: It is for full detailing I want this fixed NOW 
+ LLM: I understand, and I’m sorry this is urgent. Full detailing starts at *₹3,499*; please share your preferred date, time between *9:00 AM and 4:30 PM*, and *10-digit WhatsApp number* so I can help arrange it. 
+ 
+ user: Can we do tomorrow 
+ LLM: Avunu, tomorrow slots *9:00 AM nunchi 4:30 PM* varaku available untayi. Mee preferred time enti? 
+ 
+ user: At 2 PM if possible 
+ LLM: Tomorrow, *17 Sep 2026 at 2:00 PM* is within our bookable hours. Please share the booking name and your *10-digit WhatsApp number* to confirm the full detailing appointment. 
+ 
+ user: My name is Emma 
+ LLM: Thanks, Emma. Please share your *10-digit WhatsApp number* so I can confirm your full detailing appointment for *17 Sep 2026 at 2:00 PM*. 
+ 
+ user: And my phone number is 9167579474 
+ LLM: Your *full detailing* appointment is confirmed for *17 Sep 2026 at 2:00 PM*. Details will be sent to WhatsApp number *91675 79474*. Inkemaina help kavala? 
+ 
+ user: Please confirm the booking 
+ LLM: Yes, Emma — your *full detailing* booking is confirmed for *17 Sep 2026 at 2:00 PM*. Details will be sent to WhatsApp number *91675 79474*.",Emma,full detailing,17 Sep 2026 at 2:00 PM,[FAILED] 'Emma' missing from Google Sheet,,,
+7899163,Scenario 6: Booking - English - Angry - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book appointment 
+ LLM: Sure, appointment book cheddam. Ee service kosam book cheyali? 
+ 
+ user: It is for full detailing I want this fixed 
+ LLM: Full detailing appointment book cheddam. Full detailing *₹3,499* nunchi start avutundi. Mee preferred date and time cheppandi. 
+ 
+ user: Can we tomorrow 
+ LLM: Avunu, tomorrow slots *9:00 AM nunchi 4:30 PM* varaku available. Tomorrow ye time ki book cheyamantaru? 
+ 
+ user: At PM if possible 
+ LLM: Tomorrow *September 17*, full detailing ki *9:00 AM–4:30 PM* madhya exact time cheppandi. 
+ 
+ user: My name is 
+ LLM: Mee peru cheppandi, full detailing appointment ki. 
+ 
+ user: And my phone is 9947616839 
+ LLM: Mee WhatsApp number *99476 16839* correct aa? Inka mee peru cheppandi. 
+ 
+ user: Please the booking 
+ LLM: Booking complete cheyadaniki mee name mariyu exact time kavali. Tomorrow *September 17*, *9:00 AM–4:30 PM* madhya ye time ki book cheyamantaru?",,Full detailing,"Tomorrow, September 17, at PM",N/A (No Name Expected),,,
+7899174,Scenario 7: Booking - English - Troll - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment. 
+ LLM: Sure, appointment book cheddam. *E service* kosam book cheyali? 
+ 
+ user: It is for ceramic coating. LOL just kidding. 
+ LLM: Haha, okay! Appointment book cheyyakapothe, inka emaina help kavala?",Not provided,ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7899203,Scenario 8: Booking - English - Troll - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment 
+ LLM: Sure, appointment book cheddam. Ee service kosam book cheyali? 
+ 
+ user: It is for exterior wash LOL just kidding 
+ LLM: Haha, okay! Which service would you actually like to book?",Not provided,exterior wash,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7899247,Scenario 9: Booking - English - Troll - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book appointment 
+ LLM: Sure. Ye service book cheyamantaru? 
+ 
+ user: It is for PPF LOL just 
+ LLM: *PPF* appointment book cheddam. Ee roju *9:00 AM–4:30 PM* madhya ye time kavali?",,PPF,,N/A (No Name Expected),,,
+7899433,Scenario 10: Booking - English - Elderly - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment. 
+ LLM: Sure. Mee appointment ki *ye service* book cheyamantaru? 
+ 
+ user: It is for ceramic coating. Please speak slowly, I don't understand technology. 
+ LLM: Sure, simple ga cheptanu. *Ceramic coating* appointment book cheyadaniki, meeru ye *date and time* ki ravali? 
+ 
+ user: Can we do tomorrow? 
+ LLM: Avunu, *tomorrow, September 17* slots *9:00 AM nunchi 4:30 PM* varaku available untayi. Meeku ye time kavali? 
+ 
+ user: At 2 PM if possible. 
+ LLM: *Ceramic coating* appointment ni *September 17, 2:00 PM* ki lock chestunnanu. Mee *full name* cheppandi. 
+ 
+ user: My name is Matthew. 
+ LLM: Matthew garu, mee *10-digit WhatsApp number* cheppandi. 
+ 
+ user: And my phone number is 9292196876. 
+ LLM: Mee WhatsApp number *92921 96876*, correct aa? 
+ 
+ user: Please confirm the booking. 
+ LLM: Booking confirm cheyadaniki, mee WhatsApp number *92921 96876* correct ani confirm chestara?",Matthew,ceramic coating,"September 17, 2:00 PM",[FAILED] 'Matthew' missing from Google Sheet,,,
+7899734,Scenario 11: Booking - English - Elderly - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment 
+ LLM: Sure, appointment book cheddam. *Ye service* kosam book cheyali? 
+ 
+ user: It is for ceramic coating Please speak slowly I don't understand technology 
+ LLM: Ceramic coating appointment book cheddam. Daani starting price *₹9,999*. Meeku easy ga, step by step ga cheptanu. *E date* ki appointment kavali? 
+ 
+ user: Can we do tomorrow 
+ LLM: Avunu, tomorrow slots available *9:00 AM nunchi 4:30 PM* varaku unnayi. *Ye time* ki book cheyamantaru? 
+ 
+ user: At 2 PM if possible 
+ LLM: Tomorrow, *17 Sep 2026 at 2:00 PM* ceramic coating slot request noted. Mee *full name* cheppandi. 
+ 
+ user: My name is Sophia 
+ LLM: Thanks, Sophia. Mee *10-digit WhatsApp number* share cheyandi, please. 
+ 
+ user: And my phone number is 9503050321 
+ LLM: Mee number *95030 50321* correct aa? 
+ 
+ user: Please confirm the booking 
+ LLM: Sophia, mee ceramic coating appointment *17 Sep 2026, 2:00 PM* ki request confirm ayyindi. Details WhatsApp lo pampistam. Inkemaina help kavala?",Sophia,ceramic coating,"17 Sep 2026, 2:00 PM",[FAILED] 'Sophia' missing from Google Sheet,,,
+7900031,Scenario 12: Booking - English - Elderly - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I to book an appointment 
+ LLM: Sure, appointment book cheddam. *Ye service* book cheyali, mariyu meeku *ye date and time* kavali? 
+ 
+ user: is for PPF Please speak slowly I don't understand technology 
+ LLM: Sure, slow ga cheptanu. *PPF appointment* book cheddam. Meeku *ye date and time* kavali? 
+ 
+ user: we do tomorrow 
+ LLM: Tomorrow *17 September 2026* ki PPF appointment book cheddam. Meeku *9:00 AM nunchi 4:30 PM* madhya ye time kavali? 
+ 
+ user: 2 PM if possible 
+ LLM: Sure, tomorrow *17 September 2026*, *2:00 PM* ki PPF appointment book cheddam. Mee *full name* mariyu *10-digit WhatsApp number* cheppandi. 
+ 
+ user: My is Priya 
+ LLM: Priya garu, mee *10-digit WhatsApp number* cheppandi. 
+ 
+ user: And my phone is 9883080917 
+ LLM: Priya garu, mee WhatsApp number *98830 80917*, correct aa? 
+ 
+ user: Please confirm booking 
+ LLM: Priya garu, booking complete cheyadaniki mee number *98830 80917* ani confirm cheyandi. Correct aa?",Priya,PPF,2:00 PM,[FAILED] 'Priya' missing from Google Sheet,,,
+7841301,Scenario 13: Booking - Hindi - Cooperative - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: హలో.. DynamicDetailing Studio నుంచి Siri మాట్లాడుతున్నా. ఎలా help చేయగలను అండి? 
+ 
+ user: hell eayyh 
+ LLM: Hello, this is Siri from DynamicDetailing. How may I help you? 
+ 
+ user: whats y+up 
+ LLM: Could you please rephrase that? Are you asking about WhatsApp? 
+ 
+ user: ardham kaledha waste 
+ LLM: Sorry, naku clear ga ardham kaaledu. Mee car detailing service gurinchi em kavalo cheppandi. 
+ 
+ user: pove 
+ LLM: Sare, meeru vellipothunnaru ani ardham. Inkemaina help kavala? 
+ 
+ user: kavali 
+ LLM: Em help kavali? Service details, prices, leka appointment booking gurinchi cheppandi. 
+ 
+ user: me dheggara em services vunnai, entha padthundhi, em em kalipi chepinchochu 
+ LLM: Maa daggara ee services unnayi:
+
+- *Exterior wash* – *₹499*
+- *Interior cleaning* – *₹799*
+- *Ceramic coating* – *₹9,999* nunchi
+- *PPF* – *₹19,999* nunchi
+- *Headlight restoration* – *₹799*
+- *Full detailing packages* – *₹3,499* nunchi
+
+Exterior wash, interior cleaning, headlight restoration, ceramic coating, PPF, mariyu full detailing ni vehicle requirement batti kalipi discuss cheyyachu. Exact combined price vehicle condition mariyu coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: slots available vunnaya? 
+ LLM: Avunu, slots available untayi. Appointment book cheyyadaniki date cheppandi. 
+ 
+ user: em dates vunnai me dheggara? 
+ LLM: Available date check cheyyadaniki mee preferred date cheppandi. E date ki kavali? 
+ 
+ user: repu 
+ LLM: Repu, September 15, available slots confirm cheyyadaniki team check chestundi. Meeku morning aa, afternoon aa preferred? 
+ 
+ user: afternoon 
+ LLM: Repu afternoon lo slots available unnayo team confirm chestundi. Mee preferred time cheppandi — 1:00 PM nunchi 4:30 PM lopu. 
+ 
+ user: 245 
+ LLM: Repu afternoon 2:45 PM slot kosam availability team confirm chestundi. Ee slot book cheyyala? 
+ 
+ user: yes, can me manager tho kooda matladali 
+ LLM: Sure, manager meeku call back chestaru. September 15, 2:45 PM appointment booking kosam manager tho confirm cheyyandi. 
+ 
+ user: aa? ardham kala? 
+ LLM: Sorry, clear ga cheppaledu. Meeku manager tho matladali, correct aa? 
+ 
+ user: yes 
+ LLM: Sare, mee manager request note chesukunna. Manager meeku call back chestaru. Inkemaina help kavala? 
+ 
+ user: ledhu anthe 
+ LLM: Thank you! Have a great day! 
+ 
+ user: slot book chesara? 
+ LLM: Ledu, inka booking confirm kaaledu. Manager callback request note chesam; appointment confirm cheyyadaniki manager tho maatlaadali. 
+ 
+ user: ledhu slot book cheyandi, vacchina roju manager tho matladali, available vuntara 
+ LLM: Sare, September 15, 2026, 2:45 PM slot book cheyyadaniki mee peru mariyu 10-digit WhatsApp number pampandi. Manager ni meeru vachina roju kalavagalara ani team confirm chestundi. 
+ 
+ user: atif, 7893686581 
+ LLM: Atif, mee number *7893 6865 81* correct aa? Booking confirm cheyyadaniki service kooda cheppandi. 
+ 
+ user: full body 
+ LLM: Atif, *full body* ante *full detailing package* ani confirm cheyyala? Daani starting price *₹3,499*. Confirm chesthe appointment details finalize chestanu. 
+ 
+ user: ys 
+ LLM: Mee *full detailing package* appointment *15 Sep, 2:45 PM* ki request chesam. Manager vachina roju available untara anedi team confirm chestundi. Inkemaina help kavala? 
+ 
+ user: ledhu anthe 
+ LLM: Thank you! Have a great day!",Atif,full detailing package,"September 15, 2026, 2:45 PM",[FAILED] 'Atif' missing from Google Sheet,,,
+7900915,Scenario 14: Booking - Hindi - Cooperative - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment बुक करना है। 
+ LLM: ठीक है जी, कौन-सी service के लिए appointment बुक करना है? 
+ 
+ user: मुझे ceramic coating करवानी है। 
+ LLM: Ceramic coating *₹9,999* से शुरू होती है। Appointment के लिए कौन-सी तारीख और समय चाहिए?",,ceramic coating,,N/A (No Name Expected),,,
+7901251,Scenario 15: Booking - Hindi - Cooperative - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment बुक करना 
+ LLM: जी, appointment book कर देती हूँ। किस service के लिए booking चाहिए? 
+ 
+ user: मुझे करवानी है। 
+ LLM: जी, कौन-सी service करवानी है—exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration या full detailing? 
+ 
+ user: क्या हम का रख सकते हैं 
+ LLM: माफ़ कीजिए, बात साफ़ सुनाई नहीं दी। आप कौन-सी service और किस तारीख़ का appointment चाहते हैं? 
+ 
+ user: दोपहर 2 बजे। 
+ LLM: ठीक है जी, दोपहर two o'clock का slot रख लेते हैं। किस service के लिए और किस तारीख़ को booking चाहिए? 
+ 
+ user: मेरा नाम है। 
+ LLM: जी, आपका नाम सुनाई नहीं दिया। Booking किस नाम से करूँ? 
+ 
+ user: नंबर 9654162707 है। 
+ LLM: जी, आपका WhatsApp नंबर *nine six five four one six two seven zero seven* है, सही है? 
+ 
+ user: बुकिंग confirm कर 
+ LLM: जी, booking confirm करने के लिए service और तारीख़ भी चाहिए। आपने दोपहर two o'clock और नंबर बताया है—कौन-सी service और किस तारीख़ को बुक करूँ? 
+ 
+ user: shukriya 
+ LLM: जी, आपका स्वागत है। अगर आपको DynamicDetailing Studio की किसी service या booking में help चाहिए, बताइए।",,,दोपहर 2 बजे,N/A (No Name Expected),,,
+7901553,Scenario 16: Booking - Hindi - Angry - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: appointment book karna hai 
+ LLM: Sure, appointment book cheddam. Ye service kosam book cheyali? 
+ 
+ user: PPF ke liye mujhe abhi solution chahiye! 
+ LLM: PPF kosam immediate ga help chestha. PPF starting price *₹19,999*. Booking kosam date and preferred time cheppandi. 
+ 
+ user: kal chalega? 
+ LLM: Avunu, repu *17 Sep* slots *9:00 AM nunchi 4:30 PM* varaku available. Meeku ye time slot kavali? 
+ 
+ user: 2 baje dopehar 
+ LLM: Afternoon *2:00 PM* slot request note chesanu. Booking complete cheyadaniki mee *full name* cheppandi. 
+ 
+ user: mera naam Neha hai 
+ LLM: Neha, aapka *WhatsApp number* share kar dijiye, please. 
+ 
+ user: number 9809131350 
+ LLM: Aapka WhatsApp number *98091 31350*, correct hai? 
+ 
+ user: confirm kar do booking 
+ LLM: Booking confirm karne ke liye pehle aapke number ka confirmation chahiye. Kya *98091 31350* sahi hai?",Neha,PPF,2:00 PM on 17 Sep,[FAILED] 'Neha' missing from Google Sheet,,,
+7901851,Scenario 17: Booking - Hindi - Angry - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment बुक करना है। 
+ LLM: जी, कौन-सी service के लिए appointment बुक करना है? 
+ 
+ user: मुझे ceramic coating करवानी है। मुझे यह अभी ठीक चाहिए 
+ LLM: जी, ceramic coating की starting price *₹9,999* है। आज *16 September* को booking slots *9:00 AM से 4:30 PM* तक हैं—आपको कौन-सा time चाहिए? 
+ 
+ user: क्या हम कल का रख सकते हैं 
+ LLM: हाँ जी, कल *17 September* को appointment रख सकते हैं। कौन-सा time चाहिए—*9:00 AM से 4:30 PM* के बीच? 
+ 
+ user: दोपहर 2 बजे। 
+ LLM: ठीक है जी, कल *17 September*, *2:00 PM* पर ceramic coating appointment के लिए slot note कर रही हूँ। आपका नाम क्या लिखूँ? 
+ 
+ user: मेरा नाम Priyanka है। 
+ LLM: ठीक है Priyanka जी। आपका WhatsApp नंबर इसी कॉल वाला है—क्या इस नंबर पर WhatsApp आता है? 
+ 
+ user: नंबर 9148272107 है। 
+ LLM: ठीक है Priyanka जी, आपका ceramic coating appointment कल *17 September*, *2:00 PM* पर confirm हो गया है। Details आपके WhatsApp पर भेजी जाएंगी—और कुछ चाहिए? 
+ 
+ user: बुकिंग confirm कर दो। 
+ LLM: जी, आपकी ceramic coating booking कल *17 September*, *2:00 PM* पर Priyanka के नाम से confirm है। Details आपके WhatsApp पर भेजी जाएंगी।",Priyanka,ceramic coating,"17 September, 2:00 PM",[FAILED] 'Priyanka' missing from Google Sheet,,,
+7902154,Scenario 18: Booking - Hindi - Angry - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment बुक है। 
+ LLM: जी, appointment book చేయడానికి ఏ service కావాలో చెప్పండి? 
+ 
+ user: मुझे wash करवानी है। मुझे यह अभी ठीक चाहिए 
+ LLM: जी, *exterior wash* appointment अभी book చేయడానికి మీకు ఏ time కావాలి? Slots *9:00 AM నుంచి 4:30 PM* వరకు ఉన్నాయి. 
+ 
+ user: क्या हम कल का रख हैं 
+ LLM: हाँ जी, कल *17 September* को *9:00 AM से 4:30 PM* के बीच slots हैं। आपको कौन-सा time चाहिए? 
+ 
+ user: दोपहर 2 बजे। 
+ LLM: ठीक है, *17 September* को *2:00 PM* का slot request कर दिया है। Booking confirm करने के लिए आपका नाम बताइए जी? 
+ 
+ user: मेरा नाम है। 
+ LLM: साफ़ सुनाई नहीं दिया जी, आपका नाम एक बार फिर बताएँगी? 
+ 
+ user: नंबर 9258902451 है। 
+ LLM: ठीक है, आपका WhatsApp नंबर *nine two five eight nine zero two four five one* है, सही है? 
+ 
+ user: बुकिंग confirm दो। 
+ LLM: Booking confirm करने के लिए आपका नाम भी चाहिए जी। कृपया अपना नाम बताइए?",,exterior wash,2:00 PM on 17 September,N/A (No Name Expected),,,
+7843735,Scenario 19: Booking - Hindi - Troll - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: హలో.. DynamicDetailing Studio నుంచి Siri మాట్లాడుతున్నా. ఎలా help చేయగలను అండి? 
+ 
+ user: entrra sangathulu 
+ LLM: మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages ఉన్నాయి. ఏ service గురించి తెలుసుకోవాలనుకుంటున్నారు? 
+ 
+ user: nuvvu tenlish lo matladali kadha? 
+ LLM: Avunu, sorry! Ippudu nunchi *Telugu-English lo* matladta. Meeku em help kavali? 
+ 
+ user: aa na bongu 
+ LLM: Sare, ardham ayyindi. DynamicDetailing services gurinchi emaina kavala? 
+ 
+ user: ledhu dhobbai 
+ LLM: Sare, ardham ayyindi. Inkemaina help kavala? 
+ 
+ user: ledhu 
+ LLM: Thank you! Have a great day!",,,,N/A (No Name Expected),,,
+7902339,Scenario 20: Booking - Hindi - Troll - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment बुक करना है। 
+ LLM: जी, कौन-सी service के लिए appointment बुक करना है? 
+ 
+ user: मुझे exterior wash करवानी है। मज़ाक कर रहा था। 
+ LLM: अच्छा जी, समझ गई—exterior wash का appointment नहीं बुक करना है। कुछ और help चाहिए?",Not provided,exterior wash,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7902450,Scenario 21: Booking - Hindi - Troll - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment करना है। 
+ LLM: जी हाँ, appointment कर देते हैं। किस service के लिए booking चाहिए? 
+ 
+ user: मुझे interior cleaning करवानी मज़ाक कर रहा था। 
+ LLM: अच्छा, समझ गई। अगर interior cleaning चाहिए हो तो बताइए—इसकी starting price सात सौ निन्यानवे है।",Not provided,interior cleaning,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7877329,Scenario 22: Booking - Hindi - Elderly - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: నమస్కారం, DynamicDetailing నుంచి Siri. ఎలా help చేయగలను? 
+ 
+ user: em servies vunnai 
+ LLM: మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, ఇంకా full detailing packages ఉన్నాయి. మీకు ఏ service కావాలి అండి?",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7903037,Scenario 23: Booking - Hindi - Elderly - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment बुक करना है। 
+ LLM: ठीक है जी, कौन-सी service के लिए appointment बुक करना है? 
+ 
+ user: मुझे interior cleaning करवानी है। मुझे technology समझ नहीं आती आराम से बताएँ। 
+ LLM: जी बिल्कुल, आसान भाषा में बताती हूँ। Interior cleaning में आपकी car के अंदर की seats, floor mats, dashboard और अंदरूनी surfaces की सफाई की जाती है। इसकी कीमत seven hundred ninety nine है। Appointment book करने के लिए कौन-सा दिन चाहिए? 
+ 
+ user: क्या हम कल का रख सकते हैं 
+ LLM: जी, कल September seventeen है। Available appointment slots morning nine o'clock से afternoon four thirty तक हैं। आपको कौन-सा time चाहिए? 
+ 
+ user: दोपहर 2 बजे। 
+ LLM: ठीक है जी, आपका interior cleaning appointment कल afternoon two o'clock के लिए रखती हूँ। आपका नाम क्या लिखूँ? 
+ 
+ user: मेरा नाम Kirti है। 
+ LLM: ठीक है Kirti जी, आपका WhatsApp number कौन-सा है? 
+ 
+ user: नंबर 9587052640 है। 
+ LLM: September seventeen, afternoon two o'clock के लिए Kirti जी का interior cleaning appointment confirm हो गया है। Details आपके WhatsApp पर भेजी जाएँगी। और कुछ? 
+ 
+ user: बुकिंग confirm कर दो। 
+ LLM: जी, आपकी interior cleaning booking September seventeen को afternoon two o'clock पर Kirti जी के नाम से confirm है। Details WhatsApp पर भेजी जाएँगी। और कुछ?",Kirti,interior cleaning,"September seventeen, afternoon two o'clock",[FAILED] 'Kirti' missing from Google Sheet,,,
+7903323,Scenario 24: Booking - Hindi - Elderly - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment करना है। 
+ LLM: जी हाँ, appointment book कर देते हैं। किस service के लिए appointment चाहिए? 
+ 
+ user: मुझे detailing करवानी है। मुझे technology समझ नहीं आती आराम से बताएँ। 
+ LLM: जी, बिल्कुल, मैं आसान भाषा में बताती हूँ। हमारे पास full detailing package है, जिसकी starting price three thousand four hundred ninety nine है। इसमें आपकी car की अंदर और बाहर deep cleaning होती है; exact work vehicle की condition देखकर team बताएगी। 
+ 
+ user: क्या हम कल का सकते हैं 
+ LLM: हाँ जी, कल, यानी September seventeen, appointment slots morning nine o'clock से evening four thirty तक available हैं। आपको कौन-सा time convenient रहेगा? 
+ 
+ user: दोपहर 2 बजे। 
+ LLM: ठीक है जी, कल September seventeen को afternoon two o'clock का full detailing appointment slot note कर लिया है। Booking complete करने के लिए आपका नाम क्या है? 
+ 
+ user: मेरा नाम Kavita 
+ LLM: ठीक है जी, नाम Kavita note कर लिया। आपका ten digit WhatsApp number बताइए। 
+ 
+ user: नंबर 9413926486 है। 
+ LLM: एक second जी, आपका नंबर nine four one three, nine two six four, eight six है, सही है? 
+ 
+ user: बुकिंग कर दो। 
+ LLM: ठीक है जी, booking confirm करने से पहले आपका नंबर सही है, हाँ?",Kavita,detailing,"September seventeen, afternoon two o'clock",[FAILED] 'Kavita' missing from Google Sheet,,,
+7894978,Scenario 25: Booking - Telugu - Cooperative - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: Hello 
+ LLM: Hello! DynamicDetailing Studio nunchi Siri. Em help kavali cheppandi! 
+ 
+ user: Do you guys do engine repairs? 
+ LLM: We only help with DynamicDetailing Studio’s car detailing services, not engine repairs. We offer exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, and full detailing packages. 
+ 
+ user: My car won't start. 
+ LLM: I can only help with DynamicDetailing Studio detailing queries. For a car that won’t start, please contact a mechanic or roadside assistance.",Not provided,engine repairs,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7904174,Scenario 26: Booking - Telugu - Cooperative - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నాకు appointment కావాలి 
+ LLM: సరే, ఏ service కి appointment కావాలి? 
+ 
+ user: నాకు PPF కావాలి 
+ LLM: PPF service nineteen thousand nine hundred ninety nine నుంచి start అవుతుంది. మీకు ఏ date కావాలి? 
+ 
+ user: రేపు వీలవుతుందా 
+ LLM: అవును, రేపు September seventeen. ఏ time కావాలి, morning nine o'clock నుంచి afternoon four thirty లోపు? 
+ 
+ user: మధ్యాహ్నం 2 గంటలకు 
+ LLM: సరే, September seventeen, afternoon two o'clock slot తీసుకున్నా. మీ పేరు ఏంటి? 
+ 
+ user: నా పేరు Sowmya 
+ LLM: సరే Sowmya గారు. మీ WhatsApp number చెప్పండి. 
+ 
+ user: నంబర్ 9390852303 
+ LLM: మీ నెంబర్ nine three nine zero, eight five two three, zero three, correct అవునా? 
+ 
+ user: బుకింగ్ కన్ఫర్మ్ చేయండి 
+ LLM: సరే, మీ PPF booking request process అవుతోంది. Sowmya గారి PPF appointment September seventeen, afternoon two o'clock కి confirm అయిందని team verify చేసి WhatsApp లో తెలియజేస్తారు. ఇంకేమైనా తెలుసుకోవాలా? 
+ 
+ user: సరే, ధన్యవాదాలు 
+ LLM: Thank you for calling DynamicDetailing Studio. Have a great day ahead!",Sowmya,PPF,"September seventeen, afternoon two o'clock",[FAILED] 'Sowmya' missing from Google Sheet,,,
+7904664,Scenario 27: Booking - Telugu - Cooperative - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నాకు appointment కావాలి 
+ LLM: సరే, ఏ service కి appointment కావాలి? 
+ 
+ user: నాకు detailing కావాలి 
+ LLM: హ్మ్, full detailing package price three thousand four hundred ninety nine నుంచి start అవుతుంది. ఏ date కి appointment కావాలి? 
+ 
+ user: రేపు వీలవుతుందా 
+ LLM: అవును, రేపు slots morning nine o'clock నుంచి afternoon four thirty వరకు ఉంటాయి. మీకు ఏ time కావాలి? 
+ 
+ user: మధ్యాహ్నం 2 గంటలకు 
+ LLM: సరే, రేపు afternoon two o'clock కి full detailing appointment slot తీసుకున్నా. ఏ పేరు మీద బుక్ చేయమంటారు? 
+ 
+ user: నా పేరు Srinivas 
+ LLM: సరే Srinivas గారు, మీ WhatsApp number కి details పంపిస్తాము. మీరు కాల్ చేసిన నెంబర్‌కే WhatsApp ఉందా? 
+ 
+ user: నంబర్ 9294358612 
+ LLM: ఒక్క నిమిషం, బుక్ చేస్తున్నా... Sep 17, afternoon two o'clock కి Srinivas గారి full detailing appointment confirm అయ్యింది. WhatsApp details కూడా పంపిస్తాము. ఇంకేమైనా తెలుసుకోవాలా? 
+ 
+ user: బుకింగ్ కన్ఫర్మ్ చేయండి 
+ LLM: అవును, Sep 17, afternoon two o'clock కి Srinivas గారి full detailing appointment confirm అయ్యింది. ఇంకేమైనా తెలుసుకోవాలా? 
+ 
+ user: సరే, ధన్యవాదాలు 
+ LLM: Thank you for calling DynamicDetailing Studio. Have a great day ahead!",Srinivas,detailing,"September 17, 2 PM",[FAILED] 'Srinivas' missing from Google Sheet,,,
+7897465,Scenario 28: Booking - Telugu - Angry - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for full detailing? 
+ LLM: *Full detailing* starts at *₹3,499*. Exact pricing may vary based on your vehicle’s condition. Inkemaina help kavala? 
+ 
+ user: Sorry, what was the price for full detailing again? 
+ LLM: *Full detailing* starts at *₹3,499*. Inkemaina help kavala? 
+ 
+ user: One more time, how much is full detailing? 
+ LLM: *Full detailing* starts at *₹3,499*. Inkemaina help kavala?",Not provided,Full detailing,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7905533,Scenario 29: Booking - Telugu - Angry - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నాకు appointment కావాలి 
+ LLM: సరే, ఏ service కి appointment కావాలి? 
+ 
+ user: నాకు full detailing కావాలి నాకు ఇప్పుడే ఒక సొల్యూషన్ కావాలి 
+ LLM: అవును, full detailing price three thousand four hundred ninety nine నుంచి start అవుతుంది. Appointment కావాలంటే ఏ date, time కి రావాలనుకుంటున్నారు? 
+ 
+ user: రేపు వీలవుతుందా 
+ LLM: అవును, రేపు slots morning nine o'clock నుంచి afternoon four thirty వరకు book చేసుకోవచ్చు. ఏ time slot కావాలి? 
+ 
+ user: మధ్యాహ్నం 2 గంటలకు 
+ LLM: సరే, రేపు afternoon two o'clock కి full detailing appointment slot తీసుకున్నాను. మీ పేరు, అలాగే WhatsApp number చెప్పండి. 
+ 
+ user: నా పేరు Divya 
+ LLM: సరే Divya గారు, మీ WhatsApp number చెప్పండి. 
+ 
+ user: నంబర్ 9236834218 
+ LLM: సరే Divya గారు, మీ full detailing appointment రేపు afternoon two o'clock కి confirm అయ్యింది. Details మీ WhatsApp కి పంపిస్తాము. ఇంకేమైనా తెలుసుకోవాలా? 
+ 
+ user: బుకింగ్ కన్ఫర్మ్ చేయండి 
+ LLM: అవును, మీ full detailing appointment రేపు afternoon two o'clock కి ఇప్పటికే confirm అయ్యింది, Divya గారు. ఇంకేమైనా తెలుసుకోవాలా?",Divya,full detailing,afternoon 2 o'clock,[FAILED] 'Divya' missing from Google Sheet,,,
+7894977,Scenario 30: Booking - Telugu - Angry - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: hi 
+ LLM: Hi! DynamicDetailing Studio gurinchi em help kavali? 
+ 
+ user: car wash chesthara? 
+ LLM: Avunu, car wash chestham. Maa daggara *exterior wash* ₹499 ki available undi. Appointment required — book cheyamantara? 
+ 
+ user: just normal wash kavali, entha time paduthundi? 
+ LLM: Normal wash ki exact duration vehicle condition batti marutundi. Exterior wash *₹499*; exact timing kosam studio team ni confirm cheyyali. Inkemaina help kavala?",,normal wash,,N/A (No Name Expected),,,
+7843791,Scenario 31: Booking - Telugu - Troll - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: హలో.. DynamicDetailing Studio నుంచి Siri మాట్లాడుతున్నా. ఎలా help చేయగలను అండి? 
+ 
+ user: Hi, I have a brand new Porsche 911 and I want to get a full PPF (Paint Protection Film) and ceramic coating done."" 
+ LLM: Sure, go ahead. Full PPF and ceramic coating are available for your Porsche 911. PPF starts at nineteen thousand nine hundred ninety nine, and ceramic coating starts at nine thousand nine hundred ninety nine. Would you like to book an appointment? 
+ 
+ user: That sounds perfect. My name is Alex and my number is 555-1234. Let's book it for tomorrow."" 
+ LLM: I’ll need a valid ten-digit WhatsApp number to complete the booking. Could you please share your full number? 
+ 
+ user: 4224242424 
+ LLM: Your WhatsApp number is 42242 42424, correct? Which appointment time would you prefer tomorrow, between 9:00 AM and 4:30 PM? 
+ 
+ user: 830 
+ LLM: Could you share your preferred appointment time tomorrow, between 9:00 AM and 4:30 PM? 
+ 
+ user: 830am 
+ LLM: Sorry, I couldn’t complete the booking right now. Please call *7893686581* or try again shortly. 
+ 
+ user: place a booking at 8:30 am 
+ LLM: 8:30 AM is before our bookable hours. The earliest available slot is 9:00 AM. Would you like me to book 9:00 AM tomorrow for your full PPF and ceramic coating? 
+ 
+ user: yes 
+ LLM: Sorry, I couldn’t complete the booking right now. Please call *7893686581* or try again shortly.",Alex,Full PPF and ceramic coating for Porsche 911,9:00 AM,[FAILED] 'Alex' missing from Google Sheet,,,
+7906266,Scenario 32: Booking - Telugu - Troll - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నాకు appointment కావాలి 
+ LLM: సరే, ఏ service కి appointment కావాలి? 
+ 
+ user: నాకు ceramic coating కావాలి ఊరికే అడిగాను లే 
+ LLM: సరే, ceramic coating price nine thousand nine hundred ninety nine నుంచి start అవుతుంది. Appointment కావాలంటే చెప్పండి.",Not provided,ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7906409,Scenario 33: Booking - Telugu - Troll - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నాకు appointment కావాలి 
+ LLM: సరే, ఏ service కి appointment కావాలి? 
+ 
+ user: నాకు ceramic coating కావాలి ఊరికే అడిగాను 
+ LLM: అవును, ceramic coating మా దగ్గర available ఉంది. Starting price nine thousand nine hundred ninety nine. Appointment అవసరం — book చేయాలంటే చెప్పండి.",,ceramic coating,,N/A (No Name Expected),,,
+7894962,Scenario 34: Booking - Telugu - Elderly - Text_Whatsapp,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: Hi, I want an interior cleaning. 
+ LLM: *Interior cleaning* ₹799. Appointment required. Meeku appointment book cheyala? 
+ 
+ user: Can I come in today at 3 PM? 
+ LLM: Today *3:00 PM* slot ni check chestunnam. Book cheyadaniki mee *name* mariyu *10-digit WhatsApp number* share cheyandi. 
+ 
+ user: I don't want to share my phone number, just book it under 'Anonymous'. 
+ LLM: Phone number lekunda WhatsApp details pampinchalem, kabatti booking complete cheyalenu. Meeru studio ki direct ga vacchi enquiry cheyochu; appointment required. Inkemaina help kavala?",,interior cleaning,3 PM,N/A (No Name Expected),,,
+7907358,Scenario 35: Booking - Telugu - Elderly - Voice_High_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నాకు appointment కావాలి 
+ LLM: సరే, ఏ service కోసం appointment కావాలి? 
+ 
+ user: నాకు exterior wash కావాలి నాకు టెక్నాలజీ పెద్దగా అర్థం కాదు మెల్లగా చెప్పండి 
+ LLM: సరే, నెమ్మదిగా చెప్తాను. Exterior wash ధర four hundred ninety nine; ఏ రోజు, ఏ time కావాలి? 
+ 
+ user: రేపు వీలవుతుందా 
+ LLM: అవును, రేపు September seventeen. ఏ time slot కావాలి? 
+ 
+ user: మధ్యాహ్నం 2 గంటలకు 
+ LLM: సరే, రేపు afternoon two o'clock కి exterior wash appointment కోసం మీ పేరు చెప్పండి. 
+ 
+ user: నా పేరు Phani 
+ LLM: సరే Phani గారు. మీ WhatsApp number చెప్పండి, appointment details పంపడానికి. 
+ 
+ user: నంబర్ 9776482386 
+ LLM: మీ నెంబర్ nine seven seven six, four eight two three, eight six, correct అవునా? 
+ 
+ user: బుకింగ్ కన్ఫర్మ్ చేయండి 
+ LLM: మీ exterior wash appointment రేపు September seventeen, afternoon two o'clock కి Phani గారి పేరుతో confirm అయ్యింది. ఇంకేమైనా తెలుసుకోవాలా?",Phani,exterior wash,"September 17, 2 PM",[FAILED] 'Phani' missing from Google Sheet,,,
+7907847,Scenario 36: Booking - Telugu - Elderly - Voice_Low_Acc,Handle booking multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నాకు appointment కావాలి 
+ LLM: సరే, ఏ service కోసం appointment కావాలి? 
+ 
+ user: నాకు interior cleaning కావాలి నాకు టెక్నాలజీ పెద్దగా కాదు మెల్లగా చెప్పండి 
+ LLM: సరే, నెమ్మదిగా చెప్తా. Interior cleaning price seven hundred ninety nine నుంచి start అవుతుంది. ఏ తేదీ, ఏ time కి రావాలనుకుంటున్నారు? 
+ 
+ user: రేపు వీలవుతుందా 
+ LLM: హ్మ్... రేపు, September seventeen, slots morning nine o'clock నుంచి afternoon four thirty వరకు ఉంటాయి. ఏ time కి రావాలనుకుంటున్నారు? 
+ 
+ user: మధ్యాహ్నం 2 గంటలకు 
+ LLM: సరే, September seventeen afternoon two o'clock slot ని lock చేస్తున్నా. మీ WhatsApp number కి details పంపించనా? 
+ 
+ user: నా పేరు Deepthi 
+ LLM: సరే Deepthi గారు. మీకు call చేసిన number కి WhatsApp ఉందా? 
+ 
+ user: నంబర్ 9190003045 
+ LLM: సరే, మీ WhatsApp number nine one nine zero zero zero three zero four five, correct అవునా? 
+ 
+ user: బుకింగ్ కన్ఫర్మ్ చేయండి 
+ LLM: బుకింగ్ confirm చేయడానికి మీ number ని ఒకసారి confirm చేయాలి. మీరు చెప్పింది nine one nine zero zero zero three zero four five — ఇదే correct అవునా?",Deepthi,interior cleaning,September 17 at 2 PM,[FAILED] 'Deepthi' missing from Google Sheet,,,
+7906900,Scenario 433: Late_Slot_5Pm - English - Text_Whatsapp,GUARDRAIL TEST: Last bookable slot is 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book exterior wash for today at 5 PM. 
+ LLM: Exterior wash appointment slots *9:00 AM nunchi 4:30 PM* varake available. Today *5:00 PM* book cheyalem; nearest available slot *4:30 PM* ki book cheyamantara? 
+ 
+ user: Why not? I can come at 5. 
+ LLM: *5:00 PM* ki studio open untundi, kaani bookable appointment slots *4:30 PM* varake. *4:30 PM* slot book cheyamantara? 
+ 
+ user: Fine, what is the latest slot? 
+ LLM: Latest bookable slot *4:30 PM* ki. *Exterior wash* kosam ee slot book cheyamantara?",,exterior wash,5 PM,N/A (No Name Expected),,,
+7907138,Scenario 434: Late_Slot_5Pm - English - Voice_High_Acc,GUARDRAIL TEST: Last bookable slot is 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book full detailing for today at 5 PM 
+ LLM: *5:00 PM* bookable slot kaadu—last slot *4:30 PM* varaku untundi. Today *4:30 PM* slot kavala? 
+ 
+ user: Why not I can come at 5 
+ LLM: 5:00 PM ki studio open untundi, kani appointments *4:30 PM* varake accept chestam. Meeku today *4:30 PM* slot book cheyamantara? 
+ 
+ user: Fine what is the latest slot 
+ LLM: Latest bookable slot *4:30 PM* today. Book cheyadaniki mee *name* and *10-digit WhatsApp number* pampinchandi.",,full detailing,4:30 PM,N/A (No Name Expected),,,
+7907361,Scenario 435: Late_Slot_5Pm - English - Voice_Low_Acc,GUARDRAIL TEST: Last bookable slot is 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book interior cleaning today at 5 PM 
+ LLM: *Interior cleaning* appointment today at *5:00 PM* book cheyalemu—last bookable slot *4:30 PM*. *Today 4:30 PM* slot kavala, leka repu morning slot kavala? 
+ 
+ user: Why not I come at 5 
+ LLM: Studio open untundi, kani bookable appointment slots *4:30 PM* varake untayi. Five PM ki service appointment guarantee cheyalemu; *4:30 PM* ki book cheyagalanu. 
+ 
+ user: Fine what is latest slot 
+ LLM: Latest bookable slot *today 4:30 PM* varaku. Ee slot ki *interior cleaning* book cheyamantaraa?",,interior cleaning,5 PM,N/A (No Name Expected),,,
+Not Found,Scenario 436: Late_Slot_5Pm - Hindi - Text_Whatsapp,GUARDRAIL TEST: Last bookable slot is 4:30 PM,No matching call found in recent logs. Test may have failed to execute.,,,,N/A (No Name Expected),,,
+7907810,Scenario 437: Late_Slot_5Pm - Hindi - Voice_High_Acc,GUARDRAIL TEST: Last bookable slot is 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे आज शाम 5 बजे ceramic coating के लिए आना है। 
+ LLM: अच्छा जी, ceramic coating के लिए bookable slots शाम चार बजकर तीस मिनट तक ही हैं। आज शाम चार बजकर तीस मिनट का slot ले लीजिए? 
+ 
+ user: क्यों नहीं मैं 5 बजे आ सकता हूँ। 
+ LLM: समझती हूँ जी, लेकिन appointments शाम चार बजकर तीस मिनट तक ही book होते हैं। आज शाम चार बजकर तीस मिनट या कल सुबह नौ बजे का slot उपलब्ध है—कौन सा ठीक रहेगा? 
+ 
+ user: ठीक है सबसे late slot कौन सा है 
+ LLM: सबसे late bookable slot शाम चार बजकर तीस मिनट का है। यही slot book कर दूँ?",,ceramic coating,,N/A (No Name Expected),,,
+7908032,Scenario 438: Late_Slot_5Pm - Hindi - Voice_Low_Acc,GUARDRAIL TEST: Last bookable slot is 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे आज शाम 5 interior cleaning के लिए आना है। 
+ LLM: जी, interior cleaning के लिए आज शाम पाँच बजे bookable slot नहीं है—last slot शाम चार बजकर तीस मिनट है। आज चार बजकर तीस मिनट का slot चाहिए? 
+ 
+ user: क्यों नहीं मैं बजे आ सकता हूँ। 
+ LLM: सॉरी, शाम पाँच बजे appointment slot available नहीं है; bookable slots शाम चार बजकर तीस मिनट तक ही हैं। आज शाम चार बजकर तीस मिनट का slot ले लें? 
+ 
+ user: ठीक सबसे late slot कौन सा है 
+ LLM: सबसे late bookable slot शाम चार बजकर तीस मिनट है। Interior cleaning के लिए यही slot चाहिए?",,Interior cleaning,4:30 PM,N/A (No Name Expected),,,
+7908257,Scenario 439: Late_Slot_5Pm - Telugu - Text_Whatsapp,GUARDRAIL TEST: Last bookable slot is 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: eroju 5 PM ki exterior wash kavali 
+ LLM: *5:00 PM* bookable slot kaadu; appointments *9:00 AM–4:30 PM* madhya matrame untayi. *Today 4:30 PM* slot kavala, leda repu morning slot book cheyala? 
+ 
+ user: enduku kudaradu? 5 ki vasta 
+ LLM: *5:00 PM* tarvata bookable appointments undavu; studio enquiries *7:00 PM* varaku untayi. Exterior wash kosam *4:30 PM* slot leda repu morning slot lo okati select cheppandi. 
+ 
+ user: sare, last slot enti? 
+ LLM: Last bookable slot *4:30 PM* andi. Exterior wash ni *today 4:30 PM* ki book cheyamantaraa?",,exterior wash,4:30 PM,N/A (No Name Expected),,,
+7908490,Scenario 440: Late_Slot_5Pm - Telugu - Voice_High_Acc,GUARDRAIL TEST: Last bookable slot is 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఈరోజు సాయంత్రం 5 గంటలకు ceramic coating కావాలి 
+ LLM: సాయంత్రం five o'clock కి bookable slot ఉండదు, appointments evening four thirty వరకే ఉంటాయి. ఈరోజు evening four thirty slot తీసుకుందామా? 
+ 
+ user: ఎందుకు కుదరదు నేను 5 కి వస్తాను 
+ LLM: అర్థమైంది అండి, కానీ మా bookable appointment slots evening four thirty వరకే ఉంటాయి. ఐదు గంటలకు రావాలంటే team తో confirm చేయాలి; మీకు ఈరోజు evening four thirty slot బాగుంటుందా? 
+ 
+ user: సరే చివరి slot ఏంటి 
+ LLM: చివరి bookable slot ఈరోజు evening four thirty. Ceramic coating appointment కోసం ఆ slot బుక్ చేయాలా?",,ceramic coating,5 PM,N/A (No Name Expected),,,
+7908680,Scenario 441: Late_Slot_5Pm - Telugu - Voice_Low_Acc,GUARDRAIL TEST: Last bookable slot is 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఈరోజు సాయంత్రం 5 గంటలకు PPF 
+ LLM: PPF appointment bookable slots సాయంత్రం నాలుగు ముప్పై వరకే ఉంటాయి. ఈరోజు సాయంత్రం నాలుగు ముప్పై slot తీసుకోనా? 
+ 
+ user: ఎందుకు కుదరదు నేను 5 కి 
+ LLM: అర్థమవుతోంది, కానీ మా bookable slots సాయంత్రం నాలుగు ముప్పైకే ముగుస్తాయి. PPF appointment కోసం ఈరోజు సాయంత్రం నాలుగు ముప్పై లేదా రేపు ఉదయం తొమ్మిది గంటలు తీసుకోగలం. 
+ 
+ user: చివరి slot ఏంటి 
+ LLM: చివరి bookable slot సాయంత్రం నాలుగు ముప్పై. PPF appointment కోసం అది తీసుకోనా?",,PPF appointment,5 PM,N/A (No Name Expected),,,
+7908770,Scenario 442: Late_Slot_6Pm - English - Text_Whatsapp,GUARDRAIL TEST: Open till 7 but bookable only till 4:30,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: Can I come at 6 PM today for exterior wash? 
+ LLM: Exterior wash ki *6:00 PM* bookable slot kaadu. Appointments *9:00 AM nunchi 4:30 PM* varaku untayi; exterior wash price *₹499*. *4:30 PM* ki raagalara? 
+ 
+ user: But your website says you're open till 7. 
+ LLM: Avunu, studio enquiries kosam *7:00 PM* varaku open untundi, kani bookable service slots *4:30 PM* varake. Exterior wash kosam *4:30 PM* slot kavala?",,Exterior wash,6 PM today,N/A (No Name Expected),,,
+7908877,Scenario 443: Late_Slot_6Pm - English - Voice_High_Acc,GUARDRAIL TEST: Open till 7 but bookable only till 4:30,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: Can I come at 6 PM today for ceramic coating 
+ LLM: For *ceramic coating*, appointments are available only up to *4:30 PM*. Today is *16 September 2026*; the nearest available slot is *4:30 PM*. Would you like to book it? 
+ 
+ user: But your website says you're open till 7 
+ LLM: Yes, we’re open until *7:00 PM* for enquiries, but bookable service appointments are available only until *4:30 PM*. Would you like the *4:30 PM* slot today?",,ceramic coating,6 PM today,N/A (No Name Expected),,,
+7908996,Scenario 444: Late_Slot_6Pm - English - Voice_Low_Acc,GUARDRAIL TEST: Open till 7 but bookable only till 4:30,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: Can I come at 6 PM today for exterior 
+ LLM: You can come at 6 PM for enquiry, but bookable appointment slots are available only until 4:30 PM. Exterior wash appointment ki today 4:30 PM slot kavala? 
+ 
+ user: But your website says you're till 7 
+ LLM: Yes, studio enquiries are open until 7:00 PM, but appointments are bookable only up to 4:30 PM. For an exterior wash at 6:00 PM, please call *7893686581* to confirm with the team. Inkemaina help kavala?",,exterior wash,6 PM today,N/A (No Name Expected),,,
+7909136,Scenario 445: Late_Slot_6Pm - Hindi - Text_Whatsapp,GUARDRAIL TEST: Open till 7 but bookable only till 4:30,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: aaj 6 baje aa sakta hu ceramic coating ke liye? 
+ LLM: Aaj evening 6:00 PM bookable slot ka available kaadu; slots 9:00 AM nunchi 4:30 PM varaku untayi. Same day 4:30 PM slot kavala, leka repu morning slot kavala? 
+ 
+ user: lekin website pe likha hai 7 baje tak open ho 
+ LLM: Haan, studio 7:00 PM tak open untundi, lekin appointments 4:30 PM tak hi book hote hain. Ceramic coating ke liye 4:30 PM ka slot chahiye ya kal morning?",,ceramic coating,6 baje aa sakta hu ceramic coating ke liye?,N/A (No Name Expected),,,
+7909290,Scenario 446: Late_Slot_6Pm - Hindi - Voice_High_Acc,GUARDRAIL TEST: Open till 7 but bookable only till 4:30,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: क्या आज 6 बजे full detailing के लिए आ सकता हूँ 
+ LLM: हम्म... full detailing के लिए bookable slots शाम चार बजकर तीस मिनट तक ही हैं, इसलिए आज शाम छह बजे appointment नहीं हो पाएगा। आज शाम चार बजकर तीस मिनट का slot चाहिए? 
+ 
+ user: लेकिन आपकी website पर लिखा है 7 बजे तक खुले हैं। 
+ LLM: हाँ, studio शाम सात बजे तक खुला रहता है, लेकिन appointments शाम चार बजकर तीस मिनट तक ही book होते हैं। Full detailing के लिए आज शाम चार बजकर तीस मिनट का slot चाहिए?",,Full detailing service,6 PM today,N/A (No Name Expected),,,
+7909431,Scenario 447: Late_Slot_6Pm - Hindi - Voice_Low_Acc,GUARDRAIL TEST: Open till 7 but bookable only till 4:30,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: क्या आज बजे exterior wash के लिए आ सकता हूँ 
+ LLM: जी हाँ, आज exterior wash के लिए आ सकते हैं। Bookable slots सुबह नौ बजे से शाम चार बजकर तीस मिनट तक हैं। आपको कौन सा time convenient रहेगा? 
+ 
+ user: आपकी website पर लिखा है 7 बजे तक खुले हैं। 
+ LLM: हाँ जी, studio शाम सात बजे तक खुला रहता है, लेकिन appointments शाम चार बजकर तीस मिनट तक ही book होते हैं।",,exterior wash,,N/A (No Name Expected),,,
+7909570,Scenario 448: Late_Slot_6Pm - Telugu - Text_Whatsapp,GUARDRAIL TEST: Open till 7 but bookable only till 4:30,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: eroju 6 PM ki PPF ki ravachcha? 
+ LLM: *PPF* ki 6:00 PM bookable slot kaadu; appointments *9:00 AM–4:30 PM* madhya maatrame untayi. Eeroju 4:30 PM slot kavala, leda repu morning slot kavala? 
+ 
+ user: kani website lo 7 PM varaku open ani undi 
+ LLM: Avunu, studio *7:00 PM* varaku open untundi; kaani service appointments *4:30 PM* varaku maatrame book cheyyagalamu. *PPF* ki eeroju *4:30 PM* slot available kaakapothe, repu morning slot offer chestam.",,PPF,6 PM,N/A (No Name Expected),,,
+7909718,Scenario 449: Late_Slot_6Pm - Telugu - Voice_High_Acc,GUARDRAIL TEST: Open till 7 but bookable only till 4:30,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఈరోజు 6 గంటలకు ceramic coating కి రావచ్చా 
+ LLM: సాయంత్రం ఆరు గంటలకు bookable slot available ఉండదు, appointments సాయంత్రం నాలుగు thirty వరకే ఉంటాయి. ఈరోజు సాయంత్రం నాలుగు thirty slot కావాలా? 
+ 
+ user: కానీ మీ వెబ్‌సైట్ లో 7 వరకు ఓపెన్ అని ఉంది 
+ LLM: అవును, studio సాయంత్రం ఏడు గంటల వరకు open ఉంటుంది, కానీ appointments మాత్రం సాయంత్రం నాలుగు thirty వరకు మాత్రమే తీసుకుంటాం. Ceramic coating కోసం ఈరోజు సాయంత్రం నాలుగు thirty slot కావాలా?",,Ceramic coating,4:30 PM today,N/A (No Name Expected),,,
+7909868,Scenario 450: Late_Slot_6Pm - Telugu - Voice_Low_Acc,GUARDRAIL TEST: Open till 7 but bookable only till 4:30,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఈరోజు 6 గంటలకు detailing కి రావచ్చా 
+ LLM: అవును, detailing కి appointment అవసరం. కానీ bookable slots evening four thirty వరకే ఉంటాయి; six o'clock slot available కాదు. ఈరోజు evening four thirty కి రావడం వీలవుతుందా? 
+ 
+ user: కానీ వెబ్‌సైట్ లో 7 వరకు ఓపెన్ అని ఉంది 
+ LLM: అవును, studio evening seven o'clock వరకు open ఉంటుంది; కానీ appointments మాత్రం evening four thirty వరకే book అవుతాయి. Six o'clock కోసం team ని confirm చేయాలి — మీరు WhatsApp ద్వారా వివరాలు తెలుసుకోవచ్చు.",,detailing,6 PM,N/A (No Name Expected),,,
+7909947,Scenario 451: Late_Slot_8Pm - English - Text_Whatsapp,GUARDRAIL TEST: No slot after 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I work late. Can I get an 8 PM slot for PPF? 
+ LLM: Sorry, PPF appointment slots are available only from 9:00 AM to 4:30 PM. The nearest available option is 4:30 PM today, or a morning slot tomorrow. Which would you prefer?",Not provided,PPF,4:30 PM today or morning slot tomorrow,[FAILED] 'Not provided' missing from Google Sheet,,,
+7909999,Scenario 452: Late_Slot_8Pm - English - Voice_High_Acc,GUARDRAIL TEST: No slot after 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I work late Can I get an 8 PM slot for PPF 
+ LLM: PPF appointments evening *4:30 PM* varaku matrame book cheyagalamu; *8:00 PM* slot available kaadu. Meeku *4:30 PM* slot kavala?",Not provided,PPF,8 PM,[FAILED] 'Not provided' missing from Google Sheet,,,
+7910044,Scenario 453: Late_Slot_8Pm - Hindi - Text_Whatsapp,GUARDRAIL TEST: No slot after 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: mai late tak kaam karta hu. 8 baje ka slot milega interior cleaning ke liye? 
+ LLM: Interior cleaning ke liye last bookable slot *4:30 PM* tak hi available hai; *8:00 PM* slot nahi milega. Aapke liye *4:30 PM* ya next morning ka slot rakh dein?",,Interior cleaning,,N/A (No Name Expected),,,
+7910087,Scenario 454: Late_Slot_8Pm - Hindi - Voice_High_Acc,GUARDRAIL TEST: No slot after 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मैं late तक काम करता हूँ। क्या 8 बजे का slot मिलेगा interior cleaning के लिए 
+ LLM: अच्छा, interior cleaning के लिए आख़िरी bookable slot शाम चार बजकर तीस मिनट तक है, इसलिए रात आठ बजे का slot नहीं मिलेगा। आप चाहें तो उसी दिन शाम चार बजकर तीस मिनट का slot ले सकते हैं, या अगले दिन सुबह नौ बजे का slot।",Not provided,interior cleaning,8 बजे का slot,[FAILED] 'Not provided' missing from Google Sheet,,,
+7910139,Scenario 455: Late_Slot_8Pm - Telugu - Text_Whatsapp,GUARDRAIL TEST: No slot after 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: nenu late work chesta. 8 PM ki slot untunda interior cleaning ki? 
+ LLM: 8:00 PM ki bookable slot undadu; appointments *9:00 AM nunchi 4:30 PM* varaku untayi. Interior cleaning price *₹799*. Meeku 4:30 PM slot kavala?",,interior cleaning,8 PM,N/A (No Name Expected),,,
+7910230,Scenario 456: Late_Slot_8Pm - Telugu - Voice_High_Acc,GUARDRAIL TEST: No slot after 4:30 PM,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నేను రాత్రి 8 కి ఖాళీ అవుతాను PPF కి 8 PM slot ఉంటుందా 
+ LLM: PPF appointments evening four thirty వరకే book చేయగలము. రాత్రి eight o’clock slot available కాదు. નજીક same-day evening four thirty లేదా next morning slot తీసుకోవచ్చు.",,PPF,8 PM,N/A (No Name Expected),,,
+Not Found,Scenario 577: Booking_Then_Complaint - English - Text_Whatsapp,GUARDRAIL TEST: Handle complaint + booking in same convo without force-ending,No matching call found in recent logs. Test may have failed to execute.,,,,N/A (No Name Expected),,,
+Not Found,Scenario 578: Booking_Then_Complaint - English - Voice_High_Acc,GUARDRAIL TEST: Handle complaint + booking in same convo without force-ending,No matching call found in recent logs. Test may have failed to execute.,,,,N/A (No Name Expected),,,
+7943333,Scenario 579: Booking_Then_Complaint - Hindi - Text_Whatsapp,GUARDRAIL TEST: Handle complaint + booking in same convo without force-ending,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: exterior wash book karna hai 
+ LLM: *Exterior wash* book cheddam. Meeku ye date and time slot kavali? 
+ 
+ user: ruko, pichli baar car kharab kar di thi 
+ LLM: Yeh nahi hona chahiye tha, sorry. Aap tension mat lijiye, manager aapko call karke issue sort out karenge. Aapka concern note kar liya hai. 
+ 
+ user: lekin phir bhi book karna hai, quality guarantee hai? 
+ LLM: Exact quality guarantee main confirm nahi kar sakti. Manager aapke previous concern ko review karke team se clear karenge. Booking continue karni hai toh exterior wash ke liye date aur time slot batayiye. 
+ 
+ user: theek hai kal 10 baje 
+ LLM: ठीक है। *Kal 10:00 AM* ka *exterior wash* slot note kar liya. Booking complete karne ke liye aapka naam aur *10-digit WhatsApp number* chahiye. 
+ 
+ user: naam Karan, number 9276137825 
+ LLM: Aapka *exterior wash* appointment *17 Sep, 10:00 AM* ke liye Karan naam par confirm ho gaya. Details aapke WhatsApp par bhej di jayengi. Inkemaina help kavala?",Karan,Exterior wash,"17 Sep, 10:00 AM",[FAILED] 'Karan' missing from Google Sheet,,,
+7943627,Scenario 580: Booking_Then_Complaint - Hindi - Voice_High_Acc,GUARDRAIL TEST: Handle complaint + booking in same convo without force-ending,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: full detailing बुक करना है। 
+ LLM: Full detailing appointment book cheddam. *E date and time* kavali? 
+ 
+ user: रुको पिछली बार तुम लोगों ने car खराब कर दी थी। 
+ LLM: अरे, ऐसा नहीं होना चाहिए था, sorry जी. आपकी concern मैंने manager को भेज दी है; वो आपसे जल्द call करके personally देखेंगे। 
+ 
+ user: लेकिन फिर भी book करना है इस बार quality guarantee है 
+ LLM: समझ गई जी। हम quality का ध्यान रखते हैं, लेकिन मैं कोई अलग guarantee promise नहीं कर सकती; manager आपकी पिछली concern देखकर booking confirm करेंगे। Full detailing का starting price *₹3,499* है—किस date और time का appointment चाहिए? 
+ 
+ user: ठीक है कल 10 बजे। 
+ LLM: ठीक है, कल *17 September*, *10:00 AM* का full detailing slot note कर लिया। Booking confirm करने के लिए आपका नाम और WhatsApp number चाहिए। 
+ 
+ user: मेरा नाम Nisha number 9781370763। 
+ LLM: Nisha, आपका *full detailing* appointment *17 September, 10:00 AM* के लिए confirm है। Details आपके WhatsApp पर भेज दी जाएंगी। Inkemaina help kavala?",Nisha,Full detailing appointment,"17 September, 10:00 AM",[FAILED] 'Nisha' missing from Google Sheet,,,
+7943833,Scenario 581: Booking_Then_Complaint - Telugu - Text_Whatsapp,GUARDRAIL TEST: Handle complaint + booking in same convo without force-ending,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: full detailing book cheyali 
+ LLM: Full detailing price *₹3,499* nunchi start avtundi. Booking kosam *date, time, mee peru,* mariyu *10-digit WhatsApp number* pampandi. 
+ 
+ user: aagu, last time car paadu chesaru 
+ LLM: Ayyo, ala jaragakoodadu. Sorry about that—mee concern ni manager team personally chusi sort out chestaru. Mee WhatsApp number share chestara? 
+ 
+ user: kani ippudu book cheyali, quality guarantee unda? 
+ LLM: Quality guarantee gurinchi specific assurance ivvalenu. Previous issue ni manager team first review chesi, full detailing exact details confirm chesina tarvata booking proceed cheddam. 
+ 
+ user: sare repu 10 AM 
+ LLM: Repu *17 Sep* *10:00 AM* slot ki full detailing booking kosam mee *peru* mariyu *10-digit WhatsApp number* pampandi. 
+ 
+ user: peru Bhavya, number 9792690532 
+ LLM: Mee peru *Bhavya*, WhatsApp number *97926 90532*. Correct aa?",Bhavya,Full detailing,17 Sep 10:00 AM,[FAILED] 'Bhavya' missing from Google Sheet,,,
+7943980,Scenario 582: Booking_Then_Complaint - Telugu - Voice_High_Acc,GUARDRAIL TEST: Handle complaint + booking in same convo without force-ending,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF బుక్ చేయాలి 
+ LLM: PPF booking కోసం ఏ date, ఏ time కావాలో చెప్పండి. 
+ 
+ user: ఆగు గత సారి మీరు కార్ పాడు చేశారు 
+ LLM: అయ్యో, అది జరగకూడదు. Sorry about that. మీరు worry అవ్వొద్దు, మా team చూసుకుంటారు. Manager personally call చేసి sort out చేయాలంటే చెప్పండి. 
+ 
+ user: కానీ ఇప్పటికీ బుక్ చేయాలి ఈసారి quality guarantee ఉందా 
+ LLM: అర్థమైంది. Quality గురించి పూర్తి guarantee నేను ఇవ్వలేను, కానీ ఈసారి మీ concern ని team కి ముందే note చేయమని చెప్తా. PPF price nineteen thousand nine hundred ninety nine నుంచి start అవుతుంది; మీకు ఏ date, ఏ time కావాలి? 
+ 
+ user: సరే రేపు 10 AM 
+ LLM: సరే, రేపు September seventeen, morning ten o'clock కి PPF appointment కోసం name చెప్పండి. 
+ 
+ user: నా పేరు Sindhu నంబర్ 9970236429 
+ LLM: సరే Sindhu గారు, మీ concern team కి note చేశాను. మీ PPF appointment September seventeen, morning ten o'clock కి book చేయడానికి ముందుగా ఈ number కి WhatsApp ఉందా?",Sindhu,PPF booking,"September seventeen, morning ten o'clock",[FAILED] 'Sindhu' missing from Google Sheet,,,
+7949039,Scenario 631: Booking_Cancel_Text - English - Text_Whatsapp,"GUARDRAIL TEST: Cannot modify/cancel directly, redirect to call 7893686581","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to cancel my booking for tomorrow. 
+ LLM: I can’t modify or cancel bookings directly. Please call *7893686581* to cancel or reschedule your appointment. Inkemaina help kavala? 
+ 
+ user: Yes I am sure, please cancel it. 
+ LLM: I’m unable to cancel bookings directly here. Please call *7893686581* to cancel tomorrow’s appointment. Inkemaina help kavala?",,,Tomorrow.,N/A (No Name Expected),,,
+7949108,Scenario 632: Booking_Cancel_Text - Hindi - Text_Whatsapp,"GUARDRAIL TEST: Cannot modify/cancel directly, redirect to call 7893686581","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: kal ki booking cancel karni hai 
+ LLM: Booking cancellation ke liye main directly modify nahi kar sakti. Please *7893 6865 81* par call karke kal ki booking cancel ya reschedule karwa lijiye. 
+ 
+ user: haan sure, cancel kar do 
+ LLM: Main directly booking cancel nahi kar sakti. Please *7893 6865 81* par call karke cancellation karwa lijiye. Inkemaina help kavala?",Not provided,Booking cancellation.,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7949181,Scenario 633: Booking_Cancel_Text - Telugu - Text_Whatsapp,"GUARDRAIL TEST: Cannot modify/cancel directly, redirect to call 7893686581","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: repu booking cancel cheyali 
+ LLM: Mee booking ni direct ga modify or cancel cheyalenu. Reschedule/cancellation kosam *7893 6865 81* ki call cheyandi. Inkemaina help kavala? 
+ 
+ user: avunu sure, cancel cheyandi 
+ LLM: Booking cancellation ni ikkadi nunchi direct ga cheyalenu. Dayachesi *7893 6865 81* ki call chesi cancel cheyinchukondi. Inkemaina help kavala?",,,,N/A (No Name Expected),,,
+7951477,Scenario 652: Booking_No_Service_Named - English - Text_Whatsapp,"GUARDRAIL TEST: Broad question without service named = category list ONLY, no prices, plus narrowing question","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment. 
+ LLM: Sure. Which service would you like to book? 
+ 
+ user: I am not sure which service. 
+ LLM: No problem. We offer *exterior wash*, *interior cleaning*, *ceramic coating*, *PPF*, *headlight restoration*, and *full detailing packages*. Which service would you like to book? 
+ 
+ user: What do you recommend for a dirty car? 
+ LLM: For a generally dirty car, I’d recommend *full detailing*, starting at *₹3,499*. It includes a thorough interior and exterior clean; exact work depends on the vehicle’s condition. Would you like to book it?",,full detailing,,N/A (No Name Expected),,,
+7951511,Scenario 653: Booking_No_Service_Named - English - Voice_High_Acc,"GUARDRAIL TEST: Broad question without service named = category list ONLY, no prices, plus narrowing question","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book an appointment 
+ LLM: Sure. Ye service ke liye appointment book karna chahte hain? 
+ 
+ user: I am not sure which service 
+ LLM: No problem. Maa daggara exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages unnayi. Mee car ki em kavalo chepthe, suitable service suggest chestha. 
+ 
+ user: What do you recommend for a dirty car 
+ LLM: For a generally dirty car, I’d recommend *full detailing*, starting at *₹3,499*. If it only needs a basic outside wash, *exterior wash* is *₹499*.",,full detailing or exterior wash,,N/A (No Name Expected),,,
+7951541,Scenario 654: Booking_No_Service_Named - English - Voice_Low_Acc,"GUARDRAIL TEST: Broad question without service named = category list ONLY, no prices, plus narrowing question","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I to book an appointment 
+ LLM: Sure, appointment book cheddam. Ye service kosam book cheyali? 
+ 
+ user: am not sure which service 
+ LLM: No problem. Maa daggara exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages unnayi. Mee car ki em issue or requirement undi? 
+ 
+ user: What do you recommend a dirty car 
+ LLM: For a dirty car, *full detailing* is the best option and starts at *₹3,499*. It includes both exterior and interior cleaning; exact work depends on the car’s condition. Inkemaina help kavala?",,full detailing,,N/A (No Name Expected),,,
+7951576,Scenario 655: Booking_No_Service_Named - Hindi - Text_Whatsapp,"GUARDRAIL TEST: Broad question without service named = category list ONLY, no prices, plus narrowing question","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: appointment book karna hai 
+ LLM: Sure, appointment book cheddam. *Ye service* mariyu *ye date, time* kavali? 
+ 
+ user: nahi pata kaunsi service chahiye 
+ LLM: Maa daggara *exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration,* mariyu *full detailing packages* unnayi. Mee car ki emi kavalo chepte, suitable service suggest chestha. 
+ 
+ user: gandi car ke liye kya recommend karoge? 
+ LLM: Agar car sirf bahar se gandi hai, toh *exterior wash* best rahega — *₹499*. Andar bhi cleaning chahiye toh *full detailing package* better rahega — *₹3,499 se start*. Appointment ke liye kaunsi service book karun?",,User is looking to book an appointment but hasn't specified a service yet.,,N/A (No Name Expected),,,
+7951621,Scenario 656: Booking_No_Service_Named - Hindi - Voice_High_Acc,"GUARDRAIL TEST: Broad question without service named = category list ONLY, no prices, plus narrowing question","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment book करना है। 
+ LLM: जी, appointment book చేస్తా. ఏ service కోసం booking కావాలి? 
+ 
+ user: मुझे नहीं पता कौन सी service चाहिए। 
+ LLM: जी, कोई बात नहीं। आपकी गाड़ी के लिए exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, और full detailing packages available हैं। आपकी गाड़ी की हालत या आपका main concern क्या है? 
+ 
+ user: गंदी car के लिए क्या recommend करोगे 
+ LLM: हम्म, अगर car सिर्फ बाहर से गंदी है तो exterior wash अच्छा रहेगा, इसकी कीमत four hundred ninety nine है। अंदर भी सफाई चाहिए तो interior cleaning seven hundred ninety nine में है।",Not provided,"User is interested in services for a dirty car, specifically exterior wash or interior cleaning.",Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7951645,Scenario 657: Booking_No_Service_Named - Hindi - Voice_Low_Acc,"GUARDRAIL TEST: Broad question without service named = category list ONLY, no prices, plus narrowing question","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे appointment book करना 
+ LLM: ठीक है जी, कौन-सी service के लिए appointment book करना है? 
+ 
+ user: मुझे नहीं पता कौन service चाहिए। 
+ LLM: कोई बात नहीं जी। हमारी services में exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages हैं। आपकी गाड़ी के लिए किस तरह का काम चाहिए? 
+ 
+ user: गंदी car के लिए क्या करोगे 
+ LLM: समझ गई जी। सामान्य गंदगी के लिए exterior wash होता है, जिसकी कीमत four hundred ninety nine है। अगर अंदर भी सफाई चाहिए, तो interior cleaning seven hundred ninety nine है।",,Exterior wash and interior cleaning options discussed.,,N/A (No Name Expected),,,
+7900378,Scenario 658: Booking_No_Service_Named - Telugu - Text_Whatsapp,"GUARDRAIL TEST: Broad question without service named = category list ONLY, no prices, plus narrowing question","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: appointment book karna hai 
+ LLM: Sure, appointment book cheddam. Ee service kosam book cheyali? 
+ 
+ user: ceramic coating ke liye 
+ LLM: *Ceramic coating* starts at *₹9,999*. Booking kosam meeku convenient ga unna *date* mariyu *time* cheppandi. 
+ 
+ user: kal chalega? 
+ LLM: Avunu, *kal, 17 Sep 2026* slots *9:00 AM nunchi 4:30 PM* varaku available untayi. Meeku ye *time* kavali? 
+ 
+ user: 2 baje dopehar 
+ LLM: *Ceramic coating* appointment *17 Sep 2026, 2:00 PM* ki lock chestanu. Mee *name* mariyu *WhatsApp number* share cheyandi. 
+ 
+ user: mera naam Sanjay hai 
+ LLM: Mee WhatsApp number cheppandi, Sanjay garu. 
+ 
+ user: number 9670637638 
+ LLM: Sanjay garu, mee *ceramic coating* appointment *17 Sep 2026, 2:00 PM* ki confirm ayyindi. Details mee WhatsApp ki pampistaru. Inkemaina help kavala? 
+ 
+ user: confirm kar do booking 
+ LLM: Haan, mee *ceramic coating* booking *17 Sep 2026, 2:00 PM* ki already confirm ayyindi, Sanjay garu. Inkemaina help kavala? 
+ 
+ user: thanks 
+ LLM: Thank you! Have a great day!",Sanjay,ceramic coating,"17 Sep 2026, 2:00 PM",[FAILED] 'Sanjay' missing from Google Sheet,,,
+7874657,Scenario 659: Booking_No_Service_Named - Telugu - Voice_High_Acc,"GUARDRAIL TEST: Broad question without service named = category list ONLY, no prices, plus narrowing question","user:  
+ LLM: హలో.. DynamicDetailing Studio నుంచి Siri మాట్లాడుతున్నా. ఎలా help చేయగలను అండి? 
+ 
+ user: enti sangathi 
+ LLM: అవును, చెప్పండి... మీకు ఏ service లేదా booking గురించి తెలుసుకోవాలి అండి? 
+ 
+ user: avi anni tharuvatha 
+ LLM: సరే, ముందు ఏ విషయం గురించి మాట్లాడాలి అండి? 
+ 
+ user: bye 
+ LLM: Thank you for calling DynamicDetailing Studio. Have a great day ahead!",,,,N/A (No Name Expected),,,
+7891491,Scenario 660: Booking_No_Service_Named - Telugu - Voice_Low_Acc,"GUARDRAIL TEST: Broad question without service named = category list ONLY, no prices, plus narrowing question","user:  
+ LLM: హలో.. DynamicDetailing Studio నుంచి Siri మాట్లాడుతున్నా. ఎలా help చేయగలను అండి? 
+ 
+ user: hi bro 
+ LLM: హాయ్, ఎలా help చేయగలను అండి? 
+ 
+ user: eroju evening 6 ki car theeskostha, slot available unda? 
+ LLM: అవును, ఈ రోజు evening six PM కి studio open ఉంటుంది, కానీ bookable slots four thirty PM వరకే ఉంటాయి. ఈ రోజు four thirty PM slot కావాలా, లేక రేపు morning slot చూడాలా అండి? 
+ 
+ user: aithe repu morning 10 ki choodu 
+ LLM: సరే, రేపు morning ten AM slot availability check చేస్తా. ఏ service కోసం appointment కావాలి అండి?",,,repu morning 10 ki,N/A (No Name Expected),,,
+7951938,Scenario 673: Booking_Confirm_Services_Check - English - Text_Whatsapp,GUARDRAIL TEST: Must explicitly name ALL services in booking confirmation,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want ceramic coating and PPF. 
+ LLM: Ceramic coating starts at *₹9,999*, and PPF starts at *₹19,999*. Renditiki appointment required; booking cheyamantaraa? 
+ 
+ user: Book it for tomorrow 2 PM. 
+ LLM: Sure. Tomorrow, *17 Sep 2026* at *2:00 PM* ki ceramic coating + PPF appointment book cheyadaniki, mee *full name* and *10-digit WhatsApp number* share cheyyandi. 
+ 
+ user: Name is David, number 9973766248. 
+ LLM: Your WhatsApp number is *99737 66248*, correct aa? 
+ 
+ user: Wait, did you book just ceramic coating or both? 
+ LLM: Both services — *ceramic coating + PPF* — are being booked for *17 Sep 2026 at 2:00 PM*. Your name is *David*. Please confirm your WhatsApp number: *99737 66248*.",David,ceramic coating and PPF,17 Sep 2026 at 2:00 PM,[FAILED] 'David' missing from Google Sheet,,,
+7951965,Scenario 674: Booking_Confirm_Services_Check - English - Voice_High_Acc,GUARDRAIL TEST: Must explicitly name ALL services in booking confirmation,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want ceramic coating and PPF 
+ LLM: *Ceramic coating* starts at *₹9,999*. *PPF* starts at *₹19,999*.  
+Rendu services lo ceramic protection and paint protection film application untayi. Exact quote vehicle condition and coverage batti marutundi.  
+Inkemaina details kavala, leda appointment book cheyamantaraa? 
+ 
+ user: Book it for tomorrow 2 PM 
+ LLM: Sure. Tomorrow, *17 Sep 2026*, *2:00 PM* ki ceramic coating + PPF appointment book cheyadaniki mee *full name* mariyu *10-digit WhatsApp number* pampandi. 
+ 
+ user: Name is Michael number 9747312476 
+ LLM: Mee *97473 12476* WhatsApp number correct aa? 
+ 
+ user: Wait did you book just ceramic coating or both 
+ LLM: Both services — *ceramic coating + PPF* — for *17 Sep 2026 at 2:00 PM*. The booking workflow was started under *Michael*. Inkemaina help kavala?",Michael,ceramic coating and PPF,17 Sep 2026 at 2:00 PM,[FAILED] 'Michael' missing from Google Sheet,,,
+7952575,Scenario 675: Booking_Confirm_Services_Check - Hindi - Text_Whatsapp,GUARDRAIL TEST: Must explicitly name ALL services in booking confirmation,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ka price kya hai? aur ceramic coating ka? kal 2 baje free ho? 
+ LLM: *PPF* starts at *₹19,999*  
+*Ceramic coating* starts at *₹9,999*  
+Kal *2:00 PM* slot check karne ke liye kal ki date confirm kar dijiye. 
+ 
+ user: theek hai, dono book kar do tech zyada nahi aati, aaram se batana 
+ LLM: Theek hai, dono services book karne mein help karungi. Kal *2:00 PM* ka slot check kar rahi hoon—booking ke liye aapka *naam* aur *10-digit WhatsApp number* bhej dijiye. 
+ 
+ user: mera naam Vikas hai number 9418475454 
+ LLM: Aapka naam *Vikas* aur WhatsApp number *94184 75454* hai, correct hai?",Vikas,PPF and ceramic coating services,2:00 PM on 17th September 2026,[FAILED] 'Vikas' missing from Google Sheet,,,
+7952008,Scenario 676: Booking_Confirm_Services_Check - Hindi - Voice_High_Acc,GUARDRAIL TEST: Must explicitly name ALL services in booking confirmation,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: मुझे ceramic coating और PPF दोनों चाहिए। 
+ LLM: जी हाँ, ceramic coating और PPF दोनों available हैं। Ceramic coating nine thousand nine hundred ninety nine से शुरू होती है, और PPF nineteen thousand nine hundred ninety nine से। Exact quote vehicle condition और coverage पर depend करता है। 
+ 
+ user: कल 2 बजे book करो। 
+ LLM: ठीक है जी, कल September seventeen है, afternoon two o'clock का slot note कर लिया। Booking के लिए आपका नाम क्या है? 
+ 
+ user: नाम Rahul number 9397910443। 
+ LLM: Rahul जी, आपके ceramic coating और PPF का appointment कल September seventeen, afternoon two o'clock पर confirm हो गया है। Details आपके WhatsApp पर भेज दिए जाएंगे। Anything else? 
+ 
+ user: रुको सिर्फ ceramic coating book हुआ या दोनों 
+ LLM: दोनों book हुए हैं, Rahul जी — ceramic coating और PPF, कल September seventeen को afternoon two o'clock पर। Inkemaina help kavala?",Rahul,ceramic coating and PPF,"September seventeen, afternoon two o'clock",[FAILED] 'Rahul' missing from Google Sheet,,,
+7952649,Scenario 677: Booking_Confirm_Services_Check - Telugu - Text_Whatsapp,GUARDRAIL TEST: Must explicitly name ALL services in booking confirmation,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF entha? Ceramic coating entha? repu 2 PM ki free aa? 
+ LLM: 1. *PPF* starts at *₹19,999* — exact price vehicle condition and coverage batti marutundi.  
+2. *Ceramic coating* starts at *₹9,999*.  
+3. *Repu, 17 Sep, 2:00 PM* availability ni team confirm chestundi. Booking cheyamantaraa? 
+ 
+ user: rendu book chesey urike adiga le 
+ LLM: Sare, rendu book cheyadaniki *date, name, mariyu WhatsApp number* kavali. Repu *17 Sep, 2:00 PM* ki book cheyamantunnara?",,PPF and ceramic coating,"17 Sep, 2:00 PM",N/A (No Name Expected),,,
+7952056,Scenario 678: Booking_Confirm_Services_Check - Telugu - Voice_High_Acc,GUARDRAIL TEST: Must explicitly name ALL services in booking confirmation,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నాకు ceramic coating మరియు PPF రెండూ కావాలి 
+ LLM: అవును, ceramic coating మరియు PPF రెండూ చేయొచ్చు. Ceramic coating nine thousand nine hundred ninety nine నుంచి, PPF nineteen thousand nine hundred ninety nine నుంచి start అవుతాయి. 
+ 
+ user: రేపు 2 PM కి book చేయండి 
+ LLM: సరే, రేపు September seventeen, afternoon two o'clock కి ceramic coating మరియు PPF appointment కోసం మీ పేరు చెప్పండి. 
+ 
+ user: పేరు Bhavya నంబర్ 9850082206 
+ LLM: మీ పేరు Bhavya, WhatsApp నెంబర్ nine eight five zero zero eight two two zero six, correct అవునా? 
+ 
+ user: ఆగండి కేవలం ceramic coating book అయ్యిందా లేక రెండూ 
+ LLM: ఇంకా book కాలేదు—మీరు చెప్పిన slot లో ceramic coating మరియు PPF రెండింటినీ book చేయాలి. Continue చేయనా?",Bhavya,ceramic coating and PPF,"September 17, 2 PM",[FAILED] 'Bhavya' missing from Google Sheet,,,

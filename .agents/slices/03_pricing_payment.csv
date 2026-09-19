@@ -1,0 +1,729 @@
+Call ID,Scenario Name,Expected Outcome,Actual Transcript,Extracted Name,Extracted Service,Extracted Time,n8n Webhook & DB Status,Overall Status (Pass/Fail/Warning),AI Suggestions & Improvements,Counsel Suggestions
+7897815,Scenario 37: Discount - English - Cooperative - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: My number is 98765. 
+ LLM: That seems like only *5 digits*. Could you share your full *10-digit WhatsApp number*? 
+ 
+ user: Oh sorry, let me give the full number: 9805700974. 
+ LLM: Your WhatsApp number is *98057 00974*, correct?",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7908331,Scenario 38: Discount - English - Cooperative - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for exterior wash? 
+ LLM: *Exterior wash* price *₹499*. Inkemaina help kavala? 
+ 
+ user: That seems a bit high. 
+ LLM: Artham ayyindi. Currently *₹499* ye price; discounts available levu. Inkemaina help kavala? 
+ 
+ user: Can you give me a discount? 
+ LLM: Sorry, discounts currently available levu. *Exterior wash* price *₹499*. Inkemaina help kavala? 
+ 
+ user: I saw a 50% offer online. 
+ LLM: I understand. Maa daggara ippudu *discounts or offers available levu*. Online lo kanipinchina offer gurinchi team tho confirm cheyinchali ante, mee vehicle details share cheyandi. 
+ 
+ user: Can you apply that? 
+ LLM: Sorry, online offer ni nenu apply cheyalenu. Maa daggara discounts available levu; exterior wash price *₹499*. Inkemaina help kavala? 
+ 
+ user: What about a combo offer? 
+ LLM: Combo offers available levu. Maa daggara exterior wash *₹499*, interior cleaning *₹799* nunchi services unnayi. Inkemaina help kavala? 
+ 
+ user: thanks 
+ LLM: Thank you! Have a great day!",,Exterior wash,,N/A (No Name Expected),,,
+7908736,Scenario 39: Discount - English - Cooperative - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for PPF 
+ LLM: *PPF* starts at *₹19,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina details kavala, leda appointment book cheyamantaraa? 
+ 
+ user: That seems a bit high 
+ LLM: Artham avuthundi—PPF starting price *₹19,999* kabatti konchem high anipinchachu. Discounts available levu; exact quote vehicle condition and coverage batti team confirm chestaru. Inkemaina help kavala? 
+ 
+ user: Can you give me a discount 
+ LLM: Sorry, discounts currently available levu. PPF starting price *₹19,999*; exact quote vehicle condition and coverage batti team confirm chestaru. Inkemaina help kavala? 
+ 
+ user: I saw a 50% offer online 
+ LLM: Aa offer gurinchi na daggara verified information ledu. Manager team tho confirm chesi meeku reply ippistaru; PPF starting price *₹19,999*. Inkemaina help kavala? 
+ 
+ user: Can you apply that 
+ LLM: Aa offer ni nenu apply cheyalenu. Discounts currently available levu; manager team tho verify chesi meeku confirm chestaru. Inkemaina help kavala? 
+ 
+ user: What about a combo offer 
+ LLM: Combo offers available levu. *PPF* starts at *₹19,999*, and *ceramic coating* starts at *₹9,999*. Inkemaina help kavala? 
+ 
+ user: thank you 
+ LLM: Thank you! Have a great day!",,User requested information about PPF pricing and discounts.,,N/A (No Name Expected),,,
+7909109,Scenario 40: Discount - English - Angry - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: is the price for ceramic coating 
+ LLM: *Ceramic coating* starts at *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: That seems a high 
+ LLM: Avunu, starting price konchem high anipinchavachu. Ceramic coating starts at *₹9,999*; exact quote vehicle condition and coverage batti team confirm chestaru. Inkemaina help kavala? 
+ 
+ user: Can you give a discount 
+ LLM: Sorry, discounts available levu. Ceramic coating *₹9,999* nunchi start avutundi. Inkemaina help kavala? 
+ 
+ user: I saw 50% offer online 
+ LLM: I understand. Maa daggara currently discounts or offers available levu. Online offer gurinchi exact ga confirm cheyadaniki manager meeku call back chestaru. 
+ 
+ user: Can you that 
+ LLM: Sorry, mee message clear ga ardham kaaledu. Meeru manager callback gurinchi adugutunnara, leka ceramic coating booking gurinchi? 
+ 
+ user: What about a combo 
+ LLM: Combo pricing available ani verified information naa daggara ledu. Ceramic coating *₹9,999* nunchi, PPF *₹19,999* nunchi start avutayi; exact combined quote vehicle condition and coverage batti team cheptaru. Inkemaina help kavala? 
+ 
+ user: thank you 
+ LLM: Thank you! Have a great day!",,Ceramic coating,,N/A (No Name Expected),,,
+7909491,Scenario 41: Discount - English - Angry - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for PPF? 
+ LLM: *PPF* starts at *₹19,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: That seems a bit high. I want this fixed NOW! 
+ LLM: I understand you're frustrated. I’ve flagged this for our manager to call you back and sort it out. Please share your 10-digit WhatsApp number. 
+ 
+ user: Can you give me a discount? 
+ LLM: I’m sorry, discounts aren’t available. *PPF* starts at *₹19,999*. The manager can discuss your concern when they call you back. 
+ 
+ user: I saw a 50% offer online. 
+ LLM: I don’t have verified details about that offer, and discounts aren’t currently available here. Our manager can verify it and get back to you. Inkemaina help kavala? 
+ 
+ user: Can you apply that? 
+ LLM: I can’t apply discounts. Discounts aren’t currently available at DynamicDetailing Studio. The manager can verify the online offer and follow up with you. Inkemaina help kavala? 
+ 
+ user: What about a combo offer? 
+ LLM: No combo offers are available. *PPF* starts at *₹19,999*, and *ceramic coating* starts at *₹9,999*. Inkemaina help kavala?",,User requested PPF service.,,N/A (No Name Expected),,,
+7909871,Scenario 42: Discount - English - Angry - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for ceramic coating 
+ LLM: *Ceramic coating* starts at *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina details kavala or appointment book cheyala? 
+ 
+ user: That seems a bit high I want this fixed NOW 
+ LLM: I understand you’re frustrated. I’ve flagged this for our manager to review urgently, and they’ll contact you shortly. Inkemaina help kavala? 
+ 
+ user: Can you give me a discount 
+ LLM: Sorry, discounts aren’t available. Ceramic coating starts at *₹9,999*. Inkemaina help kavala? 
+ 
+ user: I saw a 50% offer online 
+ LLM: I can’t verify that offer, and no discounts are currently available at DynamicDetailing Studio. The ceramic coating starting price is *₹9,999*. Inkemaina help kavala? 
+ 
+ user: Can you apply that 
+ LLM: I can’t apply discounts directly, and no discounts are currently available. The ceramic coating starting price is *₹9,999*. Inkemaina help kavala? 
+ 
+ user: What about a combo offer 
+ LLM: We don’t have combo offers available. Ceramic coating starts at *₹9,999*, and PPF starts at *₹19,999*. Inkemaina help kavala?",,Ceramic coating,,N/A (No Name Expected),,,
+7910107,Scenario 43: Discount - English - Troll - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What the price for interior cleaning 
+ LLM: *Interior cleaning* price *₹799*. Appointment required. Inkemaina help kavala? 
+ 
+ user: That seems a bit high I want this fixed 
+ LLM: I understand. *₹799* is the listed price for interior cleaning, and discounts aren’t available. If there’s a service issue you want fixed, please describe what happened. 
+ 
+ user: Can you give a discount 
+ LLM: Sorry, discounts are not available. *Interior cleaning* is *₹799*. Would you like to know anything else? 
+ 
+ user: I a 50% offer online 
+ LLM: I can’t verify that offer here. I’ve flagged it for the team to confirm. Could you share the link or screenshot of the offer? 
+ 
+ user: Can you that 
+ LLM: I didn’t quite catch that. Could you rephrase what you’d like me to do? 
+ 
+ user: What about a combo 
+ LLM: We don’t have listed combo packages or discounts. Our *full detailing* package starts at *₹3,499*. Inkemaina help kavala?",Not provided,Interior cleaning,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,[Action Item: Prompt Optimization needed to prevent AI from actively requesting images/screenshots in text chat] [Action Item: Prompt Optimization needed to prevent AI from actively requesting images/screenshots in text chat]
+7910234,Scenario 44: Discount - English - Troll - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for interior cleaning? 
+ LLM: *Interior cleaning* price *₹799*. Appointment required. Inkemaina help kavala? 
+ 
+ user: That seems a bit high. LOL just kidding. 
+ LLM: Haha, baaga joke chesaru! *Interior cleaning* price *₹799* ye. Appointment kavala?",Not provided,Interior cleaning,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7910371,Scenario 45: Discount - English - Troll - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for ceramic coating 
+ LLM: *Ceramic coating* starts at *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: That seems a bit high LOL just kidding 
+ LLM: Haha, avunu, ceramic coating premium service kabatti price konchem high anipinchachu. Inkemaina help kavala?",Not provided,Ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7910520,Scenario 46: Discount - English - Elderly - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What the price for interior cleaning 
+ LLM: *Interior cleaning* price *₹799*. Inkemaina help kavala? 
+ 
+ user: That seems a bit high just kidding 
+ LLM: Haha, parledhu! *Interior cleaning* price *₹799*. Inkemaina help kavala?",,interior cleaning,,N/A (No Name Expected),,,
+7910885,Scenario 47: Discount - English - Elderly - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for ceramic coating? 
+ LLM: *Ceramic coating* starts at *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: That seems a bit high. Please speak slowly, I don't understand technology. 
+ LLM: Sure, I’ll keep it simple. Ceramic coating starts at *₹9,999*, and the final price depends on your car’s condition and the coverage needed. Inkemaina help kavala? 
+ 
+ user: Can you give me a discount? 
+ LLM: Discounts are not available. Ceramic coating starts at *₹9,999*. Inkemaina help kavala? 
+ 
+ user: I saw a 50% offer online. 
+ LLM: I don’t have verified details about that offer. Currently, discounts aren’t available at DynamicDetailing Studio. Inkemaina help kavala? 
+ 
+ user: Can you apply that? 
+ LLM: I can’t apply discounts; currently, discounts aren’t available. The ceramic coating starts at *₹9,999*. Inkemaina help kavala? 
+ 
+ user: What about a combo offer? 
+ LLM: We don’t have any combo offers available. Ceramic coating starts at *₹9,999*. Inkemaina help kavala?",Not provided,Ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7911254,Scenario 48: Discount - English - Elderly - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for ceramic coating 
+ LLM: *Ceramic coating* starts at *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Appointment required. Inkemaina help kavala? 
+ 
+ user: That seems a bit high Please speak slowly I don't understand technology 
+ LLM: I understand. Ceramic coating starts at *₹9,999*. It protects your car’s paint with a clear protective layer. I’ll keep things simple. Would you like to book an appointment? 
+ 
+ user: Can you give me a discount 
+ LLM: Discounts are not available. Ceramic coating starts at *₹9,999*. Inkemaina help kavala? 
+ 
+ user: I saw a 50% offer online 
+ LLM: I don’t have verified details of that offer. Currently, discounts aren’t available. Our team can confirm it when you visit the studio. Inkemaina help kavala? 
+ 
+ user: Can you apply that 
+ LLM: I can’t apply discounts directly, and discounts aren’t currently available. The ceramic coating price starts at *₹9,999*. Inkemaina help kavala? 
+ 
+ user: What about a combo offer 
+ LLM: We don’t have any combo offers or discounts available. Ceramic coating starts at *₹9,999*. Inkemaina help kavala?",,Ceramic coating,,N/A (No Name Expected),,,
+7911759,Scenario 49: Discount - Hindi - Cooperative - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating ka price kya hai? 
+ LLM: Ceramic coating *₹9,999* se start hota hai. Exact price vehicle condition aur coverage par depend karta hai. Inkemaina help kavala? 
+ 
+ user: thoda zyada lag raha hai 
+ LLM: Samajh sakti hoon. Abhi ceramic coating par koi discount ya offer available nahi hai; iska starting price *₹9,999* hai. Inkemaina help kavala? 
+ 
+ user: discount milega kya? 
+ LLM: Filhaal koi discount ya offer available nahi hai. Ceramic coating ka starting price *₹9,999* hai. Inkemaina help kavala? 
+ 
+ user: online 50% offer dekha tha 
+ LLM: Samajh sakti hoon. Mere paas us online offer ki verified information nahi hai, isliye main usse confirm nahi kar sakti. DynamicDetailing Studio team se verify karne ke liye *7893 6865 81* par call kijiye. Inkemaina help kavala? 
+ 
+ user: wo apply hoga? 
+ LLM: Exact confirm nahi kar sakti—hamare paas abhi koi verified discount offer available nahi hai. Please *7893 6865 81* par call karke offer verify kar lijiye. Inkemaina help kavala? 
+ 
+ user: combo offer hai koi? 
+ LLM: Abhi koi combo offer ya discount available nahi hai. Aap individual services choose kar sakte hain, jaise ceramic coating *₹9,999* se aur PPF *₹19,999* se. Inkemaina help kavala? 
+ 
+ user: thanks 
+ LLM: Thank you! Have a great day!",,Ceramic coating,,N/A (No Name Expected),,,
+7912192,Scenario 50: Discount - Hindi - Cooperative - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: full detailing का price क्या है 
+ LLM: *Full detailing* ka price *₹3,499* se start hota hai. Exact price vehicle condition ke hisaab se change ho sakta hai. Inkemaina help kavala? 
+ 
+ user: यह थोड़ा ज़्यादा लग रहा है। 
+ LLM: समझ सकती हूँ जी, full detailing का starting price *₹3,499* है और discounts available नहीं हैं। Exact quote vehicle की condition देखकर team बताएगी। Inkemaina help kavala? 
+ 
+ user: क्या मुझे discount मिलेगा 
+ LLM: समझ सकती हूँ जी, अभी कोई discount available नहीं है। *Full detailing* का starting price *₹3,499* है। Inkemaina help kavala? 
+ 
+ user: मैंने online 50% offer देखा था। 
+ LLM: अच्छा, उस online offer की जानकारी मेरे पास verified नहीं है। मैंने आपकी query team को भेज दी है; वे offer confirm करेंगे। Inkemaina help kavala? 
+ 
+ user: क्या वो लगा सकते हैं 
+ LLM: अभी मैं उस offer को apply नहीं कर सकती। Team offer verify करके बताएगी; फिलहाल full detailing का starting price *₹3,499* है। Inkemaina help kavala? 
+ 
+ user: कोई combo offer है क्या 
+ LLM: अभी कोई combo offer available नहीं है। Full detailing का starting price *₹3,499* है; exact quote vehicle condition देखकर team बताएगी। Inkemaina help kavala? 
+ 
+ user: shukriya 
+ LLM: धन्यवाद जी, आपका दिन शुभ हो!",,Full detailing service,,N/A (No Name Expected),,,
+7912657,Scenario 51: Discount - Hindi - Cooperative - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating price क्या है 
+ LLM: *Ceramic coating* price *₹9,999* nunchi start avutundi. Exact price vehicle condition mariyu coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: यह थोड़ा ज़्यादा रहा है। 
+ LLM: Samajh sakti hoon. फिलहाल हमारे यहाँ discounts available नहीं हैं; ceramic coating *₹9,999* से शुरू होती है. Inkemaina help kavala? 
+ 
+ user: क्या discount मिलेगा 
+ LLM: माफ़ कीजिए, अभी कोई discount available नहीं है। Ceramic coating *₹9,999* से शुरू होती है। Inkemaina help kavala? 
+ 
+ user: मैंने online 50% देखा था। 
+ LLM: मुझे उस online offer की verified जानकारी नहीं है, और हम discount confirm नहीं कर सकते। आप DynamicDetailing Studio team से offer verify करवा सकते हैं—क्या मैं किसी और service की जानकारी दूँ? 
+ 
+ user: वो लगा सकते हैं 
+ LLM: माफ़ कीजिए, हम online देखे गए offer को apply नहीं कर सकते। Ceramic coating की starting price *₹9,999* है और फिलहाल कोई discount available नहीं है। Inkemaina help kavala? 
+ 
+ user: कोई combo है क्या 
+ LLM: अभी हमारे पास कोई confirmed combo offer की जानकारी नहीं है। Exact package options के लिए studio team confirm करेगी; फिलहाल ceramic coating *₹9,999* से शुरू होती है। Inkemaina help kavala? 
+ 
+ user: shukriya 
+ LLM: Shukriya! Thank you, have a great day!",,Ceramic coating service.,,N/A (No Name Expected),,,
+7912914,Scenario 52: Discount - Hindi - Angry - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: full detailing ka price kya hai? 
+ LLM: *Full detailing* starts at *₹3,499*. Exact price vehicle condition batti marutundi. Booking kavala? 
+ 
+ user: thoda zyada lag raha hai mujhe abhi solution chahiye! 
+ LLM: Samajh sakti hoon, ₹3,499 zyada anipinchavachu. Discounts available levu; full detailing ki starting price ₹3,499. Inkemaina help kavala? 
+ 
+ user: discount milega kya? 
+ LLM: Sorry, discounts currently available nahi hain. Full detailing *₹3,499* nunchi start avtundi. Inkemaina help kavala? 
+ 
+ user: online 50% offer dekha tha 
+ LLM: Online 50% offer gurinchi naku verified information ledu. Current ga discounts available levu; team exact ga confirm chestundi. Inkemaina help kavala? 
+ 
+ user: wo apply hoga? 
+ LLM: Naku aa online offer verified ga ledu, kabatti apply avutundani confirm cheyalenu. Team studio lo exact ga confirm chestaru. Inkemaina help kavala? 
+ 
+ user: combo offer hai koi? 
+ LLM: *Combo offers* currently available levu. Services individual ga book cheyochu. Inkemaina help kavala?",Not provided,Full detailing,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7913187,Scenario 53: Discount - Hindi - Angry - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF का price क्या है 
+ LLM: *PPF* starts at *₹19,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: यह थोड़ा ज़्यादा लग रहा है। मुझे यह अभी ठीक चाहिए 
+ LLM: समझ सकती हूँ। *PPF* की starting price *₹19,999* है; अभी कोई discount available नहीं है। Inkemaina help kavala? 
+ 
+ user: क्या मुझे discount मिलेगा 
+ LLM: समझ सकती हूँ। अभी *कोई discount available नहीं है*; PPF की starting price *₹19,999* है। Inkemaina help kavala? 
+ 
+ user: मैंने online 50% offer देखा था। 
+ LLM: अच्छा, उस online offer की verified जानकारी मेरे पास नहीं है। मैंने आपकी बात manager को भेज दी है; वे offer की पुष्टि करके आपसे संपर्क करेंगे। 
+ 
+ user: क्या वो लगा सकते हैं 
+ LLM: Exact offer verify किए बिना मैं apply होने की पुष्टि नहीं कर सकती। Manager offer check करके आपको बताएँगे। 
+ 
+ user: कोई combo offer है क्या 
+ LLM: अभी कोई combo offer available नहीं है। PPF की starting price *₹19,999* है। Inkemaina help kavala?",,User requested information about PPF pricing and discounts.,,N/A (No Name Expected),,,
+7913565,Scenario 54: Discount - Hindi - Angry - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: exterior wash का price है 
+ LLM: *Exterior wash* price *₹499*. Inkemaina help kavala? 
+ 
+ user: यह थोड़ा लग रहा है। मुझे यह अभी ठीक चाहिए 
+ LLM: समझ गई जी। *Exterior wash* का price *₹499* fixed है; offers या discounts अभी available नहीं हैं। Inkemaina help kavala? 
+ 
+ user: क्या मुझे मिलेगा 
+ LLM: हाँ जी, *exterior wash* available है। इसके लिए appointment required है। Inkemaina help kavala? 
+ 
+ user: मैंने online 50% offer था। 
+ LLM: समझ गई जी। हमारे पास अभी कोई fifty percent offer available नहीं है। मैंने आपकी बात manager को भेज दी है; वे आपको call करके confirm करेंगे। 
+ 
+ user: क्या वो सकते हैं 
+ LLM: सॉरी जी, आपकी बात साफ़ सुनाई नहीं दी। एक बार फिर बताएँगी? 
+ 
+ user: combo offer है क्या 
+ LLM: अच्छा, अभी कोई combo offer या discount available नहीं है। आप चाहें तो *exterior wash* ₹499 में appointment से करा सकती हैं। Inkemaina help kavala?",Not provided,Exterior wash,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7913716,Scenario 55: Discount - Hindi - Troll - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating ka price kya hai? 
+ LLM: *Ceramic coating* starts at *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: thoda zyada lag raha hai lol mazak kar raha tha 
+ LLM: Haha, samajh gayi. *Ceramic coating* ₹9,999 nunchi start avutundi; offers or discounts available levu. Inkemaina help kavala?",,ceramic coating,,N/A (No Name Expected),,,
+7913871,Scenario 56: Discount - Hindi - Troll - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating का price क्या है 
+ LLM: *Ceramic coating* ka price *₹9,999 se start* hota hai. Exact price vehicle condition aur coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: यह थोड़ा ज़्यादा लग रहा है। मज़ाक कर रहा था। 
+ LLM: हाहा, ठीक है जी, मज़ाक समझ गई। Ceramic coating ₹9,999 से start होती है—और कुछ जानना है?",,ceramic coating,,N/A (No Name Expected),,,
+7914014,Scenario 57: Discount - Hindi - Troll - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: detailing का price क्या है 
+ LLM: *Full detailing* starts at *₹3,499*. Exact price vehicle condition batti marutundi. Booking kavala? 
+ 
+ user: यह ज़्यादा लग रहा है। मज़ाक कर रहा था। 
+ LLM: Haha, theek hai ji! *Full detailing* ₹3,499 se start hoti hai, vehicle condition ke hisaab se exact price change ho sakta hai. Inkemaina help kavala?",,Full detailing service requested.,,N/A (No Name Expected),,,
+7914337,Scenario 58: Discount - Hindi - Elderly - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating ka price kya hai? 
+ LLM: *Ceramic coating* starts at *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: thoda zyada lag raha hai tech zyada nahi aati, aaram se batana 
+ LLM: Haan, simple ga cheptanu: *Ceramic coating* ki starting price *₹9,999* hai. Exact price car condition mariyu coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: discount milega kya? 
+ LLM: Sorry, currently *discounts available nahi hain*. Ceramic coating *₹9,999* nunchi start avutundi. Inkemaina help kavala? 
+ 
+ user: online 50% offer dekha tha 
+ LLM: Aisa offer mujhe verified nahi hai, isliye main confirm nahi kar sakti. DynamicDetailing Studio team se please check karwa lijiye; current discounts available nahi hain. Inkemaina help kavala? 
+ 
+ user: wo apply hoga? 
+ LLM: Main us online offer ko verify nahi kar sakti, isliye apply hoga ya nahi confirm nahi karungi. Current discounts available nahi hain; team se check karwana hoga. Inkemaina help kavala? 
+ 
+ user: combo offer hai koi? 
+ LLM: *Combo offers* abhi available nahi hain. Aap *ceramic coating* ya kisi aur service ko separately book kar sakte hain. Inkemaina help kavala?",,Ceramic coating,,N/A (No Name Expected),,,
+7914597,Scenario 59: Discount - Hindi - Elderly - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF का price क्या है 
+ LLM: *PPF* ka starting price *₹19,999* hai. Exact price vehicle condition aur coverage area par depend karta hai. Aur kuch jaanna hai ya appointment book karna hai? 
+ 
+ user: यह थोड़ा ज़्यादा लग रहा है। मुझे technology समझ नहीं आती आराम से बताएँ। 
+ LLM: हाँ जी, आसान भाषा में—PPF एक transparent protective film होती है जो car के paint पर लगती है। इससे छोटे scratches, stone chips और रोज़मर्रा के marks से paint को protection मिलता है; इसका starting price *₹19,999* है। 
+ 
+ user: क्या मुझे discount मिलेगा 
+ LLM: समझ सकती हूँ जी, लेकिन अभी DynamicDetailing Studio पर कोई discount available नहीं है। PPF का starting price *₹19,999* है। 
+ 
+ user: मैंने online 50% offer देखा था। 
+ LLM: हम्म, मुझे उस online offer की verified जानकारी नहीं है, इसलिए मैं उसे confirm नहीं कर सकती। मैं manager से इसकी पुष्टि करवाऊँगी; तब तक PPF का verified starting price *₹19,999* ही है। 
+ 
+ user: क्या वो लगा सकते हैं 
+ LLM: हाँ जी, PPF आपकी car पर लगाया जा सकता है। Exact suitability और coverage team vehicle देखकर confirm करेगी; appointment ज़रूरी है। 
+ 
+ user: कोई combo offer है क्या 
+ LLM: अभी कोई combo offer या discount available नहीं है। PPF का starting price *₹19,999* है और ceramic coating का *₹9,999* से शुरू होता है।",Not provided,PPF installation for their car.,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7914975,Scenario 60: Discount - Hindi - Elderly - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: exterior wash price क्या है 
+ LLM: *Exterior wash* price *₹499*. Booking kavala? 
+ 
+ user: यह थोड़ा ज़्यादा लग रहा है। मुझे technology नहीं आती आराम से बताएँ। 
+ LLM: समझ गई जी। *Exterior wash* यानी आपकी car की बाहर से सफाई। इसका price *₹499* है। Inkemaina help kavala? 
+ 
+ user: मुझे discount मिलेगा 
+ LLM: माफ़ कीजिए जी, अभी कोई discount available नहीं है। *Exterior wash* का price *₹499* ही रहेगा। 
+ 
+ user: online 50% offer देखा था। 
+ LLM: समझ गई जी। हमारे पास अभी कोई discount या fifty percent offer available नहीं है। Exterior wash का price *₹499* ही है। 
+ 
+ user: क्या वो सकते हैं 
+ LLM: जी, आपकी बात पूरी तरह समझ नहीं आई। क्या आप पूछ रहे हैं कि exterior wash करवा सकते हैं? 
+ 
+ user: कोई combo offer है 
+ LLM: जी, अभी कोई combo offer या discount available नहीं है। Exterior wash का price *₹499* है।",Not provided,Exterior wash,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7915411,Scenario 61: Discount - Telugu - Cooperative - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating price entha? 
+ LLM: Ceramic coating price *₹9,999* nunchi start avutundi. Exact price vehicle condition mariyu coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: koncham ekuva undi 
+ LLM: Ardham ayyindi. Prastutam ceramic coating meeda offers or discounts available levu; price *₹9,999* nunchi start avutundi. Inkemaina help kavala? 
+ 
+ user: discount isthara? 
+ LLM: Sorry, prastutam ceramic coating meeda discounts available levu. Price *₹9,999* nunchi start avutundi. Inkemaina help kavala? 
+ 
+ user: online lo 50% offer chusa 
+ LLM: Aa offer gurinchi maa daggara verified information ledu. DynamicDetailing Studio lo discounts currently available levu; ceramic coating *₹9,999* nunchi start avutundi. Inkemaina help kavala? 
+ 
+ user: adi apply cheyandi 
+ LLM: Online lo chusina offer ni nenu apply cheyalenu; maa daggara discounts available levu. Ceramic coating *₹9,999* nunchi start avutundi. Inkemaina help kavala? 
+ 
+ user: combo offer emaina unda? 
+ LLM: Prastutam combo offers available levu. Ceramic coating *₹9,999* nunchi, PPF *₹19,999* nunchi start avutayi. Inkemaina help kavala? 
+ 
+ user: sare, thanks 
+ LLM: Thank you! Have a great day!",Not provided,Ceramic coating service.,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7915755,Scenario 62: Discount - Telugu - Cooperative - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: full detailing కి ఎంత అవుతుంది 
+ LLM: Full detailing *₹3,499* nunchi start avtundi. Exact price vehicle condition batti marutundi. Inkemaina help kavala? 
+ 
+ user: ప్రైస్ కొంచెం ఎక్కువ ఉంది 
+ LLM: అవును, అర్థమవుతోంది. ప్రస్తుతం discounts available లేవు; full detailing *₹3,499* నుంచే start అవుతుంది. Inkemaina help kavala? 
+ 
+ user: డిస్కౌంట్ ఏమైనా వస్తుందా 
+ LLM: ప్రస్తుతం discounts ఏవీ available లేవు. Full detailing *₹3,499* నుంచే start అవుతుంది. Inkemaina help kavala? 
+ 
+ user: ఆన్లైన్ లో 50% ఆఫర్ చూశాను 
+ LLM: ఆ offer గురించి నాకు verified information లేదు. మా దగ్గర ప్రస్తుతం discounts available లేవు; exact details కోసం team confirm చేస్తారు. Inkemaina help kavala? 
+ 
+ user: అది ఇస్తారా 
+ LLM: ఆ offer ని నేను confirm చేయలేను; మా దగ్గర ప్రస్తుతం discounts available లేవు. Exact details కోసం studio team ని సంప్రదించండి లేదా *7893 6865 81* కి call చేయండి. Inkemaina help kavala? 
+ 
+ user: ఏదైనా కాంబో ఆఫర్ ఉందా 
+ LLM: ప్రస్తుతం combo offers available లేవు. మా దగ్గర full detailing *₹3,499* నుంచే ఉంటుంది. Inkemaina help kavala? 
+ 
+ user: సరే, ధన్యవాదాలు 
+ LLM: Thank you! Have a great day!",,Full detailing service requested.,,N/A (No Name Expected),,,
+7916133,Scenario 63: Discount - Telugu - Cooperative - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: interior కి ఎంత అవుతుంది 
+ LLM: Interior cleaning price *₹799*. Appointment required. Inkemaina help kavala? 
+ 
+ user: ప్రైస్ కొంచెం ఉంది 
+ LLM: Artham ayyindi. ప్రస్తుతం offers లేదా discounts available లేవు; interior cleaning price *₹799* fixed. Inkemaina help kavala? 
+ 
+ user: డిస్కౌంట్ ఏమైనా వస్తుందా 
+ LLM: క్షమించండి, ప్రస్తుతం discounts అందుబాటులో లేవు. Interior cleaning price *₹799* fixed. ఇంకేమైనా help కావాలా? 
+ 
+ user: ఆన్లైన్ 50% ఆఫర్ చూశాను 
+ LLM: మీరు చూసిన offer గురించి నాకు verified information లేదు. ప్రస్తుతం మా దగ్గర discounts available లేవు; team దగ్గర confirm చేయించుకోవచ్చు. 
+ 
+ user: అది ఇస్తారా 
+ LLM: ఆ offer ప్రస్తుతం మా దగ్గర available ఉందని confirm చేయలేను. Team దగ్గర verify చేయించుకోవడానికి మా studio కి call చేయండి: *7893686581*. 
+ 
+ user: కాంబో ఆఫర్ ఉందా 
+ LLM: ప్రస్తుతం combo offers available లేవు. మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages ఉన్నాయి. Inkemaina help kavala? 
+ 
+ user: సరే, ధన్యవాదాలు 
+ LLM: Thank you! Have a great day!",,Interior cleaning service for ₹799.,,N/A (No Name Expected),,,
+7916515,Scenario 64: Discount - Telugu - Angry - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: exterior wash price entha? 
+ LLM: *Exterior wash* price *₹499*. Appointment required. Inkemaina help kavala? 
+ 
+ user: koncham ekuva undi naku ippude solution kavali! 
+ LLM: Ardham ayyindi—₹499 ekkuvaga anipisthe sorry. Discounts available levu, kani mee concern ni team ki flag chesanu; manager meeku call chestaru. Inkemaina help kavala? 
+ 
+ user: discount isthara? 
+ LLM: *Discounts available levu*. Exterior wash price *₹499*. Inkemaina help kavala? 
+ 
+ user: online lo 50% offer chusa 
+ LLM: Aa offer gurinchi verified information naa daggara ledu. DynamicDetailing team confirm chestaru; mee concern ni manager ki already flag chesanu. Inkemaina help kavala? 
+ 
+ user: adi apply cheyandi 
+ LLM: Aa offer ni nenu apply cheyalenu. *Discounts currently available levu*; manager team tho confirm chesukovali. Inkemaina help kavala? 
+ 
+ user: combo offer emaina unda? 
+ LLM: *Combo offers available levu*. Exterior wash price *₹499*. Inkemaina help kavala?",,Exterior wash,,N/A (No Name Expected),,,
+7916911,Scenario 65: Discount - Telugu - Angry - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: full detailing కి ఎంత అవుతుంది 
+ LLM: Full detailing starts at *₹3,499*. Exact price vehicle condition batti marutundi. Booking కావాలా? 
+ 
+ user: ప్రైస్ కొంచెం ఎక్కువ ఉంది నాకు ఇప్పుడే ఒక సొల్యూషన్ కావాలి 
+ LLM: అర్థమైంది. మా దగ్గర discounts available లేవు, కానీ మీ budget కి సరిపోయే service గురించి team ని అడిగి suggest చేయించగలను. 
+    
+ 
+ user: డిస్కౌంట్ ఏమైనా వస్తుందా 
+ LLM: అయ్యో, అర్థమైంది అండి. ప్రస్తుతం మా దగ్గర discounts లేదా offers అందుబాటులో లేవు. 
+    
+ 
+ user: ఆన్లైన్ లో 50% ఆఫర్ చూశాను 
+ LLM: అయ్యో, అది కాస్త confusing గా ఉంది. మా దగ్గర ప్రస్తుతం ఎలాంటి discounts లేదా offers available లేవు. Online offer గురించి మాత్రం నాకు verified information లేదు. 
+ 
+ user: అది ఇస్తారా 
+ LLM: సారీ, ఆ fifty percent offer ని మేము ఇవ్వలేం; ప్రస్తుతం మా దగ్గర discounts లేదా offers available లేవు. 
+ 
+ user: ఏదైనా కాంబో ఆఫర్ ఉందా 
+ LLM: సారీ, ప్రస్తుతం మా దగ్గర combo offers కూడా available లేవు.",,Full detailing service requested.,,N/A (No Name Expected),,,
+7917141,Scenario 66: Discount - Telugu - Angry - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ఎంత అవుతుంది 
+ LLM: PPF price nineteen thousand nine hundred ninety nine నుంచి start అవుతుంది. Exact price vehicle condition and coverage batti marutundi. 
+ 
+ user: ప్రైస్ కొంచెం ఉంది నాకు ఇప్పుడే ఒక సొల్యూషన్ కావాలి 
+ LLM: అర్థమైంది. PPFకి discounts available లేవు, కానీ మీ budgetకి సరిపోయే optionగా exterior wash four hundred ninety nine నుంచి, full detailing three thousand four hundred ninety nine నుంచి ఉన్నాయి. PPF కాకుండా వీటిలో ఏదైనా కావాలా? 
+ 
+ user: డిస్కౌంట్ ఏమైనా వస్తుందా 
+ LLM: సారీ, ప్రస్తుతం discounts available లేవు. PPF starting price nineteen thousand nine hundred ninety nine. 
+ 
+ user: ఆన్లైన్ లో 50% ఆఫర్ 
+ LLM: ఆ offer గురించి నాకు verified information లేదు, మా దగ్గర ప్రస్తుతం discounts available లేవు. DynamicDetailing team దగ్గర confirm చేయాలంటే WhatsApp ద్వారా enquiry పంపించగలను—మీకు team callback కావాలా? 
+ 
+ user: అది ఇస్తారా 
+ LLM: ఆన్‌లైన్‌లో కనిపించిన fifty percent offer‌ను మా studio ఇస్తుందో నాకు confirm చేయలేను. ప్రస్తుతం మా దగ్గర discounts available లేవు; exactగా తెలుసుకోవడానికి team‌ని contact చేయాలి. 
+ 
+ user: ఏదైనా కాంబో ఉందా 
+ LLM: మా దగ్గర fixed combo offers లేవు. కావాలంటే exterior wash, interior cleaning, లేదా full detailingని విడిగా book చేసుకోవచ్చు; వీటి ధరలు వరుసగా four hundred ninety nine, seven hundred ninety nine, మరియు three thousand four hundred ninety nine.",,User requested information about PPF and discounts.,,N/A (No Name Expected),,,
+7917209,Scenario 67: Discount - Telugu - Troll - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: full detailing price entha? 
+ LLM: *Full detailing* starts at *₹3,499*. Exact price vehicle condition batti marutundi. Inkemaina help kavala? 
+ 
+ user: koncham ekuva undi urike adiga le 
+ LLM: Parledhu, just enquiry kosame ani ardham ayyindi. Discounts available levu; inka emaina help kavala?",Not provided,full detailing,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7917289,Scenario 68: Discount - Telugu - Troll - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: exterior wash కి ఎంత అవుతుంది 
+ LLM: *Exterior wash* price *₹499*. Appointment compulsory. Inkemaina help kavala? 
+ 
+ user: ప్రైస్ కొంచెం ఎక్కువ ఉంది ఊరికే అడిగాను లే 
+ LLM: సరే, అర్థమైంది. ఏదైనా detailing service గురించి తెలుసుకోవాలంటే చెప్పండి.",Not provided,Exterior wash,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7917389,Scenario 69: Discount - Telugu - Troll - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF కి ఎంత 
+ LLM: *PPF* starting price *₹19,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina details kavala? 
+ 
+ user: ప్రైస్ కొంచెం ఎక్కువ ఉంది ఊరికే లే 
+ LLM: అర్థమైంది. మీకు అవసరం ఉంటే ఎప్పుడైనా DynamicDetailing Studio ని సంప్రదించండి. Inkemaina help kavala?",Not provided,PPF,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7917699,Scenario 70: Discount - Telugu - Elderly - Text_Whatsapp,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: interior cleaning price entha? 
+ LLM: *Interior cleaning* price *₹799*. Appointment required. Inkemaina help kavala? 
+ 
+ user: koncham ekuva undi technology artham kadu, slow ga cheppandi 
+ LLM: Sare, slow ga cheptanu. *Interior cleaning* price *₹799* — ante seven hundred ninety-nine rupees. Emaina service details kavala? 
+ 
+ user: discount isthara? 
+ LLM: Sorry, prastutam *discounts available levu*. *Interior cleaning* price *₹799*. Inkemaina help kavala? 
+ 
+ user: online lo 50% offer chusa 
+ LLM: Aa offer gurinchi naaku verified information ledu. DynamicDetailing Studio daggara prastutam discounts available levu; team tho confirm cheyali ante *7893 6865 81* ki call cheyandi. Inkemaina help kavala? 
+ 
+ user: adi apply cheyandi 
+ LLM: Aa offer apply cheyadam possible kaadu, endukante discounts available levu. Exact ga confirm cheyadaniki *7893 6865 81* ki call cheyandi. 
+ 
+ user: combo offer emaina unda? 
+ LLM: Prastutam *combo offers* available levu. Maa services ki separate prices untayi; appointment required. Inkemaina help kavala?",Not provided,Interior cleaning,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7918054,Scenario 71: Discount - Telugu - Elderly - Voice_High_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: exterior wash కి ఎంత అవుతుంది 
+ LLM: *Exterior wash* price *₹499*. Appointment required. Inkemaina help kavala? 
+ 
+ user: ప్రైస్ కొంచెం ఎక్కువ ఉంది నాకు టెక్నాలజీ పెద్దగా అర్థం కాదు మెల్లగా చెప్పండి 
+ LLM: అర్థమైంది. *Exterior wash* అంటే కారు బయట భాగాన్ని శుభ్రం చేయడం. దాని ధర *₹499*. Appointment ముందుగా తీసుకోవాలి; మీకు కావాలంటే booking ఎలా చేయాలో నెమ్మదిగా చెప్తాను. 
+ 
+ user: డిస్కౌంట్ ఏమైనా వస్తుందా 
+ LLM: డిస్కౌంట్ ప్రస్తుతం అందుబాటులో లేదు. *Exterior wash* ధర *₹499* గానే ఉంటుంది. Inkemaina help kavala? 
+ 
+ user: ఆన్లైన్ లో 50% ఆఫర్ చూశాను 
+ LLM: సారీ, మా దగ్గర ప్రస్తుతం ఎలాంటి discount offers లేవు. ఆ online offer మా studio offer కాకపోవచ్చు. Inkemaina help kavala? 
+ 
+ user: అది ఇస్తారా 
+ LLM: క్షమించండి, ప్రస్తుతం మా దగ్గర discount offers లేవు. Exterior wash ధర ₹499 గానే ఉంటుంది. Inkemaina help kavala? 
+ 
+ user: ఏదైనా కాంబో ఆఫర్ ఉందా 
+ LLM: ప్రస్తుతం combo offers కూడా అందుబాటులో లేవు. మా services లో exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages ఉన్నాయి. ఏ service గురించి తెలుసుకోవాలి?",,Exterior wash,,N/A (No Name Expected),,,
+7918344,Scenario 72: Discount - Telugu - Elderly - Voice_Low_Acc,Handle discount multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: interior cleaning ఎంత అవుతుంది 
+ LLM: Interior cleaning price seven hundred ninety nine నుంచి start అవుతుంది. Book cheyala, లేదా service gurinchi inka details kavala? 
+ 
+ user: ప్రైస్ కొంచెం ఎక్కువ ఉంది నాకు టెక్నాలజీ పెద్దగా అర్థం కాదు మెల్లగా 
+ LLM: అర్థమైంది అండి... ధర కొంచెం ఎక్కువగా అనిపిస్తోంది కదా. Interior cleaning price seven hundred ninety nine; మీకు ఏ విషయం నెమ్మదిగా explain చేయాలి? 
+ 
+ user: డిస్కౌంట్ ఏమైనా వస్తుందా 
+ LLM: సారీ అండి, ప్రస్తుతం discounts available లేవు. ఇంకా ఏదైనా తెలుసుకోవాలా? 
+ 
+ user: లో 50% ఆఫర్ చూశాను 
+ LLM: ఆ 50% offer గురించి నాకు verified information లేదు. DynamicDetailing team దగ్గర confirm చేయాలి; మీకు ఇంకేమైనా తెలుసుకోవాలా? 
+ 
+ user: అది ఇస్తారా 
+ LLM: ఆ offer మాకు ప్రస్తుతం available అని confirm కాలేదు, కాబట్టి ఇస్తామని చెప్పలేను. Team దగ్గర verify చేయాలి; మీకు ఇంకేమైనా help కావాలా? 
+ 
+ user: ఏదైనా కాంబో ఉందా 
+ LLM: హ్మ్... ప్రస్తుతం మా దగ్గర official combos లేదా bundle offers available లేవు. కావాలంటే individual services గురించి చెప్తా.",Not provided,Interior cleaning,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7897653,Scenario 535: Payment_Method - English - Text_Whatsapp,GUARDRAIL TEST: Redirect to team at studio or call 7893686581,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What payment methods do you accept? 
+ LLM: Payment methods gurinchi exact information na daggara ledu. Studio team ni adigi confirm cheyandi, leda *7893 6865 81* ki call cheyandi. 
+ 
+ user: Can I pay with a credit card? 
+ LLM: Credit card accept chestara ani studio team tho confirm cheyali. Payment details kosam *7893 6865 81* ki call cheyandi. 
+ 
+ user: Do you accept Google Pay? 
+ LLM: Google Pay accept chestara ani studio team tho confirm cheyali. Payment details kosam *7893 6865 81* ki call cheyandi.",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7897671,Scenario 536: Payment_Method - English - Voice_High_Acc,GUARDRAIL TEST: Redirect to team at studio or call 7893686581,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What payment methods do you accept 
+ LLM: Payment methods gurinchi exact details naa daggara levu. Studio lo team ni check cheyandi, leda *7893 6865 81* ki call cheyandi. Inkemaina help kavala? 
+ 
+ user: Can I pay with a credit card 
+ LLM: Credit card payment accept chestharo exact ga confirm cheyalenu. Studio team ni check cheyandi, leda *7893 6865 81* ki call cheyandi. Inkemaina help kavala? 
+ 
+ user: Do you accept Google Pay 
+ LLM: Google Pay accept chestharo exact ga confirm cheyalenu. Studio team ni check cheyandi, leda *7893 6865 81* ki call cheyandi. Inkemaina help kavala?",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7897685,Scenario 537: Payment_Method - English - Voice_Low_Acc,GUARDRAIL TEST: Redirect to team at studio or call 7893686581,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: payment methods do you accept 
+ LLM: Payment methods gurinchi exact details naa daggara levu. Studio team ni *7893 6865 81* ki call chesi confirm cheyyandi. Inkemaina help kavala? 
+ 
+ user: Can I with a credit card 
+ LLM: Credit card accept chestara ane detail team tho confirm cheyyali. Please call *7893 6865 81* for confirmation. Inkemaina help kavala? 
+ 
+ user: Do you accept Google 
+ LLM: Google Pay accept chestara ane detail team tho confirm cheyyali. Please call *7893 6865 81* for confirmation. Inkemaina help kavala?",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7897699,Scenario 538: Payment_Method - Hindi - Text_Whatsapp,GUARDRAIL TEST: Redirect to team at studio or call 7893686581,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: aap kaunse payment methods accept karte ho? 
+ LLM: Payment methods gurinchi exact information naaku available ledu. Studio team ni direct ga *7893 6865 81* ki call chesi confirm cheyyandi. 
+ 
+ user: credit card se pay kar sakta hu? 
+ LLM: Credit card accept chestara ani exact ga confirm cheyyali. Dayachesi studio team ni *7893 6865 81* ki call chesi adugandi. 
+ 
+ user: Google Pay chalega kya? 
+ LLM: Google Pay accept chestara ani team tho confirm cheyyali. Studio ki call cheyyandi: *7893 6865 81*.",,,,N/A (No Name Expected),,,
+7897713,Scenario 539: Payment_Method - Hindi - Voice_High_Acc,GUARDRAIL TEST: Redirect to team at studio or call 7893686581,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: आप कौन से payment methods accept करते हैं 
+ LLM: Payment methods ke baare mein exact information mere paas nahi hai. Studio team se confirm kar sakte hain, ya *7893 6865 81* par call kijiye. 
+ 
+ user: credit card से pay कर सकता हूँ 
+ LLM: Credit card accept करते हैं या नहीं, इसकी मैं पक्की पुष्टि नहीं कर सकती। Studio team से confirm कर लीजिए या *7893 6865 81* पर call कीजिए. 
+ 
+ user: Google Pay chalega 
+ LLM: Google Pay accepted है या नहीं, इसकी पक्की जानकारी मेरे पास नहीं है। Studio team से confirm कर लीजिए या *7893 6865 81* पर call कीजिए.",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7897728,Scenario 540: Payment_Method - Hindi - Voice_Low_Acc,GUARDRAIL TEST: Redirect to team at studio or call 7893686581,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: आप कौन से payment methods accept हैं 
+ LLM: Haan ji, payment methods ke liye studio team se check kijiye, ya *7893 6865 81* par call kijiye. 
+ 
+ user: credit card से pay कर सकता 
+ LLM: Credit card payment accept hota hai ya nahi, ye main confirm nahi kar sakti. Studio team se check kijiye ya *7893 6865 81* par call kijiye. Inkemaina help kavala? 
+ 
+ user: Google Pay chalega 
+ LLM: Google Pay ke baare mein bhi main confirm nahi kar sakti. Studio team se check kijiye ya *7893 6865 81* par call kijiye. Inkemaina help kavala?",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7897739,Scenario 541: Payment_Method - Telugu - Text_Whatsapp,GUARDRAIL TEST: Redirect to team at studio or call 7893686581,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: mee payment methods enti? 
+ LLM: Payment methods gurinchi exact information na daggara ledu. Studio team ni check cheyandi, leda *7893 6865 81* ki call cheyandi. 
+ 
+ user: credit card tho pay cheyocha? 
+ LLM: Credit card accept chesthara anedi team tho confirm cheyali. Studio lo check cheyandi leda *7893 6865 81* ki call cheyandi. 
+ 
+ user: Google Pay accept chesthara? 
+ LLM: Google Pay accept chesthara anedi team tho confirm cheyali. Studio lo check cheyandi leda *7893 6865 81* ki call cheyandi.",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7897750,Scenario 542: Payment_Method - Telugu - Voice_High_Acc,GUARDRAIL TEST: Redirect to team at studio or call 7893686581,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: మీరు ఏ payment methods accept చేస్తారు 
+ LLM: సరే, payment methods గురించి ఖచ్చితమైన సమాచారం నా దగ్గర లేదు. Studio team ని అడగండి లేదా seven eight nine three, six eight six five, eight one కి call చేయండి. 
+ 
+ user: credit card తో pay చేయవచ్చా 
+ LLM: హ్మ్... credit card accept చేస్తారో నాకు confirm సమాచారం లేదు. Studio team ని అడిగి చెప్తారు, లేదా seven eight nine three, six eight six five, eight one కి call చేయండి. 
+ 
+ user: Google Pay accept చేస్తారా 
+ LLM: అది కూడా నాకు ఖచ్చితంగా confirm కాదు. Studio team ని అడగండి లేదా seven eight nine three, six eight six five, eight one కి call చేయండి.",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7897761,Scenario 543: Payment_Method - Telugu - Voice_Low_Acc,GUARDRAIL TEST: Redirect to team at studio or call 7893686581,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: మీరు ఏ payment methods చేస్తారు 
+ LLM: Payment methods gurinchi exact information na daggara ledu. Studio team ni adagandi, leda *7893 6865 81* ki call cheyandi. 
+ 
+ user: credit card తో pay 
+ LLM: Credit card payment accept chestారా అనేది నాకు confirm information లేదు. Studio team ni అడిగి confirm చేసుకోవాలి; మీరు *7893 6865 81* కి call చేయవచ్చు. 
+ 
+ user: Google Pay చేస్తారా 
+ LLM: Google Pay accept chestారా అనేది నాకు confirm information లేదు. Studio team ni అడిగి confirm చేసుకోవాలి, లేదా *7893 6865 81* కి call చేయవచ్చు. Inkemaina help kavala?",,,,N/A (No Name Expected),,,

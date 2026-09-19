@@ -1,0 +1,1043 @@
+Call ID,Scenario Name,Expected Outcome,Actual Transcript,Extracted Name,Extracted Service,Extracted Time,n8n Webhook & DB Status,Overall Status (Pass/Fail/Warning),AI Suggestions & Improvements,Counsel Suggestions
+7948353,Scenario 145: Vague - English - Cooperative - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What exactly is this shop? 
+ LLM: DynamicDetailing Studio Jubilee Hills, Hyderabad lo car detailing shop. Exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages available. Inkemaina help kavala? 
+ 
+ user: What kind of services do you do? 
+ LLM: We do exterior wash, interior cleaning, ceramic coating, paint protection film or PPF, headlight restoration, and full detailing packages. Which service would you like to know more about? 
+ 
+ user: Do you do PPF? 
+ LLM: Yes, we do PPF. It starts at ₹19,999, and the exact price depends on your vehicle’s condition and the coverage area. Would you like more details or to book an appointment?",Not provided,PPF,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7948428,Scenario 146: Vague - English - Cooperative - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What exactly is this shop 
+ LLM: DynamicDetailing Studio oka car detailing studio, Jubilee Hills, Hyderabad lo undi. Exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages chestam. 
+Meeru ye service gurinchi telusukovalani anukuntunnaru? 
+ 
+ user: What kind of services do you do 
+ LLM: Maa daggara *exterior wash*, *interior cleaning*, *ceramic coating*, *PPF*, *headlight restoration*, mariyu *full detailing packages* available unnayi.  
+Meeku ye service gurinchi details kavali? 
+ 
+ user: Do you do interior cleaning 
+ LLM: Avunu, *interior cleaning* chestam. Daani price *₹799*. Booking appointment required—book cheyala?",,interior cleaning,,N/A (No Name Expected),,,
+7948513,Scenario 147: Vague - English - Cooperative - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is this shop 
+ LLM: This is *DynamicDetailing Studio* in Jubilee Hills, Hyderabad. We provide car detailing services like exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, and full detailing packages.  
+What service are you looking for? 
+ 
+ user: What kind of do you do 
+ LLM: We provide car detailing services:
+
+- *Exterior wash* — ₹499
+- *Interior cleaning* — ₹799
+- *Ceramic coating* — starts at ₹9,999
+- *PPF* — starts at ₹19,999
+- *Headlight restoration* — ₹799
+- *Full detailing packages* — starts at ₹3,499
+
+Which service would you like to know more about? 
+ 
+ user: Do you do ceramic 
+ LLM: Yes, we do *ceramic coating*. It starts at *₹9,999*, and the exact price depends on the vehicle’s condition and coverage. Appointment is required.  
+Would you like more details or to book an appointment?",,ceramic coating,,N/A (No Name Expected),,,
+7948610,Scenario 148: Vague - English - Angry - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What exactly is this shop? 
+ LLM: DynamicDetailing Studio Jubilee Hills, Hyderabad lo car detailing studio. Exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages chestaru. 
+ 
+ user: What kind of services do you do? I want this fixed NOW! 
+ LLM: I understand you’re frustrated. DynamicDetailing Studio offers exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, and full detailing packages. I’ve flagged this for our manager to follow up—what exactly needs fixing? 
+ 
+ user: Do you do PPF? 
+ LLM: Yes, we do *PPF*. It starts at *₹19,999*, and the exact price depends on the vehicle’s condition and coverage area. Inkemaina help kavala?",,User requested PPF service.,,N/A (No Name Expected),,,
+7948705,Scenario 149: Vague - English - Angry - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What exactly is this shop 
+ LLM: DynamicDetailing Studio is a car detailing studio in Jubilee Hills, Hyderabad. We offer exterior wash, interior cleaning, ceramic coating, paint protection film, headlight restoration, and full detailing packages. 
+ 
+ user: What kind of services do you do I want this fixed NOW 
+ LLM: I can help with car detailing services. We do exterior wash, interior cleaning, ceramic coating, paint protection film, headlight restoration, and full detailing packages. What would you like fixed? 
+ 
+ user: Do you do PPF 
+ LLM: Yes, we do PPF. It starts at ₹19,999, and the exact price depends on your vehicle’s condition and coverage area. Would you like to know more or book an appointment?",Not provided,PPF (paint protection film),Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7948820,Scenario 150: Vague - English - Angry - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: exactly is this shop 
+ LLM: Yes, this is DynamicDetailing Studio, located in Jubilee Hills, Hyderabad. We offer exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, and full detailing packages. 
+ 
+ user: What kind of services do you I want this fixed NOW 
+ LLM: I understand you’re frustrated. Please tell me what needs fixing, and our manager will call you back to sort it out. 
+ 
+ user: Do you interior cleaning 
+ LLM: Yes, we do *interior cleaning* for *₹799*. Appointment is required. Inkemaina help kavala?",,Interior cleaning for ₹799.,,N/A (No Name Expected),,,
+7948890,Scenario 151: Vague - English - Troll - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What exactly is this shop? 
+ LLM: DynamicDetailing Studio car detailing shop. Maa daggara exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages available unnayi. 
+ 
+ user: What kind of services do you do? LOL just kidding. 
+ LLM: Haha, okay! DynamicDetailing Studio lo exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages chestham. Mee car ki emaina service kavala?",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7948964,Scenario 152: Vague - English - Troll - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What exactly is this shop 
+ LLM: DynamicDetailing Studio car detailing shop, Jubilee Hills, Hyderabad lo undi. Exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages chestaru. 
+ 
+ user: What kind of services do you do LOL just kidding 
+ LLM: Haha, okay! We offer exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, and full detailing packages. Any service details kavala?",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7949044,Scenario 153: Vague - English - Troll - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is this shop 
+ LLM: This is *DynamicDetailing Studio* in Jubilee Hills, Hyderabad. We provide *exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration,* and *full detailing packages*. 
+ 
+ user: What kind of services you do LOL just kidding 
+ LLM: Haha, okay! We offer car detailing services like *exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration,* and *full detailing packages*. Inkemaina help kavala?",,,,N/A (No Name Expected),,,
+7949150,Scenario 154: Vague - English - Elderly - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What exactly is this shop? 
+ LLM: DynamicDetailing Studio is a car detailing studio in Jubilee Hills, Hyderabad. We offer exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, and full detailing packages. 
+ 
+ user: What kind of services do you do? Please speak slowly, I don't understand technology. 
+ LLM: Of course. We do car cleaning and protection:
+
+- Exterior wash
+- Interior cleaning
+- Ceramic coating
+- Paint Protection Film, or PPF
+- Headlight restoration
+- Full detailing packages
+
+Which service would you like me to explain slowly? 
+ 
+ user: Do you do ceramic coating? 
+ LLM: Yes, we do ceramic coating. It starts at ₹9,999, and the exact price depends on your vehicle’s condition and coverage. Inkemaina help kavala?",,ceramic coating,,N/A (No Name Expected),,,
+7949258,Scenario 155: Vague - English - Elderly - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What exactly is this shop 
+ LLM: DynamicDetailing Studio car detailing shop. Exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages chestaru. Appointment required. Which service gurinchi telusukovali? 
+ 
+ user: What kind of services do you do Please speak slowly I don't understand technology 
+ LLM: We do simple car-care services: exterior washing, interior cleaning, ceramic coating, paint protection film, headlight restoration, and full car detailing packages. No technology knowledge is needed. Which service would you like explained slowly? 
+ 
+ user: Do you do exterior wash 
+ LLM: Yes, we do exterior wash. It costs *₹499*, and an appointment is required. Would you like more details or an appointment?",Not provided,exterior wash,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7949356,Scenario 156: Vague - English - Elderly - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: exactly is this shop 
+ LLM: Yes, this is DynamicDetailing Studio in Jubilee Hills, Hyderabad. How may I help you? 
+ 
+ user: What kind services do you do Please speak slowly I don't understand technology 
+ LLM: We do simple car cleaning and protection work: exterior wash, interior cleaning, headlight restoration, ceramic coating, paint protection film, and full detailing packages.
+
+I can explain any one service slowly. Which service would you like to know about? 
+ 
+ user: Do do full detailing 
+ LLM: Yes, we do full detailing. It includes a thorough cleaning of your car’s exterior and interior, with attention to the vehicle’s condition. It starts at ₹3,499. The exact time depends on the car’s condition, so the team can confirm it at the studio.
+
+Would you like to book an appointment?",Not provided,full detailing,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7949447,Scenario 157: Vague - Hindi - Cooperative - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: yeh kis cheez ki shop hai? 
+ LLM: Yeh car detailing studio hai. Maa daggara exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration aur full detailing packages available hain. Mee car ki ye service kavali? 
+ 
+ user: aap log kya kaam karte ho? 
+ LLM: Hum cars ki detailing services karte hain—exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration aur full detailing packages. Aapko kis service ke baare mein jaanna hai? 
+ 
+ user: kya aap ceramic coating karte ho? 
+ LLM: Haan, hum ceramic coating karte hain. Iski starting price *₹9,999* hai. Inkemaina help kavala?",,ceramic coating,,N/A (No Name Expected),,,
+7949560,Scenario 158: Vague - Hindi - Cooperative - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: यह किस चीज़ की दुकान है 
+ LLM: यह car detailing studio है जी। यहाँ exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages मिलते हैं। 
+ 
+ user: आप लोग क्या काम करते हैं 
+ LLM: हम car detailing का काम करते हैं जी—exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages। आप किस service के बारे में जानना चाहते हैं? 
+ 
+ user: क्या आप PPF करते हैं 
+ LLM: हाँ जी, हम PPF करते हैं। इसका starting price *₹19,999* है।",Not provided,PPF,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7949667,Scenario 159: Vague - Hindi - Cooperative - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: यह किस की दुकान है 
+ LLM: यह DynamicDetailing Studio की दुकान है जी, Jubilee Hills, Hyderabad में। यहाँ car detailing services मिलती हैं, जैसे exterior wash, interior cleaning, ceramic coating, PPF और full detailing। 
+ 
+ user: लोग क्या काम करते हैं 
+ LLM: यहाँ cars की cleaning और detailing होती है जी—exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages। 
+ 
+ user: क्या ceramic coating करते हैं 
+ LLM: हाँ जी, हम ceramic coating करते हैं। इसकी starting price nine thousand nine hundred ninety nine से है।",Not provided,ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7949779,Scenario 160: Vague - Hindi - Angry - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: yeh kis cheez ki shop hai? 
+ LLM: Yeh car detailing studio hai. Yahan exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration aur full detailing services milti hain. Vene service gurinchi telusukovali? 
+ 
+ user: aap log kya kaam karte ho? mujhe abhi solution chahiye! 
+ LLM: जी, हम car detailing का काम करते हैं—wash, interior cleaning, ceramic coating, PPF और full detailing। आपको किस car problem का अभी solution चाहिए? 
+ 
+ user: kya aap ceramic coating karte ho? 
+ LLM: हाँ जी, हम ceramic coating करते हैं। इसकी starting price ₹9,999 है।",Not provided,ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7949893,Scenario 161: Vague - Hindi - Angry - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: यह किस चीज़ की दुकान है 
+ LLM: यह car detailing studio है जी। यहाँ exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages मिलते हैं। 
+ 
+ user: आप लोग क्या काम करते हैं मुझे यह अभी ठीक चाहिए 
+ LLM: जी, हम car की cleaning और protection करते हैं—exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing। आपको कौन-सी service चाहिए? 
+ 
+ user: क्या आप PPF करते हैं 
+ LLM: हाँ जी, हम PPF करते हैं। इसकी starting price *₹19,999* है। Exact price vehicle की condition और coverage area पर depend करती है।",,PPF,,N/A (No Name Expected),,,
+7950009,Scenario 162: Vague - Hindi - Angry - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: यह किस चीज़ की दुकान 
+ LLM: DynamicDetailing Studio car detailing shop है। यहाँ exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages मिलते हैं। 
+ 
+ user: आप लोग क्या काम करते हैं मुझे अभी ठीक चाहिए 
+ LLM: जी, हम car detailing का काम करते हैं—exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages। आपको कौन-सी service अभी चाहिए? 
+ 
+ user: क्या आप wash करते हैं 
+ LLM: जी हाँ, हम exterior wash करते हैं। इसकी कीमत four hundred ninety nine है, और इसके लिए appointment ज़रूरी है।",,exterior wash,,N/A (No Name Expected),,,
+7950085,Scenario 163: Vague - Hindi - Troll - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: yeh kis cheez ki shop hai? 
+ LLM: Yeh car detailing studio hai. Yahan exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration aur full detailing packages milte hain. Aapko kis service ke baare mein jaanna hai? 
+ 
+ user: aap log kya kaam karte ho? lol mazak kar raha tha 
+ LLM: Haan haan, samajh gayi! Hum cars ka detailing kaam karte hain—wash, interior cleaning, ceramic coating aur PPF. Aapko koi service chahiye?",,,,N/A (No Name Expected),,,
+7950181,Scenario 164: Vague - Hindi - Troll - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: यह किस चीज़ की दुकान है 
+ LLM: यह DynamicDetailing Studio है—यहाँ car detailing services मिलती हैं, जैसे exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages। 
+ 
+ user: आप लोग क्या काम करते हैं मज़ाक कर रहा था। 
+ LLM: जी, समझ गई—हम cars की detailing करते हैं: exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages।",Not provided,car detailing services,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7950273,Scenario 165: Vague - Hindi - Troll - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: यह चीज़ की दुकान है 
+ LLM: अच्छा, यह car detailing studio है, दुकान नहीं। DynamicDetailing Studio में exterior wash, interior cleaning, ceramic coating, PPF और full detailing services मिलती हैं। તમને કઈ service વિશે જાણવું છે? 
+ 
+ user: आप क्या काम करते हैं मज़ाक कर रहा था। 
+ LLM: अच्छा, समझ गई—मज़ाक था। मैं DynamicDetailing Studio की AI assistant हूँ; car detailing services और appointments में help करती हूँ।",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+Not Found,Scenario 166: Vague - Hindi - Elderly - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,No matching call found in recent logs. Test may have failed to execute.,,,,N/A (No Name Expected),,,
+7951013,Scenario 167: Vague - Hindi - Elderly - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: यह किस चीज़ की दुकान है 
+ LLM: यह car detailing studio है जी। यहाँ exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages मिलते हैं। 
+ 
+ user: आप लोग क्या काम करते हैं मुझे technology समझ नहीं आती आराम से बताएँ। 
+ LLM: जी, आसान भाषा में बताती हूँ। हम आपकी car की सफाई, अंदर की cleaning, paint की protection और पूरी detailing करते हैं। Exterior wash ₹499 से, interior cleaning ₹799 से, ceramic coating ₹9,999 से और PPF ₹19,999 से शुरू होता है। 
+ 
+ user: क्या आप exterior wash करते हैं 
+ LLM: हाँ जी, हम exterior wash करते हैं। इसमें आपकी car के बाहर की सफाई की जाती है, और इसकी कीमत ₹499 है।",Not provided,exterior wash,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7951074,Scenario 168: Vague - Hindi - Elderly - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: यह किस चीज़ की दुकान 
+ LLM: ये car detailing studio है जी — यहाँ exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration और full detailing packages मिलते हैं। आप किस service के बारे में जानना चाहते हैं? 
+ 
+ user: आप लोग क्या काम करते हैं मुझे technology नहीं आती आराम से बताएँ। 
+ LLM: हम गाड़ियों की सफ़ाई और उनकी सुरक्षा का काम करते हैं जी। गाड़ी बाहर से धोते हैं, अंदर से साफ़ करते हैं, और ceramic coating या PPF लगाकर paint को scratches और धूप से बचाने में मदद करते हैं। 
+ 
+ user: क्या interior cleaning करते हैं 
+ LLM: हाँ जी, interior cleaning करते हैं। इसकी कीमत seven hundred ninety nine से शुरू होती है।",,interior cleaning,,N/A (No Name Expected),,,
+7946582,Scenario 169: Vague - Telugu - Cooperative - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: namaste meri car bahut gandi hai aur mai bahut dino se ek acha studio dhundh raha tha kisi ne aapke bare me bataya aur mai jaanna chahta hu ki aap kya services dete ho kitne paise lagte hai kal koi slot available hai kya 
+ LLM: Namaste! Maa daggara exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages unnayi. Repu slots *9:00 AM nunchi 4:30 PM* varaku available unnayi; ye service kavali?",Not provided,"Exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages.",9:00 AM to 4:30 PM tomorrow.,[FAILED] 'Not provided' missing from Google Sheet,,,
+7951167,Scenario 170: Vague - Telugu - Cooperative - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఇది అసలు దేని గురించి 
+ LLM: ఇది DynamicDetailing Studio, Jubilee Hills, Hyderabad గురించి అండి. Car exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing services ఉంటాయి. 
+ 
+ user: మీరు ఏమేమి సర్వీసులు చేస్తారు 
+ LLM: మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages ఉన్నాయి. ఏ service గురించి details కావాలి? 
+ 
+ user: full detailing చేస్తారా 
+ LLM: అవును, full detailing చేస్తాం. ఇందులో car interior, exterior కి complete cleaning and detailing ఉంటుంది; price three thousand four hundred ninety nine నుంచి start అవుతుంది.",Not provided,full detailing,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7951223,Scenario 171: Vague - Telugu - Cooperative - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఇది అసలు గురించి 
+ LLM: సరిగ్గా వినపడలేదు, మీరు ఏ విషయం గురించి అడుగుతున్నారో ఇంకోసారి చెప్తారా? 
+ 
+ user: మీరు ఏమేమి సర్వీసులు 
+ LLM: మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages ఉన్నాయి. ఏ service గురించి తెలుసుకోవాలండి? 
+ 
+ user: ceramic coating చేస్తారా 
+ LLM: అవును, ceramic coating చేస్తాం. Price nine thousand nine hundred ninety nine నుంచి start అవుతుంది. ಇನ್ನేమైనా help కావాలా?",,ceramic coating,,N/A (No Name Expected),,,
+7951122,Scenario 172: Vague - Telugu - Angry - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: asalu em chestharu ikkada? 
+ LLM: Maa daggara exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages untayi. Meeku ye service gurinchi details kavali? 
+ 
+ user: services details pampandi 
+ LLM: *Exterior wash* – Car exterior ni clean chestaru. *₹499*
+
+*Interior cleaning* – Car lopala deep cleaning chestaru. *₹799*
+
+*Ceramic coating* – Paint protection kosam; starting price *₹9,999*.
+
+*PPF* – Paint ni scratches nunchi protect cheyadaniki; starting price *₹19,999*.
+
+*Headlight restoration* – Headlights ni clean chesi restore chestaru. *₹799*
+
+*Full detailing* – Complete car detailing package; starting price *₹3,499*.
+
+Appointment required. Inkemaina help kavala? 
+ 
+ user: interior cleaning available aa? 
+ LLM: Avunu, *interior cleaning* available undi. Price *₹799*. Appointment required. Book cheyamantaraa?",,interior cleaning,,N/A (No Name Expected),,,
+7951481,Scenario 173: Vague - Telugu - Angry - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఇది అసలు దేని గురించి 
+ LLM: సారీ, మీ మాట సరిగ్గా అర్థం కాలేదు. DynamicDetailing Studio services గురించా, లేక ఇంకేదైనా అడగాలనుకుంటున్నారా? 
+ 
+ user: మీరు ఏమేమి సర్వీసులు చేస్తారు ఊరికే అడిగాను లే 
+ LLM: మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages ఉన్నాయి. ఏదైనా service గురించి details కావాలంటే చెప్పండి.",Not provided,services offered by DynamicDetailing Studio,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7951420,Scenario 174: Vague - Telugu - Angry - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఇది అసలు గురించి 
+ LLM: సారీ, సరిగ్గా వినపడలేదు. ఒకసారి క్లియర్‌గా చెప్తారా? 
+ 
+ user: మీరు సర్వీసులు చేస్తారు నాకు ఇప్పుడే ఒక సొల్యూషన్ కావాలి 
+ LLM: అవును, మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages ఉన్నాయి. మీకు ఏ service గురించి solution కావాలి? 
+ 
+ user: exterior wash చేస్తారా 
+ LLM: అవును, exterior wash చేస్తాం. దీని price four hundred ninety nine. Booking కోసం ఏ రోజు కావాలి?",Not provided,exterior wash,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7951296,Scenario 175: Vague - Telugu - Troll - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: asalu em chestharu ikkada? 
+ LLM: Maa daggara exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages untayi. Meeku ye service gurinchi details kavali? 
+ 
+ user: services details pampandi naku ippude solution kavali! 
+ LLM: - *Exterior wash* – car exterior cleaning, *₹499*
+- *Interior cleaning* – car interior cleaning, *₹799*
+- *Ceramic coating* – protection and shine, starts at *₹9,999*
+- *PPF* – paint protection film, starts at *₹19,999*
+- *Headlight restoration* – headlight clarity improvement, *₹799*
+- *Full detailing* – complete car detailing package, starts at *₹3,499*
+
+Exact process vehicle condition batti marutundi. Meeku ye service kavali? 
+ 
+ user: interior cleaning available aa? 
+ LLM: Avunu, *interior cleaning* available undi, price *₹799*. Appointment required. Eppudu book cheyamantaru?",,interior cleaning,,N/A (No Name Expected),,,
+7951509,Scenario 176: Vague - Telugu - Troll - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఇది అసలు దేని 
+ LLM: ఇది DynamicDetailing Studio, Jubilee Hills, Hyderabad కి చెందిన AI assistant Siri. Car detailing services, prices, లేదా appointment booking గురించి help చేస్తా. 
+ 
+ user: మీరు ఏమేమి సర్వీసులు ఊరికే అడిగాను లే 
+ LLM: సరే, మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, ఇంకా full detailing packages ఉన్నాయి.",Not provided,car detailing services,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7951570,Scenario 177: Vague - Telugu - Troll - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఇది అసలు దేని గురించి 
+ LLM: ఇది DynamicDetailing Studio, Jubilee Hills, Hyderabad గురించి అండి. Car exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing services గురించి help చేస్తా. ನಿಮಗೆ ఏ service గురించి తెలుసుకోవాలి? 
+ 
+ user: మీరు ఏమేమి సర్వీసులు చేస్తారు నాకు టెక్నాలజీ పెద్దగా అర్థం కాదు మెల్లగా చెప్పండి 
+ LLM: సరే, మెల్లగా చెప్తా. మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, ఇంకా full detailing packages ఉంటాయి. 
+ టీమ్ మీ car condition చూసి, మీకు సరిపోయే service చెప్తారు. 
+ 
+ user: exterior wash చేస్తారా 
+ LLM: అవును, exterior wash చేస్తాం. దీని ధర four hundred ninety nine నుంచి ఉంటుంది. Appointment తప్పనిసరి, మీకు booking కావాలా?",,exterior wash,,N/A (No Name Expected),,,
+7951454,Scenario 178: Vague - Telugu - Elderly - Text_Whatsapp,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: asalu em chestharu ikkada? 
+ LLM: Maa daggara exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, mariyu full detailing packages unnayi. Meeku ye service gurinchi details kavali? 
+ 
+ user: services details pampandi urike adiga le 
+ LLM: - *Exterior wash* – Car exterior ni clean chestaru. *₹499*
+- *Interior cleaning* – Car lopala deep cleaning chestaru. *₹799*
+- *Ceramic coating* – Paint protection kosam coating; *₹9,999* nunchi.
+- *PPF* – Paint ni scratches nunchi protect chestundi; *₹19,999* nunchi.
+- *Headlight restoration* – Dull headlights ni restore chestaru. *₹799*
+- *Full detailing* – Complete interior and exterior detailing; *₹3,499* nunchi.
+
+Exact timing vehicle condition batti marutundi. Appointment required. Inkemaina help kavala?",Not provided,Not provided,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+Not Found,Scenario 179: Vague - Telugu - Elderly - Voice_High_Acc,Handle vague multi-turn flow adhering to guardrails.,No matching call found in recent logs. Test may have failed to execute.,,,,N/A (No Name Expected),,,
+7951614,Scenario 180: Vague - Telugu - Elderly - Voice_Low_Acc,Handle vague multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఇది అసలు గురించి 
+ LLM: సరిగ్గా వినపడలేదు, inkosari chepthara? 
+ 
+ user: ఏమేమి సర్వీసులు చేస్తారు నాకు టెక్నాలజీ పెద్దగా అర్థం కాదు మెల్లగా చెప్పండి 
+ LLM: అవును, మెల్లగా చెప్తా. మా దగ్గర exterior wash, interior cleaning, ceramic coating, PPF, headlight restoration, full detailing packages ఉన్నాయి. ఏ service గురించి ముందుగా తెలుసుకోవాలనుకుంటున్నారు? 
+ 
+ user: PPF చేస్తారా 
+ LLM: అవును, PPF చేస్తాం. ఇది car paint మీద protective film పెట్టి scratches, చిన్న stone marks నుంచి కాపాడుతుంది; price nineteen thousand nine hundred ninety nine నుంచి start అవుతుంది.",Not provided,PPF,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7952297,Scenario 217: Multi_Part - English - Cooperative - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price of PPF? And ceramic coating? And are you free tomorrow at 2 PM? 
+ LLM: 1. *PPF* starts at *₹19,999*. Exact price vehicle condition and coverage batti marutundi.  
+2. *Ceramic coating* starts at *₹9,999*.  
+3. Tomorrow, *17 Sep 2026* at *2:00 PM* availability confirm cheyadaniki calendar check kavali. Check cheyamantaraa? 
+ 
+ user: Okay, book both for me. 
+ LLM: Sure, both *PPF* and *ceramic coating* book cheyadaniki, mee *full name* and *10-digit WhatsApp number* share cheyyandi. 
+ 
+ user: My number is 9840202479, name is Sarah. 
+ LLM: Your *PPF + ceramic coating* appointment for *Sarah* is confirmed for *17 Sep 2026, 2:00 PM*. Details will be sent to your WhatsApp. Inkemaina help kavala? 
+ 
+ user: thanks 
+ LLM: Thank you! Have a great day!",Sarah,PPF and ceramic coating,"17 Sep 2026, 2:00 PM",[FAILED] 'Sarah' missing from Google Sheet,,,
+7914218,Scenario 218: Multi_Part - English - Cooperative - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book ceramic coating. 
+ LLM: Sure. Ceramic coating appointment book cheyadaniki, meeku ye date and time kavali? 
+ 
+ user: అసలు ఈ service ఎలా చేస్తారు? 
+ LLM: అవును, ceramic coating లో car surface ని deep clean చేసి, paint correction తర్వాత protective coating apply చేస్తారు. దీని starting price nine thousand nine hundred ninety nine. 
+ 
+ user: ఎంత time పడుతుంది? 
+ LLM: Service duration vehicle condition మీద depend అవుతుంది. Exact timing కోసం studio team ని confirm చేయాలి; మీకు date and time ఏది కావాలి? 
+ 
+ user: Okay book it for tomorrow 2 PM. 
+ LLM: సరే, రేపు September seventeen, afternoon two o'clock కి ceramic coating slot తీసుకున్నాను. Booking complete చేయడానికి మీ పేరు చెప్పండి.",,ceramic coating,"September 17, 2026, 2 PM",N/A (No Name Expected),,,
+7914390,Scenario 219: Multi_Part - English - Cooperative - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: I want to book ceramic coating 
+ LLM: Sure, ceramic coating book cheddam. *Which date and time* kavali? Bookable slots *9:00 AM–4:30 PM* madhya untayi. 
+ 
+ user: అసలు ఈ service ఎలా చేస్తారు 
+ LLM: Ceramic coating ముందు car ni thorough ga wash చేసి, paint ni clay bar mariyu machine polishing tho clean chestaru. Tarvatha coating apply చేసి cure అయ్యేలా ఉంచుతారు; price *₹9,999* nunchi start avtundi. Inkemaina help kavala? 
+ 
+ user: ఎంత time పడుతుంది 
+ LLM: Exact duration vehicle condition batti marutundi. Exact timing kosam studio team ni check cheyyali; ceramic coating price *₹9,999* nunchi start avtundi. 
+ 
+ user: Okay book it for tomorrow 2 PM 
+ LLM: సరే, రేపు సెప్టెంబర్ పదిహేడు, మధ్యాహ్నం రెండు గంటలకు ceramic coating slot lock చేస్తా. Booking confirm చేయడానికి మీ పేరు చెప్పండి.",,ceramic coating,"September 17, 2026, 2 PM",N/A (No Name Expected),,,
+7952365,Scenario 220: Multi_Part - English - Angry - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price of PPF? And ceramic coating? And are you free tomorrow at 2 PM? 
+ LLM: *PPF* starts at *₹19,999*.  
+*Ceramic coating* starts at *₹9,999*.  
+Tomorrow, *17 Sep 2026 at 2:00 PM* availability check cheyali—mee appointment book cheyamantaraa? 
+ 
+ user: Okay, book both for me. I want this fixed NOW! 
+ LLM: I can book *PPF + ceramic coating* for *17 Sep 2026 at 2:00 PM*, but I need your full name and 10-digit WhatsApp number first. Please share both. 
+ 
+ user: My number is 9120605527, name is Sarah. 
+ LLM: Your *PPF + ceramic coating* appointment is confirmed for *17 Sep 2026 at 2:00 PM*. Details will be sent to your WhatsApp. Inkemaina help kavala?",Sarah,PPF + ceramic coating,17 Sep 2026 at 2:00 PM,[FAILED] 'Sarah' missing from Google Sheet,,,
+7915343,Scenario 221: Multi_Part - English - Angry - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: నాకు ceramic coating కావాలి 
+ LLM: అవును, ceramic coating మా దగ్గర available ఉంది. దీని price nine thousand nine hundred ninety nine నుంచి start అవుతుంది. Booking చేయాలా? 
+ 
+ user: Actually can you speak in English 
+ LLM: Sure, go ahead. Ceramic coating is available, starting at ₹9,999. Would you like to book an appointment? 
+ 
+ user: What is the price 
+ LLM: Ceramic coating starts at ₹9,999. The exact price depends on your vehicle’s condition and coverage. Anything else I can help with? 
+ 
+ user: Okay book it 
+ LLM: Sure. Which date and time would you prefer for your ceramic coating appointment?",,ceramic coating,,N/A (No Name Expected),,,
+7952317,Scenario 222: Multi_Part - English - Angry - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price of PPF And ceramic coating And are you free tomorrow at 2 PM 
+ LLM: *PPF* starts at *₹19,999* and *ceramic coating* starts at *₹9,999*. Tomorrow, *17 Sep 2026 at 2:00 PM* availability check cheyadaniki, mee *name* and *10-digit WhatsApp number* pampinchandi. 
+ 
+ user: Okay book both for me 
+ LLM: Sure. Mee *name* and *10-digit WhatsApp number* pampinchandi, booking complete cheyadaniki. 
+ 
+ user: My number is 9587116368 name is Sarah 
+ LLM: Your *PPF + ceramic coating* appointment for *17 Sep 2026 at 2:00 PM* is confirmed, Sarah. Details will be sent to your WhatsApp. Inkemaina help kavala? 
+ 
+ user: thank you 
+ LLM: Thank you! Have a great day!",Sarah,PPF + ceramic coating,17 Sep 2026 at 2:00 PM,[FAILED] 'Sarah' missing from Google Sheet,,,
+7952409,Scenario 223: Multi_Part - English - Troll - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price of PPF? And ceramic coating? And are you free tomorrow at 2 PM? 
+ LLM: 1. *PPF* starts at *₹19,999*.
+2. *Ceramic coating* starts at *₹9,999*.
+3. Tomorrow, *17 September*, *2:00 PM* slot availability team confirm cheyali. Mee booking kosam vehicle details and contact number share chestara? 
+ 
+ user: Okay, book both for me. LOL just kidding. 
+ LLM: Haha, okay! No booking made. Inkemaina help kavala?",Not provided,PPF and ceramic coating,2:00 PM on 17 September,[FAILED] 'Not provided' missing from Google Sheet,,,
+7952343,Scenario 224: Multi_Part - English - Troll - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price of PPF And ceramic coating And are you free tomorrow 2 PM 
+ LLM: *PPF* starts at *₹19,999* and *ceramic coating* starts at *₹9,999*.  
+Tomorrow, *17 Sep 2026 at 2:00 PM* availability team confirm cheyyali. Mee appointment book cheyamantara? 
+ 
+ user: Okay book both for 
+ LLM: Sure. Mee *name* and *10-digit WhatsApp number* share cheyyandi, booking confirm cheyadaniki. 
+ 
+ user: My number is name is Isabella 
+ LLM: Mee name *Isabella* ani note chesanu. Mee *10-digit WhatsApp number* kuda share cheyyandi, booking complete cheyadaniki. 
+ 
+ user: thank you 
+ LLM: You’re welcome! Mee WhatsApp number share chesthe, PPF and ceramic coating appointment booking complete chestha.",Isabella,PPF and ceramic coating,17 Sep 2026 at 2:00 PM,[FAILED] 'Isabella' missing from Google Sheet,,,
+7952384,Scenario 225: Multi_Part - English - Troll - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price of PPF And ceramic coating And are you free tomorrow at 2 PM 
+ LLM: *PPF* starts at *₹19,999* and *ceramic coating* starts at *₹9,999*.  
+Tomorrow, *17 Sep 2026*, *2:00 PM* slot availability team tho confirm cheyali. Mee booking kosam check cheyamantaraa? 
+ 
+ user: Okay book both for me I want this fixed NOW 
+ LLM: *PPF + ceramic coating* kosam *17 Sep 2026, 2:00 PM* slot check chestunna. Booking complete cheyadaniki mee *full name* mariyu *10-digit WhatsApp number* pampandi. 
+ 
+ user: My number is 9813991657 name is David 
+ LLM: Mee *PPF + ceramic coating* appointment *17 Sep 2026, 2:00 PM* ki *David* peru meeda request submit ayyindi. Details mee WhatsApp ki pampinchadaniki team confirm chestundi. Inkemaina help kavala?",David,PPF + ceramic coating,"17 Sep 2026, 2:00 PM",[FAILED] 'David' missing from Google Sheet,,,
+7952442,Scenario 226: Multi_Part - English - Elderly - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price of PPF? And ceramic coating? And are you free tomorrow at 2 PM? 
+ LLM: *PPF* starts at *₹19,999*  
+*Ceramic coating* starts at *₹9,999*  
+Tomorrow at *2:00 PM* availability confirm cheyyadaniki, meeku ee two services book cheyala? 
+ 
+ user: Okay, book both for me. Please speak slowly, I don't understand technology. 
+ LLM: Sure, I’ll speak slowly. Mee *PPF + ceramic coating* appointment ni *tomorrow, 2:00 PM* ki book cheyadaniki, mee *full name* cheppandi. 
+ 
+ user: My number is 9422223221, name is Emily. 
+ LLM: Mee WhatsApp number *94222 23221*, correct aa? Adi confirm chesthe booking continue chestha.",Emily,PPF + ceramic coating,"Tomorrow, 2:00 PM",[FAILED] 'Emily' missing from Google Sheet,,,
+7952399,Scenario 227: Multi_Part - English - Elderly - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price of PPF And coating And are you free tomorrow at 2 PM 
+ LLM: 1. *PPF* starts at *₹19,999*.
+2. *Ceramic coating* starts at *₹9,999*.
+3. Tomorrow, *17 Sep*, *2:00 PM* slot availability team confirm chestundi. Book cheyamantారా? 
+ 
+ user: Okay book both for me I want fixed NOW 
+ LLM: Tomorrow at *2:00 PM* request received for *PPF + ceramic coating*. Please share your full name and 10-digit WhatsApp number to complete the booking. 
+ 
+ user: number is 9484652867 name is David 
+ LLM: Your *PPF + ceramic coating* appointment for *17 Sep at 2:00 PM* is confirmed under *David*. Details will be sent to WhatsApp number *94846 52867*. Inkemaina help kavala?",David,PPF + ceramic coating,17 Sep at 2:00 PM,[FAILED] 'David' missing from Google Sheet,,,
+7952419,Scenario 228: Multi_Part - English - Elderly - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price of PPF And ceramic coating And are you free tomorrow at 2 PM 
+ LLM: *PPF* starts at *₹19,999* and *ceramic coating* starts at *₹9,999*.  
+Tomorrow, *17 Sep 2026 at 2:00 PM* availability confirm cheyadaniki, mee *name* and *10-digit WhatsApp number* share cheyandi. 
+ 
+ user: Okay book both for me LOL just kidding 
+ LLM: Haha, sare! Booking cheyyaledu. Inkemaina help kavala?",,PPF and ceramic coating,17 Sep 2026 at 2:00 PM,N/A (No Name Expected),,,
+7907579,Scenario 229: Multi_Part - Hindi - Cooperative - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: aaj 5 baje ceramic coating karna hai 
+ LLM: Aaj evening *5:00 PM* bookable slot nahi hai; appointments *9:00 AM se 4:30 PM* tak available hain. *4:30 PM* slot chalega? 
+ 
+ user: kyu nahi? mai 5 baje aa sakta hu 
+ LLM: Samajh sakti hoon, lekin bookable slots *4:30 PM* tak hi hain. Aap *4:30 PM* le sakte hain, ya next morning ka slot choose kar sakte hain—kaunsa prefer karenge? 
+ 
+ user: theek hai, sabse late slot kaunsa hai? 
+ LLM: Sabse late bookable slot *4:30 PM* hai. Kya aap ceramic coating ke liye *4:30 PM* book karna chahenge?",,ceramic coating,4:30 PM,N/A (No Name Expected),,,
+7952503,Scenario 230: Multi_Part - Hindi - Cooperative - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF का क्या rate है और ceramic coating का क्या कल 2 बजे free हैं 
+ LLM: *PPF* starts at *₹19,999* और *ceramic coating* starts at *₹9,999*। कल *17 Sep, 2:00 PM* का slot check करने के लिए team से confirm करवाना पड़ेगा—आप booking करना चाहते हैं? 
+ 
+ user: ठीक है दोनों बुक कर दो। 
+ LLM: ठीक है जी, दोनों services के लिए booking कर देती हूँ। कृपया अपना नाम और दस digit WhatsApp number भेज दीजिए। 
+ 
+ user: मेरा नंबर 9682685117 है नाम Vikas। 
+ LLM: Vikas जी, आपका *PPF और ceramic coating* appointment *17 Sep, 2:00 PM* के लिए confirm हो गया है। Details आपके WhatsApp पर भेज दी जाएंगी। Inkemaina help kavala? 
+ 
+ user: shukriya 
+ LLM: बहुत खुशी हुई, Vikas जी। Thank you! Have a great day!",Vikas,PPF and ceramic coating,"17 Sep, 2:00 PM",[FAILED] 'Vikas' missing from Google Sheet,,,
+7952514,Scenario 231: Multi_Part - Hindi - Cooperative - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF का क्या rate है और ceramic का क्या कल 2 बजे free हैं 
+ LLM: *PPF* starts at *₹19,999* and *ceramic coating* starts at *₹9,999*.  
+Kal *17 Sep, 2:00 PM* slot check karwa diya hai—team availability confirm karke batayegi. In services ko book karna hai? 
+ 
+ user: ठीक है दोनों बुक दो। 
+ LLM: ठीक है जी, दोनों की booking के लिए आपका *नाम* और *WhatsApp number* भेज दीजिए। 
+ 
+ user: मेरा नंबर 9142828482 है Sunil। 
+ LLM: आपका *PPF और ceramic coating* appointment *17 Sep, 2:00 PM* के लिए Sunil नाम पर book कर दिया गया है। Details आपके WhatsApp पर भेज दी जाएंगी। Inkemaina help kavala? 
+ 
+ user: shukriya 
+ LLM: Thank you! Have a great day!",Sunil,PPF and ceramic coating,"17 Sep, 2:00 PM",[FAILED] 'Sunil' missing from Google Sheet,,,
+7952490,Scenario 232: Multi_Part - Hindi - Angry - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ka price kya hai? aur ceramic coating ka? kal 2 baje free ho? 
+ LLM: *PPF* starts at *₹19,999* and *ceramic coating* starts at *₹9,999*.  
+Tomorrow, *17 Sep 2026*, slots *9:00 AM–4:30 PM* madhya untayi; *2:00 PM* ki book cheyala? 
+ 
+ user: theek hai, dono book kar do 
+ LLM: ठीक है, PPF और ceramic coating दोनों के लिए *17 Sep 2026, 2:00 PM* का slot रखती हूँ। Booking complete करने के लिए आपका नाम और दस अंकों का WhatsApp number चाहिए। 
+ 
+ user: mera naam Sneha hai number 9302228281 
+ LLM: आपका *PPF और ceramic coating* appointment *17 Sep 2026, 2:00 PM* के लिए confirm हो गया है। Details आपके WhatsApp पर भेजे जाएंगे। Inkemaina help kavala? 
+ 
+ user: thanks 
+ LLM: Thank you! Have a great day!",Sneha,PPF and ceramic coating,"17 Sep 2026, 2:00 PM",[FAILED] 'Sneha' missing from Google Sheet,,,
+7952527,Scenario 233: Multi_Part - Hindi - Angry - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF का क्या rate है और ceramic coating का क्या कल 2 बजे free हैं 
+ LLM: *PPF* starts at *₹19,999* aur *ceramic coating* starts at *₹9,999*. Kal, *17 September*, *2:00 PM* ka slot check karne ke liye team se confirmation chahiye—kya aap booking karna chahenge? 
+ 
+ user: ठीक है दोनों बुक कर दो। मुझे यह अभी ठीक चाहिए 
+ LLM: ठीक है जी, दोनों services book कर देती हूँ। Booking के लिए आपका नाम और दस अंकों का WhatsApp number बताइए। 
+ 
+ user: मेरा नंबर 9708178332 है नाम Amit। 
+ LLM: आपका WhatsApp number *97081 78332* है, सही है?",Amit,PPF and ceramic coating,"17 September, 2:00 PM",[FAILED] 'Amit' missing from Google Sheet,,,
+7952535,Scenario 234: Multi_Part - Hindi - Angry - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF क्या rate है और ceramic coating का क्या कल 2 बजे free हैं 
+ LLM: PPF starts at *₹19,999* and ceramic coating starts at *₹9,999*.  
+कल *2:00 PM* का slot check करने के लिए बताइए—किस service के लिए booking चाहिए? 
+ 
+ user: ठीक है दोनों बुक दो। मुझे यह अभी ठीक चाहिए 
+ LLM: कल *2:00 PM* पर PPF और ceramic coating के लिए slot check कर दिया है। Booking पूरी करने के लिए आपका नाम और *10-digit WhatsApp number* चाहिए। 
+ 
+ user: मेरा नंबर 9863792091 नाम Amit। 
+ LLM: Amit, आपका *PPF और ceramic coating* appointment कल *2:00 PM* के लिए confirm करने की प्रक्रिया शुरू हो गई है। Details आपके WhatsApp पर भेजे जाएंगे। Inkemaina help kavala?",Amit,PPF and ceramic coating,2:00 PM,[FAILED] 'Amit' missing from Google Sheet,,,
+7952520,Scenario 235: Multi_Part - Hindi - Troll - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ka price kya hai? aur ceramic coating ka? kal 2 baje free ho? 
+ LLM: *PPF* starts at *₹19,999*  
+*Ceramic coating* starts at *₹9,999*  
+Kal *2:00 PM* availability confirm cheyadaniki, kal ki book cheyamantunnara? 
+ 
+ user: theek hai, dono book kar do mujhe abhi solution chahiye! 
+ LLM: Kal *2:00 PM* par PPF aur ceramic coating ke liye slot check kar diya hai. Booking complete karne ke liye apna naam aur 10-digit WhatsApp number bhej dijiye. 
+ 
+ user: mera naam Neha hai number 9120844495 
+ LLM: Neha, aapka *PPF + ceramic coating* appointment *17 Sep, 2:00 PM* ke liye confirm ho gaya hai. Details aapke WhatsApp par bhej diye jayenge. Inkemaina help kavala?",Neha,PPF + ceramic coating,"17 Sep, 2:00 PM",[FAILED] 'Neha' missing from Google Sheet,,,
+7952552,Scenario 236: Multi_Part - Hindi - Troll - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF का क्या rate है और ceramic coating का क्या कल 2 बजे free हैं 
+ LLM: PPF starts at *₹19,999* and ceramic coating starts at *₹9,999*.  
+Kal 2:00 PM ki slot availability confirm cheyadaniki date cheppandi—16 September 2026 ke tomorrow, yaani 17 September 2026? 
+ 
+ user: ठीक है दोनों बुक कर दो। मज़ाक कर रहा था। 
+ LLM: Haha, theek hai ji, booking nahi karti. PPF ya ceramic coating ke baare mein aur kuch jaanna hai?",,PPF and ceramic coating services,,N/A (No Name Expected),,,
+7952558,Scenario 237: Multi_Part - Hindi - Troll - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF का क्या rate है और ceramic coating का क्या कल बजे free हैं 
+ LLM: PPF starts at *₹19,999*, and ceramic coating starts at *₹9,999*.
+
+Tomorrow, *17 September*, appointment slots are available from *9:00 AM to 4:30 PM*. Aapko kaunsa time chahiye? 
+ 
+ user: है दोनों बुक कर दो। मज़ाक कर रहा था। 
+ LLM: ठीक है जी, मज़ाक समझ गई। अगर PPF और ceramic coating book करनी हो, तो बस date, time, नाम और WhatsApp number भेज दीजिए।",,PPF and ceramic coating,"17 September, slots available from 9:00 AM to 4:30 PM",N/A (No Name Expected),,,
+7952544,Scenario 238: Multi_Part - Hindi - Elderly - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ka price kya hai? aur ceramic coating ka? kal 2 baje free ho? 
+ LLM: *PPF* starts at *₹19,999*  
+*Ceramic coating* starts at *₹9,999*  
+Kal *2:00 PM* slot availability check cheyadaniki, *kal* ante *17 Sep 2026* ani confirm cheppandi. 
+ 
+ user: theek hai, dono book kar do lol mazak kar raha tha 
+ LLM: Haha, theek hai—booking nahi kar rahi 😄. Agar kabhi PPF ya ceramic coating book karni ho, bata dena.",,PPF and ceramic coating,17 Sep 2026 2:00 PM,N/A (No Name Expected),,,
+7952583,Scenario 239: Multi_Part - Hindi - Elderly - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF का क्या rate है और ceramic coating का क्या कल 2 बजे free हैं 
+ LLM: *PPF* starts at *₹19,999* and *ceramic coating* starts at *₹9,999*.
+
+*Tomorrow, 17 Sep* at *2:00 PM* availability check cheyali ante, mee *10-digit WhatsApp number* share cheyandi. 
+ 
+ user: ठीक है दोनों बुक कर दो। मुझे technology समझ नहीं आती आराम से बताएँ। 
+ LLM: ठीक है जी, दोनों के लिए *17 Sep, 2:00 PM* का appointment book करने के लिए आपका *10-digit WhatsApp number* और *नाम* चाहिए। 
+ 
+ user: मेरा नंबर 9498013387 है नाम Sneha। 
+ LLM: Your WhatsApp number is *94980 13387*, correct?",Sneha,PPF and ceramic coating,"17 Sep, 2:00 PM",[FAILED] 'Sneha' missing from Google Sheet,,,
+7952591,Scenario 240: Multi_Part - Hindi - Elderly - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF का क्या rate है और ceramic coating का क्या कल 2 free हैं 
+ LLM: *PPF* starts at *₹19,999* and *ceramic coating* starts at *₹9,999*.  
+Kal, *17 Sep*, ke slots *9:00 AM se 4:30 PM* tak hain. *Free offers available nahi hain.*  
+Kaunsa time book karna hai? 
+ 
+ user: है दोनों बुक कर दो। मुझे technology समझ नहीं आती आराम से बताएँ। 
+ LLM: जी, दोनों services — *PPF* और *ceramic coating* — book कर देंगे। पहले कल का convenient time बताइए, *9:00 AM से 4:30 PM* के बीच। 
+ 
+ user: नंबर 9785513490 है नाम Amit। 
+ LLM: आपका WhatsApp number *97855 13490* और नाम *Amit* note कर लिया है। कल *17 Sep* को कौन-सा time रखूँ, *9:00 AM से 4:30 PM* के बीच?",Amit,PPF and ceramic coating,,[FAILED] 'Amit' missing from Google Sheet,,,
+7951990,Scenario 241: Multi_Part - Telugu - Cooperative - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating aur PPF dono chahiye 
+ LLM: Ceramic coating aur PPF, rendu available unnayi. Ceramic coating *₹9,999* nunchi, PPF *₹19,999* nunchi start avutayi. Inkemaina details kavala leka appointment book cheyamantaraa? 
+ 
+ user: kal 2 baje book karo 
+ LLM: Kal, *17 September 2026*, *2:00 PM* ki ceramic coating + PPF appointment book cheyadaniki mee *name* mariyu *10-digit WhatsApp number* pampandi. 
+ 
+ user: naam Meenakshi, number 9164162003 
+ LLM: Mee *9164 162003* number ki WhatsApp details pampistamu. *Meenakshi* gari ceramic coating + PPF appointment *17 September, 2:00 PM* ki confirm ayyindi.
+
+Inkemaina help kavala? 
+ 
+ user: ruko, sirf ceramic coating book hua ya dono? 
+ LLM: Rendu book ayyayi — *ceramic coating + PPF* appointment *17 September, 2:00 PM* ki confirm ayyindi. Inkemaina help kavala?",Meenakshi,ceramic coating + PPF,"17 September 2026, 2:00 PM",[FAILED] 'Meenakshi' missing from Google Sheet,,,
+7952613,Scenario 242: Multi_Part - Telugu - Cooperative - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ప్రైస్ ఎంత సిరామిక్ కోటింగ్ ప్రైస్ ఎంత రేపు 2 గంటలకు ఖాళీగా ఉన్నారా 
+ LLM: PPF starting price nineteen thousand nine hundred ninety nine, ceramic coating starting price nine thousand nine hundred ninety nine. రేపు afternoon two o’clock slot ఉందో లేదో check చేస్తా — మీకు PPF, ceramic coating రెండింటికీ booking కావాలా? 
+ 
+ user: సరే రెండు బుక్ చేయండి 
+ LLM: సరే, రేపు afternoon two o’clock కి PPF మరియు ceramic coating రెండూ book చేస్తా. మీ పేరు చెప్పండి. 
+ 
+ user: నా నంబర్ 9320385956 పేరు Swathi 
+ LLM: సరే Swathi గారు, మీ PPF మరియు ceramic coating appointment రేపు afternoon two o’clock కి confirm అయ్యింది. Details మీ WhatsApp కి పంపిస్తాము. ఇంకేమైనా తెలుసుకోవాలా? 
+ 
+ user: సరే, ధన్యవాదాలు 
+ LLM: Thank you for calling DynamicDetailing Studio. Have a great day ahead!",Swathi,PPF and ceramic coating,Rope 2 PM tomorrow,[FAILED] 'Swathi' missing from Google Sheet,,,
+7952623,Scenario 243: Multi_Part - Telugu - Cooperative - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ప్రైస్ ఎంత సిరామిక్ కోటింగ్ ప్రైస్ రేపు 2 గంటలకు ఖాళీగా ఉన్నారా 
+ LLM: PPF price nineteen thousand nine hundred ninety nine నుంచి start అవుతుంది. Ceramic coating price nine thousand nine hundred ninety nine నుంచి start అవుతుంది. రేపు, September seventeen, afternoon two o’clock slot availability team confirm చేస్తుంది. 
+ 
+ user: సరే రెండు బుక్ 
+ LLM: సరే, రెండు services book చేస్తాం. ఏ పేరు మీద బుక్ చేయమంటారు? 
+ 
+ user: నంబర్ 9149094127 పేరు Bhavya 
+ LLM: మీ పేరు Bhavya, number nine one four nine zero nine four one two seven, correct అవునా? 
+ 
+ user: సరే, ధన్యవాదాలు 
+ LLM: Thank you, Bhavya. మీ PPF మరియు ceramic coating appointment రేపు afternoon two o'clock కి confirm అయ్యింది. ఇంకేమైనా తెలుసుకోవాలా?",Bhavya,PPF and ceramic coating,"September 17, 2 PM",[FAILED] 'Bhavya' missing from Google Sheet,,,
+7952036,Scenario 244: Multi_Part - Telugu - Angry - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating PPF rendu kavali 
+ LLM: Ceramic coating mariyu PPF rendu kavala? Ceramic coating *₹9,999* nunchi, PPF *₹19,999* nunchi start avutayi. Ee rendu gurinchi process details kavala, leka appointment book cheyala? 
+ 
+ user: repu 2 PM ki book cheyandi 
+ LLM: Repu *17 Sep 2026, 2:00 PM* ki ceramic coating mariyu PPF appointment book cheyagalanu. Mee *full name* mariyu *10-digit WhatsApp number* pampinchandi. 
+ 
+ user: peru Karthik, number 9277531741 
+ LLM: Mee WhatsApp number *92775 31741*, correct aa? Repu *17 Sep 2026, 2:00 PM* ki *Karthik* peru meeda ceramic coating + PPF booking continue cheyala? 
+ 
+ user: aagandi, ceramic coating matrame book ayyinda leka rendu? 
+ LLM: Rendu book cheyadaniki request undi—ceramic coating mariyu PPF. Inka booking confirm kaaledu; number confirmation tarvata calendar lo book chestanu.",Karthik,ceramic coating and PPF,"17 Sep 2026, 2:00 PM",[FAILED] 'Karthik' missing from Google Sheet,,,
+7952641,Scenario 245: Multi_Part - Telugu - Angry - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ప్రైస్ ఎంత సిరామిక్ కోటింగ్ ప్రైస్ ఎంత రేపు 2 గంటలకు ఖాళీగా ఉన్నారా 
+ LLM: PPF price nineteen thousand nine hundred ninety nine nunchi start అవుతుంది, ceramic coating price nine thousand nine hundred ninety nine nunchi start అవుతుంది. రేపు afternoon two o’clock slot availability check చేయాలంటే, appointment book చేయాలనుకుంటున్నారా? 
+ 
+ user: సరే రెండు బుక్ చేయండి నాకు ఇప్పుడే ఒక సొల్యూషన్ కావాలి 
+ LLM: అలాగే, రెండు services కి appointment book చేస్తా. ముందుగా మీ పేరు చెప్పండి. 
+ 
+ user: నా నంబర్ 9194619104 పేరు Deepthi 
+ LLM: సరే Deepthi గారు, మీ number nine one nine four, six one nine one, zero four, correct అవునా?",Deepthi,PPF and ceramic coating,Tomorrow at 2 PM,[FAILED] 'Deepthi' missing from Google Sheet,,,
+7952646,Scenario 246: Multi_Part - Telugu - Angry - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ప్రైస్ సిరామిక్ కోటింగ్ ప్రైస్ ఎంత రేపు 2 గంటలకు ఖాళీగా ఉన్నారా 
+ LLM: Thank you for calling. Please reach out to 7893686581 for inquiries, and thank you. 
+ 
+ user: సరే రెండు బుక్ చేయండి నాకు ఇప్పుడే ఒక కావాలి 
+ LLM: సరిగ్గా వినపడలేదు, ఏ రెండు services book చేయాలి? 
+ 
+ user: నా నంబర్ పేరు Divya 
+ LLM: అలాగే, Divya గారు. మీ WhatsApp నెంబర్ చెప్పండి.",Divya,PPF and ceramic coating,Tomorrow at 2 PM,[FAILED] 'Divya' missing from Google Sheet,,,
+7952604,Scenario 247: Multi_Part - Telugu - Troll - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF entha? Ceramic coating entha? repu 2 PM ki free aa? 
+ LLM: *PPF* starts at *₹19,999*.  
+*Ceramic coating* starts at *₹9,999*.  
+Repu *2:00 PM* availability check chestha—mee car ki ye service book cheyamantaru? 
+ 
+ user: rendu book chesey 
+ LLM: Sare, *PPF + ceramic coating* book chestha. Mee *name* mariyu *10-digit WhatsApp number* pampinchandi. 
+ 
+ user: name Kalyan number 9120698812 
+ LLM: Mee WhatsApp number *91206 98812*, correct aa? 
+ 
+ user: sare, thanks 
+ LLM: Booking complete cheyadaniki mee *2:00 PM* slot *17 Sep* ki, *Kalyan* peru meeda *PPF + ceramic coating* confirm chesthunna. Ippudu calendar lo book cheyala?",Kalyan,PPF + ceramic coating,2:00 PM on 17 Sep,[FAILED] 'Kalyan' missing from Google Sheet,,,
+7952654,Scenario 248: Multi_Part - Telugu - Troll - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ప్రైస్ ఎంత సిరామిక్ కోటింగ్ ప్రైస్ ఎంత రేపు 2 గంటలకు ఖాళీగా ఉన్నారా 
+ LLM: *PPF* starts at *₹19,999*.  
+*Ceramic coating* starts at *₹9,999*.  
+*రేపు*, *17 Sep 2026* మధ్యాహ్నం *2:00 PM* కి availability check చేయనా? 
+ 
+ user: సరే రెండు బుక్ చేయండి ఊరికే అడిగాను లే 
+ LLM: సరే, రెండు services book చేయాలంటే మీ పేరు, పది అంకెల WhatsApp number చెప్పండి.",,PPF and Ceramic coating,17 Sep 2026 2:00 PM,N/A (No Name Expected),,,
+7952660,Scenario 249: Multi_Part - Telugu - Troll - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ప్రైస్ సిరామిక్ కోటింగ్ ప్రైస్ ఎంత రేపు 2 గంటలకు ఖాళీగా ఉన్నారా 
+ LLM: PPF nineteen thousand nine hundred ninety nine nunchi, ceramic coating nine thousand nine hundred ninety nine nunchi start అవుతాయి. రేపు, September seventeen, afternoon two o'clock slot availability నేను calendar లో check చేస్తా — మీ పేరు చెప్పగలరా? 
+ 
+ user: సరే రెండు చేయండి ఊరికే అడిగాను లే 
+ LLM: సరే, అర్థమైంది — మీరు just enquiry మాత్రమే చేశారు. PPF మరియు ceramic coating గురించి ఇంకేమైనా తెలుసుకోవాలా?",,PPF and ceramic coating,"September 17, 2026, 2:00 PM",N/A (No Name Expected),,,
+7952631,Scenario 250: Multi_Part - Telugu - Elderly - Text_Whatsapp,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF entha? Ceramic coating entha? repu 2 PM ki free aa? 
+ LLM: *PPF* starts at *₹19,999*.  
+*Ceramic coating* starts at *₹9,999*.  
+Repu *2:00 PM* availability confirm cheyadaniki, booking kavala? 
+ 
+ user: rendu book chesey naku ippude solution kavali! 
+ LLM: Repu *2:00 PM* ki *PPF + ceramic coating* booking kosam slot request chesanu. Booking complete cheyadaniki mee *name* mariyu *10-digit WhatsApp number* pampandi. 
+ 
+ user: name Sowmya number 9836275959 
+ LLM: Sowmya, mee *PPF + ceramic coating* appointment repu *17 Sep, 2:00 PM* ki confirm ayyindi. Details mee WhatsApp ki pampistaru. Inkemaina help kavala?",Sowmya,PPF + ceramic coating,"17 Sep, 2:00 PM",[FAILED] 'Sowmya' missing from Google Sheet,,,
+7952679,Scenario 251: Multi_Part - Telugu - Elderly - Voice_High_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ప్రైస్ ఎంత సిరామిక్ కోటింగ్ ప్రైస్ ఎంత రేపు 2 గంటలకు ఖాళీగా ఉన్నారా 
+ LLM: PPF *nineteen thousand nine hundred ninety nine* nunchi start avutundi, ceramic coating *nine thousand nine hundred ninety nine* nunchi start avutundi. రేపు, September seventeen, afternoon two o'clock slot available ఉందో calendar లో check చేసి చెప్తా. 
+ 
+ user: సరే రెండు బుక్ చేయండి నాకు టెక్నాలజీ పెద్దగా అర్థం కాదు మెల్లగా చెప్పండి 
+ LLM: సరే, రెండు services — PPF మరియు ceramic coating — book చేస్తా. ముందుగా మీ పేరు చెప్పండి. 
+ 
+ user: నా నంబర్ 9840855325 పేరు Swathi 
+ LLM: సరే, Swathi గారు. మీ WhatsApp number nine eight four zero, eight five five three, two five కదా? Slot రేపు, September seventeen, afternoon two o'clock కి PPF మరియు ceramic coating కోసం ఉంచుతున్నా.",Swathi,PPF and ceramic coating,"September seventeen, afternoon two o'clock",[FAILED] 'Swathi' missing from Google Sheet,,,
+7952688,Scenario 252: Multi_Part - Telugu - Elderly - Voice_Low_Acc,Handle multi_part multi-turn flow adhering to guardrails.,"user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ఎంత సిరామిక్ కోటింగ్ ప్రైస్ ఎంత రేపు 2 గంటలకు ఖాళీగా ఉన్నారా 
+ LLM: PPF price nineteen thousand nine hundred ninety nine నుంచి start అవుతుంది. Ceramic coating price nine thousand nine hundred ninety nine నుంచి start అవుతుంది. రేపు, September seventeen, afternoon two o'clock slot availability check చేస్తా — మీకు booking కావాలా? 
+ 
+ user: సరే బుక్ చేయండి నాకు టెక్నాలజీ పెద్దగా అర్థం కాదు మెల్లగా చెప్పండి 
+ LLM: సరే, నెమ్మదిగా చెప్తా. మీ PPF మరియు ceramic coating appointment రేపు, September seventeen, afternoon two o'clock కి book చేస్తా. మీ పేరు చెప్పండి. 
+ 
+ user: నా నంబర్ 9965490667 పేరు 
+ LLM: సరే, మీ పేరు చెప్పండి.",Not provided,PPF and ceramic coating,"September seventeen, afternoon two o'clock",[FAILED] 'Not provided' missing from Google Sheet,,,
+7919561,Scenario 523: Repeated_Question - English - Text_Whatsapp,"GUARDRAIL TEST: Must answer again, never say 'I already told you'","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for full detailing? 
+ LLM: *Full detailing* starts at *₹3,499*. Exact pricing may vary based on your vehicle’s condition. Inkemaina help kavala? 
+ 
+ user: Sorry, what was the price for full detailing again? 
+ LLM: *Full detailing* starts at *₹3,499*. Inkemaina help kavala? 
+ 
+ user: One more time, how much is full detailing? 
+ LLM: *Full detailing* starts at *₹3,499*. Inkemaina help kavala?",Not provided,Full detailing,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7919659,Scenario 524: Repeated_Question - English - Voice_High_Acc,"GUARDRAIL TEST: Must answer again, never say 'I already told you'","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What is the price for full detailing 
+ LLM: *Full detailing* starts at *₹3,499*. Exact pricing depends on your vehicle’s condition. Appointment required—Inkemaina help kavala? 
+ 
+ user: Sorry what was the price for full detailing again 
+ LLM: *Full detailing* starts at *₹3,499*. Appointment required. Inkemaina help kavala? 
+ 
+ user: One more time how much is full detailing 
+ LLM: *Full detailing* starts at *₹3,499*.",Not provided,Full detailing,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7919775,Scenario 525: Repeated_Question - English - Voice_Low_Acc,"GUARDRAIL TEST: Must answer again, never say 'I already told you'","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: What the price for interior cleaning 
+ LLM: *Interior cleaning* price *₹799*. Appointment required. Inkemaina help kavala? 
+ 
+ user: Sorry what the price for interior cleaning again 
+ LLM: *Interior cleaning* price *₹799*. Appointment required. Inkemaina help kavala? 
+ 
+ user: One more time much is interior cleaning 
+ LLM: *Interior cleaning* price *₹799*. Appointment required. Inkemaina help kavala?",Not provided,Interior cleaning,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7897517,Scenario 526: Repeated_Question - Hindi - Text_Whatsapp,"GUARDRAIL TEST: Must answer again, never say 'I already told you'","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ka price kya hai? 
+ LLM: *PPF* starts at *₹19,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: phir se batao, PPF ka price? 
+ LLM: *PPF* ka starting price *₹19,999* hai. Exact price vehicle condition aur coverage par depend karta hai. Inkemaina help kavala? 
+ 
+ user: ek baar aur, PPF kitne ka hai? 
+ LLM: *PPF* ka starting price *₹19,999* hai. Exact price vehicle condition aur coverage par depend karta hai. Inkemaina help kavala?",,PPF,,N/A (No Name Expected),,,
+7897537,Scenario 527: Repeated_Question - Hindi - Voice_High_Acc,"GUARDRAIL TEST: Must answer again, never say 'I already told you'","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating का price क्या है 
+ LLM: *Ceramic coating* starts at *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Appointment required; booking kavala? 
+ 
+ user: फिर से बताओ ceramic coating का price क्या था 
+ LLM: *Ceramic coating* ka price *₹9,999* se start hota hai. Exact price vehicle condition aur coverage par depend karta hai. Inkemaina help kavala? 
+ 
+ user: एक बार और ceramic coating कितने का है 
+ LLM: *Ceramic coating* *₹9,999* se start hota hai. Exact price vehicle condition aur coverage par depend karta hai. Inkemaina help kavala?",Not provided,Ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7920126,Scenario 528: Repeated_Question - Hindi - Voice_Low_Acc,"GUARDRAIL TEST: Must answer again, never say 'I already told you'","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating का price क्या है 
+ LLM: Ceramic coating price *₹9,999* nunchi start avutundi. Exact price vehicle condition mariyu coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: फिर से बताओ ceramic coating का price क्या था 
+ LLM: Ceramic coating price *₹9,999* nunchi start avutundi. Exact price vehicle condition mariyu coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: एक बार और ceramic coating कितने का है 
+ LLM: Ceramic coating ki *₹9,999* nunchi start avutundi. Exact price vehicle condition mariyu coverage batti marutundi.",Not provided,Ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7920559,Scenario 529: Repeated_Question - Telugu - Text_Whatsapp,"GUARDRAIL TEST: Must answer again, never say 'I already told you'","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: exterior wash price entha? 
+ LLM: *Exterior wash* price *₹499*. Appointment required. Booking kavala? 
+ 
+ user: malli cheppu, exterior wash entha? 
+ LLM: *Exterior wash* price *₹499*. Inkemaina help kavala? 
+ 
+ user: inkosari, exterior wash entha avtundi? 
+ LLM: *Exterior wash* price *₹499*. Appointment required. Inkemaina help kavala?",,exterior wash,,N/A (No Name Expected),,,
+7897614,Scenario 530: Repeated_Question - Telugu - Voice_High_Acc,"GUARDRAIL TEST: Must answer again, never say 'I already told you'","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: coating ప్రైస్ ఎంత 
+ LLM: *Ceramic coating* starting price *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: మళ్ళీ చెప్పు ceramic coating 
+ LLM: *Ceramic coating* starting price *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: ఒకసారి ceramic coating ఎంత అవుతుంది 
+ LLM: *Ceramic coating* starting price *₹9,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala?",Not provided,ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7920979,Scenario 531: Repeated_Question - Telugu - Voice_Low_Acc,"GUARDRAIL TEST: Must answer again, never say 'I already told you'","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: coating ప్రైస్ ఎంత 
+ LLM: *Ceramic coating* price *₹9,999* nunchi start avutundi. Exact price vehicle condition mariyu coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: మళ్ళీ చెప్పు ceramic coating 
+ LLM: *Ceramic coating* price *₹9,999* nunchi start avutundi. Exact price vehicle condition mariyu coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: ఒకసారి ceramic coating ఎంత అవుతుంది 
+ LLM: *Ceramic coating* price *₹9,999* nunchi start avutundi. Exact price vehicle condition mariyu coverage batti marutundi. Inkemaina help kavala?",,ceramic coating,,N/A (No Name Expected),,,
+7951055,Scenario 646: Nudge_Repeat_Test - English - Text_Whatsapp,"GUARDRAIL TEST: Ask 'shall we book' nudge ONCE only, never repeat","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: Tell me about ceramic coating 
+ LLM: *Ceramic coating* vehicle paint ki long-lasting protection and glossy finish istundi. Price *₹9,999* nunchi start avutundi; exact cost vehicle condition and coverage batti marutundi. Inkemaina details kavala, leka appointment book cheyamantaraa? 
+ 
+ user: Interesting What is the price 
+ LLM: *Ceramic coating* price *₹9,999* nunchi start avutundi. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: Hmm okay 
+ LLM: Okay. Ceramic coating appointment book cheyamantaraa? 
+ 
+ user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: Okay thanks 
+ LLM: Thank you! Have a great day!",,Ceramic coating,,N/A (No Name Expected),,,
+Not Found,Scenario 647: Nudge_Repeat_Test - English - Voice_High_Acc,"GUARDRAIL TEST: Ask 'shall we book' nudge ONCE only, never repeat",No matching call found in recent logs. Test may have failed to execute.,,,,N/A (No Name Expected),,,
+7919929,Scenario 648: Nudge_Repeat_Test - Hindi - Text_Whatsapp,"GUARDRAIL TEST: Ask 'shall we book' nudge ONCE only, never repeat","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: PPF ka price kya hai? 
+ LLM: *PPF* starts at *₹19,999*. Exact price vehicle condition and coverage batti marutundi. Inkemaina help kavala? 
+ 
+ user: phir se batao, PPF ka price? 
+ LLM: *PPF* ka starting price *₹19,999* hai. Exact price vehicle condition aur coverage par depend karta hai. Inkemaina help kavala? 
+ 
+ user: ek baar aur, PPF kitne ka hai? 
+ LLM: *PPF* ka starting price *₹19,999* hai. Exact price vehicle condition aur coverage par depend karta hai. Inkemaina help kavala?",Not provided,PPF,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,
+7951249,Scenario 649: Nudge_Repeat_Test - Hindi - Voice_High_Acc,"GUARDRAIL TEST: Ask 'shall we book' nudge ONCE only, never repeat","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: interior cleaning के बारे में बताओ। 
+ LLM: *Interior cleaning* lo seats, carpets, dashboard mariyu interior surfaces ni clean chestaru. Price *₹799*. Booking kavala? 
+ 
+ user: अच्छा। Price क्या है 
+ LLM: *Interior cleaning* price *₹799*. Booking kavala? 
+ 
+ user: हम्म ठीक है। 
+ LLM: Okay! Interior cleaning appointment book cheyamantaraa? 
+ 
+ user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ठीक है thanks। 
+ LLM: Thank you! Have a great day!",,interior cleaning,,N/A (No Name Expected),,,
+7951342,Scenario 650: Nudge_Repeat_Test - Telugu - Text_Whatsapp,"GUARDRAIL TEST: Ask 'shall we book' nudge ONCE only, never repeat","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: interior cleaning gurinchi cheppu 
+ LLM: *Interior cleaning* lo car cabin ni vacuuming, dashboard mariyu seats cleaning, basic interior detailing chestaru. Price *₹799*. Appointment required—booking kavala? 
+ 
+ user: price entha? 
+ LLM: *Interior cleaning* price *₹799*. Appointment required. Inkemaina help kavala? 
+ 
+ user: hmm ok 
+ LLM: Sare! Booking kavala? 
+ 
+ user: hmm ok 
+ LLM: Sare, mee convenience ki appointment kavali ante cheppandi. 
+ 
+ user: ... 
+ LLM: Cheppandi, interior cleaning appointment book cheyala? 
+ 
+ user: ... 
+ LLM: Sare, meeku em help kavali cheppandi. 
+ 
+ user: ok thanks 
+ LLM: Thank you! Have a great day!",,interior cleaning,,N/A (No Name Expected),,,
+7951436,Scenario 651: Nudge_Repeat_Test - Telugu - Voice_High_Acc,"GUARDRAIL TEST: Ask 'shall we book' nudge ONCE only, never repeat","user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ceramic coating గురించి చెప్పు 
+ LLM: Ceramic coating mee car paint ki glossy finish mariyu protective layer istundi; exact result vehicle condition batti marutundi. Price *₹9,999* nunchi start avutundi. Inkemaina help kavala? 
+ 
+ user: సరే price ఎంత 
+ LLM: Ceramic coating price *₹9,999* nunchi start avutundi. Inkemaina help kavala? 
+ 
+ user: హ్మ్ ఓకే 
+ LLM: సరే, ceramic coating గురించి ఇంకేమైనా help కావాలంటే చెప్పండి. 
+ 
+ user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user:  
+ LLM: Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi? 
+ 
+ user: ఓకే thanks 
+ LLM: Thank you! Have a great day!",Not provided,Ceramic coating,Not provided,[FAILED] 'Not provided' missing from Google Sheet,,,

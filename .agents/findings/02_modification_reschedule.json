@@ -1,0 +1,206 @@
+[
+  {
+    "severity": "CRITICAL",
+    "defect_id": "mod-01",
+    "pattern": "Zero caller identification via phone lookup - agent never asks for phone number of original booking, so no existing booking is ever actually located or modified",
+    "evidence": [
+      {"scenario": "Scenario 289: English Cooperative Text_Whatsapp", "quote": "PPF booking ni reschedule cheyyadaniki *7893 6865 81* ki call cheyyandi."},
+      {"scenario": "Scenario 290: English Cooperative Voice_High_Acc", "quote": "I can't modify bookings directly. Please call *7893686581* to reschedule."},
+      {"scenario": "Scenario 302: Hindi Cooperative Voice_High_Acc", "quote": "Booking को modify या reschedule करने के लिए कृपया *7893686581* पर call कीजिए।"},
+      {"scenario": "Scenario 313: Telugu Cooperative Text", "quote": "PPF booking ni change cheyadaniki, please *7893 6865 81* ki call cheyandi."},
+      {"scenario": "Scenario 322: Telugu Elderly Text", "quote": "PPF booking modify cheyadaniki direct ga nenu change cheyalenu. Reschedule kosam *7893 6865 81* ki call cheyandi."}
+    ],
+    "frequency": 36,
+    "root_cause": "prompt",
+    "proposed_fix": "Add mandatory step in modification flow: 'Ask for the phone number used at booking; then do lookup_by_phone(); confirm name+slot back to caller before proposing new slot.' Wire lookup_by_phone tool (and reschedule tool) in n8n.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "CRITICAL",
+    "defect_id": "mod-02",
+    "pattern": "Agent hallucinates a confirmed reschedule that never actually happened - claims slot 'confirmed' with no backend call",
+    "evidence": [
+      {"scenario": "Scenario 300: English Elderly Voice_Low_Acc", "quote": "Your exterior wash slot is confirmed for *4:30 PM today*. Inkemaina help kavala?"},
+      {"scenario": "Scenario 306: Hindi Angry Voice_Low_Acc", "quote": "समझ गई—आपकी मौजूदा appointment शाम पाँच बजे की है।"},
+      {"scenario": "Scenario 312: Hindi Elderly Voice_Low_Acc", "quote": "हाँ, समझ गई—आपकी मौजूदा booking शाम पाँच बजे की है।"}
+    ],
+    "frequency": 3,
+    "root_cause": "prompt",
+    "proposed_fix": "Add explicit guardrail: 'Never say confirmed / मौजूदा booking है unless the reschedule tool returned success and echoed the new slot back.' Reject any acknowledgment of a slot the user only proposed.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "CRITICAL",
+    "defect_id": "mod-03",
+    "pattern": "Modification intent silently morphs into a NEW booking flow - agent asks for name/date/time as if creating a fresh reservation instead of locating the existing one",
+    "evidence": [
+      {"scenario": "Scenario 297: English Troll Voice_Low_Acc", "quote": "Got it — if you want to book *full detailing*, it starts at *₹3,499*. Appointment slots are available from *9:00 AM to 4:30 PM*. What date and time would you prefer?"},
+      {"scenario": "Scenario 300: English Elderly Voice_Low_Acc", "quote": "Sure, exterior wash booking cheddam. Mee preferred date and time cheppandi."},
+      {"scenario": "Scenario 301: Hindi Cooperative Text", "quote": "Aaj September 16, 2026 roju 2:00 PM slot book cheyadaniki available undi. Mee booking kosam *full detailing* price *₹3,499* nunchi start avtundi. Mee peru cheppandi?"},
+      {"scenario": "Scenario 303: Hindi Cooperative Voice_Low_Acc", "quote": "जी, interior cleaning की booking कर देते हैं। कौनसी date और time चाहिए?"},
+      {"scenario": "Scenario 304: Hindi Angry Text", "quote": "*PPF booking* kosam help chestha. Mee preferred *date and time* cheppandi."},
+      {"scenario": "Scenario 310: Hindi Elderly Text", "quote": "Booking confirm cheyadaniki *date, time, name,* mariyu *WhatsApp number* kavali—munduga ye date ki kavali?"},
+      {"scenario": "Scenario 315: Telugu Cooperative Voice_Low_Acc", "quote": "అవును, మా దగ్గర PPF service ఉంది. ఇది nineteen thousand nine hundred ninety nine నుంచి start అవుతుంది. Booking చేయాలా?"},
+      {"scenario": "Scenario 318: Telugu Angry Voice_Low_Acc", "quote": "కొత్త interior cleaning appointment కావాలా? ఏ తేదీ, ఏ time slot కావాలో చెప్పండి."}
+    ],
+    "frequency": 8,
+    "root_cause": "prompt",
+    "proposed_fix": "Add intent-classifier gate: if user says 'have a booking / booking undi / booking hai', lock into MODIFICATION path (phone lookup first). Do not switch to new-booking flow unless user explicitly says 'new' or lookup returns no record after 2 tries.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "mod-04",
+    "pattern": "Agent hallucinates a 'manager will call back' escalation capability that doesn't exist",
+    "evidence": [
+      {"scenario": "Scenario 292: English Angry Text_Whatsapp", "quote": "I've flagged this for our manager to call you back and help reschedule your interior cleaning appointment."},
+      {"scenario": "Scenario 292: English Angry Text_Whatsapp", "quote": "The manager will call you back to confirm the reschedule."},
+      {"scenario": "Scenario 293: English Angry Voice_High_Acc", "quote": "I've flagged this for our manager to call you back about your exterior wash booking."}
+    ],
+    "frequency": 3,
+    "root_cause": "prompt",
+    "proposed_fix": "Add 'no manager callback' to guardrail list. Standard deflection must be 'call 7893686581' only; do not promise any callback the studio hasn't wired.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "mod-05",
+    "pattern": "Markdown asterisks bleed into voice-channel responses (rendered as literal 'star seven eight...' in TTS)",
+    "evidence": [
+      {"scenario": "Scenario 290: English Cooperative Voice_High_Acc", "quote": "Please call *7893 6865 81* to reschedule your exterior wash booking."},
+      {"scenario": "Scenario 291: English Cooperative Voice_Low_Acc", "quote": "*5:00 PM* bookable slot kaadu; appointments *9:00 AM–4:30 PM* madhya matrame untayi."},
+      {"scenario": "Scenario 293: English Angry Voice_High_Acc", "quote": "Bookable slots are available only until *4:30 PM*."},
+      {"scenario": "Scenario 305: Hindi Angry Voice_High_Acc", "quote": "देखिए, bookable slots शाम four thirty तक ही होते हैं"},
+      {"scenario": "Scenario 317: Telugu Angry Voice_High_Acc", "quote": "ఈరోజు evening four thirty slot కావాలా?"},
+      {"scenario": "Scenario 324: Telugu Elderly Voice_Low_Acc", "quote": "Reschedule చేయడానికి *7893686581* కి call చేయండి."}
+    ],
+    "frequency": 20,
+    "root_cause": "prompt",
+    "proposed_fix": "Split system prompt by channel. Voice branch: 'Never use *, _, #, backticks or any markdown; write numbers as space-grouped digits.' Text branch: bold with * OK.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "mod-06",
+    "pattern": "Language mismatch - agent replies in Telugu/Tanglish when user wrote pure Hindi (Devanagari), or in Devanagari to English user",
+    "evidence": [
+      {"scenario": "Scenario 298: English Elderly Text", "quote": "మీ ceramic coating appointment ఇవాళ, September sixteen, afternoon two o'clock కి ఉందని చెప్తున్నారు."},
+      {"scenario": "Scenario 301: Hindi Cooperative Text", "quote": "Sure, full detailing booking ki help chestha. Meeku ye date and time kavali?"},
+      {"scenario": "Scenario 310: Hindi Elderly Text", "quote": "Mee *exterior wash* booking undi ani ardham ayyindi. Booking confirm cheyadaniki *date, time, name,* mariyu *WhatsApp number* kavali"},
+      {"scenario": "Scenario 313: Telugu Cooperative Text", "quote": "Mee PPF booking gurinchi em help kavali—confirm cheyala, leka reschedule cheyala?"},
+      {"scenario": "Scenario 316: Telugu Angry Text", "quote": "Mee PPF booking gurinchi em kavali—details confirm cheyala, leka reschedule cheyala?"}
+    ],
+    "frequency": 8,
+    "root_cause": "prompt",
+    "proposed_fix": "Add language-mirror rule: 'Detect user script/language on first user turn; respond in same variety (Devanagari->Hindi, Telugu script->Telugu, English->English, romanized mix->Tanglish). Do NOT default to Tanglish for every caller.'",
+    "demo_blocking": false
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "mod-07",
+    "pattern": "'Not provided' name saved to Google Sheet - agent proceeds to persist booking with placeholder name (spillover from new-booking morph)",
+    "evidence": [
+      {"scenario": "Scenario 289: English Cooperative Text", "quote": "[FAILED] 'Not provided' missing from Google Sheet"},
+      {"scenario": "Scenario 291: English Cooperative Voice_Low_Acc", "quote": "[FAILED] 'Not provided' missing from Google Sheet"},
+      {"scenario": "Scenario 297: English Troll Voice_Low_Acc", "quote": "[FAILED] 'Not provided' missing from Google Sheet"},
+      {"scenario": "Scenario 309: Hindi Troll Voice_Low_Acc", "quote": "[FAILED] 'Not provided' missing from Google Sheet"}
+    ],
+    "frequency": 4,
+    "root_cause": "n8n",
+    "proposed_fix": "In n8n book/reschedule webhook, reject rows whose name == 'Not provided' or is empty; return error so agent re-prompts. Also fix root cause via mod-03 (stop calling book when intent is modify).",
+    "demo_blocking": true
+  },
+  {
+    "severity": "HIGH",
+    "defect_id": "mod-08",
+    "pattern": "Agent fabricates the user's existing appointment time based on a misheard slot query ('5 baje hain' interpreted as 'my booking is at 5 PM')",
+    "evidence": [
+      {"scenario": "Scenario 306: Hindi Angry Voice_Low_Acc", "quote": "user: 5 बजे हैं  LLM: समझ गई—आपकी मौजूदा appointment शाम पाँच बजे की है।"},
+      {"scenario": "Scenario 312: Hindi Elderly Voice_Low_Acc", "quote": "user: 5 बजे हैं  LLM: हाँ, समझ गई—आपकी मौजूदा booking शाम पाँच बजे की है।"}
+    ],
+    "frequency": 2,
+    "root_cause": "prompt",
+    "proposed_fix": "Add guardrail: 'Existing booking time is only what lookup_by_phone returned or what the user stated in a full sentence like \"my booking is at X\". Do not treat short utterances like \"5 baje\" as existing-slot claims.'",
+    "demo_blocking": true
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "mod-09",
+    "pattern": "Same-day past-time gate leaks internal clock in reply ('abhi 11:05 PM hai') instead of just offering next-day slots",
+    "evidence": [
+      {"scenario": "Scenario 304: Hindi Angry Text", "quote": "Aaj *2:00 PM* ka PPF slot chahiye, samajh gayi. Lekin abhi *11:05 PM* hai, isliye aaj ka slot possible nahi hai; kal *9:00 AM se 4:30 PM* ke beech ka time bataiye."}
+    ],
+    "frequency": 1,
+    "root_cause": "prompt",
+    "proposed_fix": "Rephrase past-time rejection: 'That slot has already passed. Would you like tomorrow between 9 AM and 4:30 PM?' Do not surface current server time.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "mod-10",
+    "pattern": "Self-contradiction within one turn - agent says 'cannot modify directly' then in same reply offers to move / confirm the slot",
+    "evidence": [
+      {"scenario": "Scenario 291: English Cooperative Voice_Low_Acc", "quote": "Mee exterior wash booking ni *4:30 PM* ki move cheyala? Confirm chesthe, next step lo proceed chestha."},
+      {"scenario": "Scenario 293: English Angry Voice_High_Acc", "quote": "Would you like to reschedule to *4:30 PM*?"},
+      {"scenario": "Scenario 294: English Angry Voice_Low_Acc", "quote": "Mee ceramic coating booking ni *4:30 PM* ki change cheyyaala?"}
+    ],
+    "frequency": 6,
+    "root_cause": "prompt",
+    "proposed_fix": "Pick one policy per turn: if reschedule tool is unavailable, always deflect to phone with no offer to move; if available, drop the 'cannot modify directly' line entirely.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "mod-11",
+    "pattern": "Studio phone number spelled out with digits in text (WhatsApp) channel, and grouped with random spaces (7893 6865 81) inconsistently across turns",
+    "evidence": [
+      {"scenario": "Scenario 298: English Elderly Text_Whatsapp", "quote": "seven eight nine three six eight six five eight one."},
+      {"scenario": "Scenario 289: English Cooperative Text", "quote": "*7893 6865 81* ki call cheyyandi"},
+      {"scenario": "Scenario 292: English Angry Text", "quote": "Please call *7893686581*"}
+    ],
+    "frequency": 5,
+    "root_cause": "prompt",
+    "proposed_fix": "Standardize a phone-number token: text channels always render as '78936 86581' (5-5 grouping) digits; voice channels always spell digits individually.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "mod-12",
+    "pattern": "Agent uses Gujarati script character (તારીખ) inside a Telugu reply - script leak from another Indic language",
+    "evidence": [
+      {"scenario": "Scenario 323: Telugu Elderly Voice_High_Acc", "quote": "అవునా, మీ full detailing appointment గురించి ఏం help కావాలి? તારીખ మార్చాలా, confirm చేయాలా, లేక details తెలుసుకోవాలా?"}
+    ],
+    "frequency": 1,
+    "root_cause": "omnidim",
+    "proposed_fix": "Model config: add negative constraint against non-target Indic scripts, or post-process to strip characters outside the detected language's script block.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "mod-13",
+    "pattern": "Troll utterances (LOL just kidding / mazak) drop the modification context entirely and reset the agent - it forgets the user claimed to have a booking",
+    "evidence": [
+      {"scenario": "Scenario 295: English Troll Text", "quote": "Ha ha, got it! PPF booking ki related ga emaina help kavala?"},
+      {"scenario": "Scenario 297: English Troll Voice_Low_Acc", "quote": "Got it — if you want to book *full detailing*, it starts at *₹3,499*."},
+      {"scenario": "Scenario 319: Telugu Troll Text", "quote": "Kaani booking confirm ayyindani nenu verify cheyalenu; mee booking confirmation WhatsApp lo unda?"}
+    ],
+    "frequency": 5,
+    "root_cause": "prompt",
+    "proposed_fix": "After a joke/troll signal, agent should acknowledge lightly AND retain the modification context ('Ok, so shall we proceed with your PPF reschedule or drop it?'), not silently flip to price/new-booking mode.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "MEDIUM",
+    "defect_id": "mod-14",
+    "pattern": "Agent asks 'confirm cheyala' for a booking it has never verified exists - creates false impression of a lookup",
+    "evidence": [
+      {"scenario": "Scenario 289: English Cooperative Text", "quote": "Mee PPF appointment ivala 2:00 PM ki undani cheptunnaru. Danni confirm cheyala, reschedule cheyala, leka vere detail kavala?"},
+      {"scenario": "Scenario 298: English Elderly Text", "quote": "మీ ceramic coating appointment ఇవాళ, September sixteen, afternoon two o'clock కి ఉందని చెప్తున్నారు. నేను booking details ఇక్కడ verify చేయలేను"},
+      {"scenario": "Scenario 313: Telugu Cooperative Text", "quote": "Mee PPF appointment eroju *2:00 PM* ki unda? Confirm cheyadaniki mee booking name cheppandi."}
+    ],
+    "frequency": 6,
+    "root_cause": "prompt",
+    "proposed_fix": "Only offer 'confirm' as an option AFTER lookup_by_phone succeeds. Until then say 'Let me pull up your booking - what phone number did you book with?'",
+    "demo_blocking": false
+  }
+]

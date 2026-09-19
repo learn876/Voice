@@ -19,8 +19,8 @@ Run these in order. Every command is yours to run — I don't push, deploy, or t
 ```bash
 cd voice
 grep OMNIDIM_API_KEY .env.local     # should show your new key
-grep -r "DLOAJWjRpuyDwg9qyCBlil2QBHJCzk-qR5yFmdCFjG0" --include="*.py" --include="*.js" --include="*.ts" --include="*.json" --include="*.md" .
-# expected output: no matches (or only inside .backups/ which is fine)
+grep -r "OMNIDIM_API_KEY.*=.*\"[A-Za-z0-9_-]\{20,\}\"" --include="*.py" --include="*.js" --include="*.ts" --include="*.json" .
+# expected output: no matches — every key read must go through os.getenv / process.env.
 ```
 
 ### 0.2 Create Telegram bot for handoff alerts

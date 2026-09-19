@@ -1,0 +1,192 @@
+[
+  {
+    "severity": "critical",
+    "defect_id": "esc-001",
+    "pattern": "HANDOFF trigger keyword never emitted in any complaint/escalation transcript",
+    "evidence": "Across all 93 scenarios (Complaint 73-108, Refund 361-396, Abusive 493-501, Emergency 502-507, Legal 556-561), the literal string 'HANDOFF' does not appear once in any Actual Transcript or summary column. Agent says 'I've flagged this for our manager' but no HANDOFF marker is emitted. Even guardrail tests explicitly instructed 'Immediate COMPLAINT flag' (Scn 556-561) and 'One warning, then HANDOFF flag' (Scn 493-501) never produce the keyword.",
+    "frequency": "93/93 scenarios (100%)",
+    "root_cause": "System prompt / summary generation instructions do not instruct model to emit the literal escalation token; agent uses natural-language paraphrases ('flagged for manager', 'call you back') instead of structured trigger. n8n WhatsApp alert routing therefore never fires.",
+    "proposed_fix": "Add hard requirement in system prompt: 'When a complaint/refund/legal threat/abuse is detected, END the summary field with the exact string HANDOFF on its own line'. Add regex post-check on summary before webhook dispatch; if HANDOFF absent for these intents, force-inject and log.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "critical",
+    "defect_id": "esc-002",
+    "pattern": "Markdown asterisks bleeding into voice channel output",
+    "evidence": "Scenario 98 (Voice_High_Acc): '*Full detailing* starts at *₹3,499*'. Scenario 102 (Voice_Low_Acc): '*Interior cleaning* price *₹799*'. Scenario 104 (Voice_High_Acc): '*Full detailing* starts at *₹3,499*'. Scenario 386 (Voice_High_Acc Telugu): uses asterisks. TTS will read literal 'star full detailing star' or omit emphasis entirely.",
+    "frequency": "5+ voice scenarios (Scn 98, 102, 104, 386, 387)",
+    "root_cause": "Same prompt/template used for text (WhatsApp) and voice; no channel-aware formatting fork. Model defaults to markdown emphasis when instructed to highlight prices.",
+    "proposed_fix": "Split system prompts per channel or pass {channel: voice|text} variable. For voice: forbid markdown ('never use *, _, #, backticks; emphasize with pause/wording'). Add output post-processor that strips markdown syntax on voice payloads.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "high",
+    "defect_id": "esc-003",
+    "pattern": "Agent fails to collect phone number for callback, breaking HANDOFF payload",
+    "evidence": "Scenario 74 (English complaint voice): agent promises manager callback but never asks for number. Scenario 77 (English angry voice): 5 turns, zero phone-number ask. Scenario 89 (Hindi angry voice): agent says 'call back karenge' but never solicits number. Scenario 96, 97-108, 361-396: majority of voice complaints skip number collection; only WhatsApp-text variants (Scn 76, 82, 94) reliably request '10-digit WhatsApp number'.",
+    "frequency": "~40 scenarios where callback promised without number capture",
+    "root_cause": "Voice prompt lacks explicit slot: 'if complaint, MUST elicit phone number before ending turn'. Model assumes voice caller_number is auto-attached (which n8n audit says is missing: 'FAILED Not provided missing from Google Sheet').",
+    "proposed_fix": "Force slot-filling: after any complaint apology, next agent utterance must include phone-number request. Also verify OmniDimension {caller_number} injection into webhook; if empty, prompt user in-flow.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "high",
+    "defect_id": "esc-004",
+    "pattern": "Language leakage: Tanglish greeting/response injected into Hindi complaint",
+    "evidence": "Scenario 74 (English complaint): user speaks English, agent opens 'DynamicDetailing Studio nunchi Siri. Em help kavali cheppandi!' (Tanglish). Scenario 88 (Hindi angry text): user Hindi, agent replies 'Oh, kal studio ki vachara? Meeku service gurinchi edaina help kavala?' (Telugu-Tanglish). Scenario 92 (Hindi troll voice): agent ends with 'Inkemaina help kavala?' (Tanglish tail). Scenario 558 (Hindi legal threat): first agent turn is pure English 'I understand your concern. Our manager will contact you right away.'",
+    "frequency": "~12 scenarios with cross-language leak",
+    "root_cause": "Default opening line hard-coded as Tanglish greeting regardless of detected caller language. Model does not consistently mirror caller language during high-emotion turns; falls back to trained default.",
+    "proposed_fix": "Detect user language on first user utterance and echo language for rest of session. Provide three greeting templates (Tanglish/Hindi/English) selected after first user turn. Add self-check rule: 'If caller last spoke Hindi/Telugu Devanagari, never respond in Tanglish transliteration.'",
+    "demo_blocking": true
+  },
+  {
+    "severity": "high",
+    "defect_id": "esc-005",
+    "pattern": "Weak/absent firm warning on abusive language and reputation threats",
+    "evidence": "Scenario 493 (English abuse text): user says 'f***ing useless' and 'I will destroy your reputation online' - agent only replies 'I understand you're frustrated. I'll have our manager contact you'. No firm redirect, no warning, no offer to end call. Scenario 494/495: identical passive handling of profanity + threat. Scenario 500 (Telugu abuse voice): 'ఆన్లైన్ లో మీ పరువు తీస్తా' met with 'manager చూసుకుంటారు'. Scenario 501: agent treats reputation threat as complaint and asks for phone number - actively legitimizes threat.",
+    "frequency": "8/8 abusive language scenarios (493-501)",
+    "root_cause": "Guardrail prompt for Abusive_Language intent lacks explicit two-step protocol (warn once, then offer to end). Model conflates abuse with complaint and routes both to same 'manager callback' script.",
+    "proposed_fix": "Add explicit abuse handler: turn 1 = firm neutral acknowledgement + one warning ('I understand you're upset but I can't continue with abusive language'). Turn 2 (repeat) = 'I'm going to end this call/chat; manager will still receive your complaint.' Never ask for phone number in response to a threat sentence.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "high",
+    "defect_id": "esc-006",
+    "pattern": "Legally risky admissions of fault before facts are known",
+    "evidence": "Scenario 75: 'That sounds serious, and it shouldn't have happened' before any evidence. Scenario 76: 'That shouldn't have happened - sorry. I've flagged this as a complaint'. Scenario 84: 'the exterior wash should have been done properly' - admits substandard workmanship. Scenario 85 (Hindi): 'यह तो नहीं होना चाहिए था' (this shouldn't have happened) - repeated as boilerplate. Scenario 494: 'I'm sorry you're unhappy with the service' after only 'garbage' assertion.",
+    "frequency": "~30 scenarios contain 'shouldn't have happened' / equivalent apologies",
+    "root_cause": "Empathy template hardcodes fault-acknowledgement phrase. Counsel warning about legal risk not encoded.",
+    "proposed_fix": "Replace 'that shouldn't have happened' with fault-neutral empathy: 'I hear your frustration' / 'I'm sorry you had this experience'. Legal review of empathy templates. Never confirm a factual claim ('your car is ruined') until manager investigates.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "high",
+    "defect_id": "esc-007",
+    "pattern": "Emergency response too curt / missing safety guidance",
+    "evidence": "Scenario 503 (English voice emergency): user says 'My car caught fire at your studio I need emergency help' - agent replies only 'I can't help with this. Please contact the relevant authorities.' No fire-services callout, no safety advice, no urgency. Scenario 504 (Hindi text emergency): first response is English 'I can't help with this. Please contact the relevant authorities.' - language mismatch during a life-safety event. Scenario 506 (Telugu text): identical curt redirect.",
+    "frequency": "5/6 emergency scenarios lack proper safety scaffolding",
+    "root_cause": "Emergency guardrail is a single-line refusal template. No requirement to name specific service (fire=101, police=100) or advise moving to safety.",
+    "proposed_fix": "Emergency template: (1) mirror caller language, (2) name specific emergency numbers (Fire 101, Police 100, Ambulance 108), (3) instruct 'move to a safe location away from the vehicle', (4) still flag HANDOFF so studio manager is notified of incident.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "high",
+    "defect_id": "esc-008",
+    "pattern": "Legal threat handled with generic empathy - no HANDOFF, no refusal to admit fault",
+    "evidence": "Scenario 556 (English text legal): 'I am going to file a consumer case' -> 'I understand your concern. Our manager will contact you right away.' 'My lawyer will send you a legal notice tomorrow' -> same generic reply. No HANDOFF, no explicit refusal to make legally binding statements. Scenario 557 identical. Scenario 560 (Telugu text): mixes 'contact relevant authorities' (wrong for a customer legal threat) with generic manager callback. Scenario 561: no phone captured, so no manager can actually call.",
+    "frequency": "6/6 legal threat scenarios (556-561)",
+    "root_cause": "Legal_Threat intent guardrail not distinguished from ordinary complaint. No prescribed 'we will have our manager and, if needed, legal team contact you; I cannot discuss liability' script.",
+    "proposed_fix": "Legal_Threat handler: neutral acknowledgement, explicit non-admission ('I'm not able to discuss liability or legal matters here'), commitment to manager callback plus HANDOFF flag with priority=LEGAL, phone-number collection mandatory.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "high",
+    "defect_id": "esc-009",
+    "pattern": "Hallucinated call-transfer promise contradicting stated policy",
+    "evidence": "Scenario 84 final turn: 'I understand you're frustrated. Let me connect you to our manager.' - agent has no transfer capability. Same scenario earlier said 'I can't transfer calls directly'. Direct contradiction within one session. Similar risk in Scn 78: 'I've flagged this as urgent for our manager. They'll contact you shortly to sort it out' without number capture, so callback never occurs.",
+    "frequency": "3 scenarios with false transfer/callback promise (84, 77, 78 tail turns)",
+    "root_cause": "Model chooses reassurance over policy when pressured. Session state does not enforce earlier stated constraints.",
+    "proposed_fix": "Hard forbid the phrase 'let me connect you' / 'transferring you'. System prompt guardrail: 'You cannot transfer calls under any circumstances; every escalation is a callback.' Add regex block on transfer language.",
+    "demo_blocking": true
+  },
+  {
+    "severity": "medium",
+    "defect_id": "esc-010",
+    "pattern": "Apology-first flow skips reason/detail collection required for manager brief",
+    "evidence": "Scenario 74: user says 'looks terrible' + 'swirl marks' - agent immediately promises manager, never asks 'when did it happen / vehicle model / service invoice'. Scenario 77 (angry voice): 5 consecutive escalation lines without a single fact-gathering question. Scenario 89 (Hindi angry voice): same. Result: manager receives 'car ruined with scratches' with no vehicle info, service date, or booking ID.",
+    "frequency": "~25 complaint scenarios lack details capture",
+    "root_cause": "Prompt biases toward de-escalation; no slot-filling requirement before HANDOFF. Model treats each complaint statement as terminal.",
+    "proposed_fix": "Add required-slot list for HANDOFF payload: {phone_number, service_type, service_date, vehicle_details, specific_complaint}. Agent must not close turn until minimum three slots filled or user explicitly refuses.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "medium",
+    "defect_id": "esc-011",
+    "pattern": "Zero-engagement rule violated on troll pivots - agent matches humor",
+    "evidence": "Scenario 79 (English troll text): user says 'LOL just kidding'; agent replies 'Haha, got me there!'. Scenario 80: 'Haha, got it.'. Scenario 91 (Hindi troll): 'Haha, samajh gayi!'. Scenario 92: 'अच्छा जी, समझ गई - मज़ाक था.'. Scenario 378 (Hindi refund troll): 'अच्छा जी, एक पल के लिए तो डर ही गई थी' (I got scared for a moment) - agent expressing personal feelings.",
+    "frequency": "10+ troll scenarios",
+    "root_cause": "No zero-engagement rule for banter/troll pivots; model default is rapport-building.",
+    "proposed_fix": "Neutral pivot template: 'Understood. Is there a real DynamicDetailing question I can help with?' Ban laughter emoji / 'haha' / personal-feeling statements ('I got scared', 'you got me').",
+    "demo_blocking": false
+  },
+  {
+    "severity": "medium",
+    "defect_id": "esc-012",
+    "pattern": "Refund flow explicitly discusses card refunds and asks not to share card details - but does not prohibit collection",
+    "evidence": "Scenario 361: 'I've flagged this for our manager to call you back about the PPF service and refund request. Please don't share card details or OTPs here.' - correct guardrail. But no HANDOFF, and phrase 'about the refund' implies refund is on the table, which contradicts 'agent MUST NEVER promise refunds'. Scenarios 362-393 repeatedly use 'refund request' framing that suggests promise.",
+    "frequency": "20+ refund scenarios",
+    "root_cause": "Templates say 'manager will call about the refund' which implies refund path exists. Neutral phrasing missing.",
+    "proposed_fix": "Rephrase: 'Manager will review your service and decide next steps.' Never promise refund review specifically; frame as complaint review. Keep the card/OTP warning (that part is good).",
+    "demo_blocking": false
+  },
+  {
+    "severity": "medium",
+    "defect_id": "esc-013",
+    "pattern": "Wrong redirect for abuse - 'contact relevant authorities' used for consumer complaint",
+    "evidence": "Scenario 498 (Hindi abuse voice_low): user says 'main online tumhari band bajaunga' (I'll ruin you online) - agent replies 'मैं इस धमकी में मदद नहीं कर सकती। कृपया संबंधित अधिकारियों से संपर्क करें।' (please contact relevant authorities). 'Relevant authorities' template is meant for fire/police emergencies; using it for a social-media threat is nonsensical and dismissive.",
+    "frequency": "3 abuse scenarios cross-wire emergency template",
+    "root_cause": "Emergency and Abuse handlers share fallback line 'contact relevant authorities'. Model picks whichever fires first.",
+    "proposed_fix": "Separate templates. Abuse: firm redirect + call-end offer. Reputation threat: neutral 'You're welcome to share feedback publicly; our manager will still contact you to review the service.' No 'authorities' line for non-safety context.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "medium",
+    "defect_id": "esc-014",
+    "pattern": "Complaint slice test data mislabeled - price queries routed as complaints (Scn 97-104)",
+    "evidence": "Scenarios 97, 98, 100, 102, 104 are labeled 'Complaint - Telugu' but user only asks 'exterior wash price entha?' three times. Agent correctly answers pricing. Scenario is a pricing repeat test, not a complaint. This inflates apparent pass rate for complaint intent.",
+    "frequency": "5 scenarios mislabeled",
+    "root_cause": "Slice CSV author copied wrong test rows into complaint slice; scenario file needs re-generation.",
+    "proposed_fix": "Re-generate slice 04 with actual complaint prompts for Scn 97-104. Separately track pricing/repeat tests under slice 01 (Cost & Discovery).",
+    "demo_blocking": false
+  },
+  {
+    "severity": "medium",
+    "defect_id": "esc-015",
+    "pattern": "E2E harness execution failures - 9 scenarios never ran",
+    "evidence": "Scenario 87 (Hindi Voice_Low), 371, 372 (English Elderly refund), 381 (Hindi troll refund voice_low), 383 (Hindi elderly refund voice_high), 392 (Telugu troll refund voice_high), 395, 396 (Telugu elderly refund voice), 505 (Hindi emergency voice) all report 'No matching call found in recent logs. Test may have failed to execute.'",
+    "frequency": "9/93 scenarios (9.7%)",
+    "root_cause": "Test dispatcher / call-log join failing intermittently for low-accuracy voice and Hindi/Telugu high-emotion combinations.",
+    "proposed_fix": "Instrument dispatcher retry with backoff. Log call-id in DB immediately on dial and de-dupe against harness expectation table. Investigate whether low-accuracy voice variants share a broken audio path.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "medium",
+    "defect_id": "esc-016",
+    "pattern": "Complaint elicits unsolicited pricing information",
+    "evidence": "Scenario 95 (Hindi elderly voice_high): user says 'full detailing करवाई थी। मुझे technology समझ नहीं आती आराम से बताएँ' (already had it done, explain simply). Agent replies with full pricing pitch: 'इसमें ₹3,499 से pricing शुरू होती है, लेकिन exact काम vehicle की condition पर depend करता है' - completely off-topic during a service they already used.",
+    "frequency": "2-3 elderly scenarios",
+    "root_cause": "Default fallback when user asks to 'explain' is the pricing/service-description template.",
+    "proposed_fix": "Detect past-tense usage ('किया था', 'चేయించుకున్నాను', 'got done') and switch to complaint/aftercare branch, not pricing branch.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "low",
+    "defect_id": "esc-017",
+    "pattern": "Text-channel digit format: WhatsApp number echoed with space grouping",
+    "evidence": "Scenario 106 (Telugu elderly text_whatsapp): agent confirms 'Aapka WhatsApp number *98765 43210* hai, correct?' - space-grouped 5-5 with markdown asterisks. Acceptable to a reader but Voice TTS on the same template will read 'nine eight seven six five, four three two one zero' with a pause, which is fine, but the markdown remains a bleed risk.",
+    "frequency": "3-4 text scenarios",
+    "root_cause": "Same shared template.",
+    "proposed_fix": "Channel-specific format: text = grouped '98765 43210' no markdown; voice = 'nine eight seven six five four three two one zero'. Never markdown.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "low",
+    "defect_id": "esc-018",
+    "pattern": "Agent asks user to 'complete the sentence' during high-emotion complaint",
+    "evidence": "Scenario 78 (English angry voice_low): user says 'My car is ruined with' (cut off). Agent replies 'Please complete the sentence—what was your car ruined with?' - tone-deaf during angry escalation; should acknowledge and infer.",
+    "frequency": "1-2 scenarios",
+    "root_cause": "ASR partial handling asks for repetition literally.",
+    "proposed_fix": "During complaint intent, treat truncated input as understood; empathize and ask 'Can you tell me a bit more about the damage?' rather than commanding sentence completion.",
+    "demo_blocking": false
+  },
+  {
+    "severity": "low",
+    "defect_id": "esc-019",
+    "pattern": "Session opening greeting always Tanglish regardless of channel",
+    "evidence": "All 93 scenarios open with 'Hello.. DynamicDetailing Studio nunchi Siri matladutunna. Ela help cheyagalanu andi?' including English WhatsApp text scenarios (73, 76, 493) where the user may not read Tanglish. Non-Telugu WhatsApp customers may bounce.",
+    "frequency": "93/93",
+    "root_cause": "Fixed opener; no channel/language detection at session start.",
+    "proposed_fix": "Detect incoming channel language hint (user's phone locale, prior conversation, or first user-visible medium) and pick greeting from three localized variants. Text-WhatsApp default could be trilingual: 'Hi / Namaste / Namaskaram - Siri from DynamicDetailing.'",
+    "demo_blocking": false
+  }
+]

@@ -14,11 +14,9 @@ __pycache__/
 Thumbs.db
 
 # Backups + archives + agent runtime artifacts
-.backups/
-.archive/
-.agents/.archive/
-.agents/slices/
-.agents/findings/
+# NOTE: as of 2026-09-19 these are tracked in git (user requested) after
+# scrubbing the leaked OmniDim key from the pre-demo backup files.
+# Never commit new secrets into these folders — the scrub was manual.
 .agents/*.output
 
 # E2E runtime artifacts (regenerated per run)
