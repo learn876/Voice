@@ -5,7 +5,9 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv(os.path.join(os.path.dirname(os.path.dirname(__file__)), '.env.local'))
-OMNIDIM_SECRET = "DLOAJWjRpuyDwg9qyCBlil2QBHJCzk-qR5yFmdCFjG0"  # Using known valid API key
+OMNIDIM_SECRET = os.getenv("OMNIDIM_API_KEY")
+if not OMNIDIM_SECRET:
+    raise SystemExit("OMNIDIM_API_KEY missing. Set it in .env.local (see .env.local.example).")
 AGENT_ID = 252539
 SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1AqiavwsMmv_GCW0Cvr57lieFMOgOhoNLi77tiXPGDso/export?format=csv"
 

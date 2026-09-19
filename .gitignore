@@ -4,4 +4,31 @@ __pycache__/
 *.pyc
 .env
 .env.local
+.env.*.local
 .DS_Store
+
+# Editor/OS junk
+*.swp
+*.tmp
+*~
+Thumbs.db
+
+# Backups + agent runtime artifacts
+.backups/
+.agents/slices/
+.agents/findings/
+.agents/*.output
+
+# E2E runtime artifacts (regenerated per run)
+e2e_tester/counsel_progress.json
+e2e_tester/current_batch.txt
+e2e_tester/current_verdicts.json
+e2e_tester/e2e_progress.txt
+e2e_tester/e2e_test_report.csv
+e2e_tester/e2e_test_report_analyzed.csv
+
+# Backup files
+*.bak
+
+# Build artifacts
+tsconfig.tsbuildinfo

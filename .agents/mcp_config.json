@@ -14,7 +14,7 @@
         "@omnidim-ai/mcp-server"
       ],
       "env": {
-        "OMNIDIM_API_KEY": "DLOAJWjRpuyDwg9qyCBlil2QBHJCzk-qR5yFmdCFjG0"
+        "OMNIDIM_API_KEY": "${OMNIDIM_API_KEY}"
       }
     }
   }

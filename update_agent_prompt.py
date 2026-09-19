@@ -3,7 +3,9 @@ from dotenv import load_dotenv
 from omnidimension import Client
 
 load_dotenv(os.path.join(os.path.dirname(__file__), '.env.local'))
-api_key = "DLOAJWjRpuyDwg9qyCBlil2QBHJCzk-qR5yFmdCFjG0"
+api_key = os.getenv("OMNIDIM_API_KEY")
+if not api_key:
+    raise SystemExit("OMNIDIM_API_KEY missing. Set it in .env.local (see .env.local.example).")
 client = Client(api_key=api_key)
 
 with open(os.path.join(os.path.dirname(__file__), 'OMNIDIM_PROMPT.md'), 'r', encoding='utf-8') as f:
