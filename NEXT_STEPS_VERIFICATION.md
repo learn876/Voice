@@ -44,6 +44,38 @@ https://api.telegram.org/bot<TG_BOT_TOKEN>/sendMessage?chat_id=<TG_CHAT_ID>&text
 ```
 Your group should ping. If yes, done.
 
+### 0.2.1 Telegram values checklist ✓
+
+Before moving on, verify what you actually pasted into `.env.local`:
+
+| Field | Format |
+|---|---|
+| `TG_BOT_TOKEN` | `<10 digits>:<35+ mixed characters>` — e.g. `7891234567:AAH8fB-K7mN9pQr2sT4vX6yZ8aB0cD2eF4g` |
+| `TG_CHAT_ID` | Negative integer starting `-100` — e.g. `-1001357924680` |
+
+**Sanity checks:**
+- The token has 35+ characters after the colon (letters, digits, hyphens, underscores) — NOT `xxxx...` placeholder text.
+- The chat ID is a **specific negative number** you copied from `@userinfobot` or `getUpdates` — NOT `-1001234567890` (that's the docs example).
+- The `TG_BOT_TOKEN` line has NO surrounding quotes and NO trailing spaces.
+- The `TG_CHAT_ID` line has NO quotes.
+
+**One-liner acceptance test** (run from `voice/` directory after saving `.env.local`):
+
+```bash
+# Load env and ping Telegram
+node -e "require('dotenv').config({path:'.env.local'}); const t=process.env.TG_BOT_TOKEN,c=process.env.TG_CHAT_ID; if(!t||t.includes('x')){console.log('❌ token looks like placeholder or missing');process.exit(1)} if(!c||c==='-1001234567890'){console.log('❌ chat_id looks like placeholder or missing');process.exit(1)} require('https').get(\`https://api.telegram.org/bot\${t}/sendMessage?chat_id=\${c}&text=telegram+ready\`,r=>{let d='';r.on('data',c=>d+=c);r.on('end',()=>{const j=JSON.parse(d);console.log(j.ok?'✅ Telegram wired':'❌ '+j.description)})})"
+```
+
+Expected output: `✅ Telegram wired` AND your Telegram group/DM pings with `telegram ready`.
+
+If you see `❌ token looks like placeholder` — you pasted the doc's example instead of your real token. Re-check BotFather.
+If you see `❌ chat_id looks like placeholder` — you pasted the doc's example instead of your real chat ID. Re-check `@userinfobot`.
+If you see `❌ chat not found` — bot isn't a member of that group (or you used a group id from a chat the bot never joined).
+If you see `❌ bot was blocked by the user` — you blocked the bot in your DM; unblock and retry.
+
+Do NOT proceed to step 0.3 until this test returns `✅`.
+
+
 ### 0.3 Confirm Google Sheet has correct columns
 
 Open the DynamicDetailing sheet (`GOOGLE_SHEET_ID_DETAILING` in `.env.local.example` → `1AqiavwsMmv_GCW0Cvr57lieFMOgOhoNLi77tiXPGDso`).
