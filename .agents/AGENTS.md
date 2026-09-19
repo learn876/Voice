@@ -1,22 +1,62 @@
-# Master Initialization Protocol
+# Agent Initialization — Read First
 
-Before you begin executing any tasks in this workspace, you MUST read the following master files to understand the system architecture, business rules, and current state:
+You are working in the **DynamicDetailing Voice AI** repo. Any model — Claude, GPT, Gemini, or a human contractor — starts here.
 
-1. **Strategic Overview:** Read `@[c:\Users\SHAIK ATIF\Voice agent\.agents\CONTEXT.md]`
-2. **AI Behavior:** Read `@[c:\Users\SHAIK ATIF\Voice agent\OMNIDIM_PROMPT.md]`
-3. **Database & Orchestration:** Read `@[c:\Users\SHAIK ATIF\Voice agent\N8N_WORKFLOW.md]`
-4. **Dependency Map:** Read `@[c:\Users\SHAIK ATIF\Voice agent\.agents\dependency_matrix.json]`
-5. **Global Systemic Issues:** Read `@[c:\Users\SHAIK ATIF\Voice agent\.agents\counsel_context.md]`
+## The 3-step boot
 
-Do not start writing code or editing files until you have fully absorbed the constraints from these 4 files.
+### Step 1 — Load the principles
+Read **`.agents/OPERATING_PRINCIPLES.md`** completely. These are the 10 rules that govern how work is done in this repo. They are not aspirational; they are enforced.
 
----
+### Step 2 — Load the state
+Read **`.agents/CONTEXT.md`** for the current project state (what's live, what's staged, what's broken, what's next).
 
-# The "Expert Prompt" Protocol: Pre-Flight Impact Checker
-To prevent localized fixes from breaking downstream systems, you are strictly bound by the following rule:
+### Step 3 — Load the load-bearing docs
+When you'll be touching either area, read the corresponding source-of-truth doc:
 
-**Before editing ANY script, JSON, markdown, or CSV file in this repository, you MUST run:**
-`python .agents/impact_horizon.py <filename>`
+| If you're editing… | Source of truth |
+|---|---|
+| Agent behavior | `OMNIDIM_PROMPT.md` |
+| n8n workflow | `N8N_WORKFLOW.md` + `n8n-workflow.json` |
+| Dashboard | `app/page.tsx` + `lib/googleSheets.ts` + `lib/tenantConfig.ts` |
+| E2E harness | `e2e_tester/README.md` + `test_scenarios.json` |
+| Cost / plan | `production_plan.md` + `POST_DEMO_TODO.md` |
 
-This script will analyze the global dependency matrix and output a list of downstream files that rely on the file you are about to change. 
-You must explicitly address how you will handle these downstream dependencies in your plan or thoughts before making the edit. Failure to do so will result in systemic drift.
+## Never do
+
+- **Never edit `.env.local`** (it holds live credentials, gitignored, handled by the human).
+- **Never push to `origin`** — the human pushes.
+- **Never run `push_real_prompt.py`, `vercel --prod`, or any n8n import** — those are destructive and belong on the human's line, not yours. See §6 of Operating Principles.
+- **Never fabricate** OmniDim/Meta/Google API behavior. If docs aren't reachable (Molina firewall blocks `docs.omnidim.io`), flag it — don't guess.
+- **Never rewrite files you haven't read** in full within this session.
+
+## The available skills
+
+Each is a small runbook in `.agents/skills/<name>/SKILL.md`. Load only when the task matches.
+
+| Skill | Trigger |
+|---|---|
+| `analyze-transcripts` | Any bulk transcript / CSV / test-report analysis. |
+| `update-omnidimension-agent` | User asks to update the agent prompt / context / tools. |
+| `n8n-omnidim-sync` | User asks to change a data field, tool schema, webhook URL, or n8n workflow. |
+| `omnidim-reference-skill` | User asks you to draft test scenarios or replies for the voice agent. |
+| `omnidimension-ui-guide` | User asks where a setting is in the OmniDim dashboard. |
+| `client-onboarding` | User wants to onboard a new client. |
+
+## The rules
+
+Read all files in `.agents/rules/` at the start of each session. Small, enforceable, and mandatory.
+
+Currently:
+- `01-verify-before-claim.md`
+- `02-evidence-over-memory.md`
+
+## When paths in old docs are wrong
+
+Some legacy files reference `c:\Users\SHAIK ATIF\Voice agent\...` — old machine. The real repo is wherever the human cloned it (currently: `c:\Users\ShaikAti\OneDrive - Molina Healthcare\Automation\Testing\voice`). Use relative paths from repo root (`OMNIDIM_PROMPT.md`, `.agents/CONTEXT.md`) so this file survives machine moves.
+
+## When you finish
+
+Every session ends with:
+1. `git status --short` clean or a summary of intentional uncommitted state.
+2. A one-paragraph handoff naming what the human should do next.
+3. Task list marked complete for anything you finished; realistic status for anything you didn't.

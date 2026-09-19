@@ -1,15 +1,54 @@
 ---
 name: omnidim-reference-skill
-description: Guidelines for referencing OMNIDIM_PROMPT.md when drafting OmniDimension scenarios and replies.
+description: Ground rule — OMNIDIM_PROMPT.md is source of truth for agent behavior. Use it when drafting scenarios, expected agent replies, or reviewing agent output.
 ---
 
-# OmniDimension Reference Guidelines
+# OmniDim Prompt as Source of Truth
 
-When the user asks you to draft test scenarios, simulate conversations, or write agent replies for the DynamicDetailing Voice Agent, you MUST **ALWAYS** use `c:\Users\SHAIK ATIF\Voice agent\OMNIDIM_PROMPT.md` as your primary source of truth.
+Whenever you're asked to:
+- Draft a test scenario
+- Write an expected agent reply
+- Simulate a conversation
+- Judge whether the agent behaved correctly
+- Suggest a prompt change
 
-## Core Directives
+…the answer lives in **`OMNIDIM_PROMPT.md`** (currently v2, 2026-09-19). Read from it. Do not invent business rules.
 
-1. **Rule of Thumb:** `OMNIDIM_PROMPT.md` is the master document for the agent's behavior. Never invent business rules, pricing, or formatting constraints that contradict this document.
-2. **Channel Sensitivity:** Pay strict attention to the Text vs. Voice rules defined in the prompt. Do not mix Voice formatting (e.g., spelling out numbers, Telugu script) into Text Chat scenarios, and vice versa.
-3. **Scenario Drafting:** When drafting scenarios (e.g., for `test_scenarios.json`), ensure the `expected_result` directly mirrors the exact guardrails and facts established in `OMNIDIM_PROMPT.md`.
-4. **Validation:** If the user proposes a test or behavior that violates `OMNIDIM_PROMPT.md` (e.g., asking to offer a discount), politely remind them that the prompt explicitly forbids it.
+## The rule
+
+1. **Never invent facts** not in `OMNIDIM_PROMPT.md §3`. Prices, hours, services, address — those are the only numbers you cite. Never round, derive, or reformulate them from memory.
+2. **Channel matters**. Voice rules live in §V. Text rules live in §T. Never mix them.
+3. **Language matters**. §1 (Language Lock) governs which script the agent uses. If your test scenario user writes in Devanagari, the expected reply mirrors Devanagari. Latin-script Tanglish → Latin-script Tanglish reply.
+4. **Guardrails are absolute**. §G forbids: discounts, home pickup, refund promises, off-topic engagement, Anonymous bookings, medical/legal advice. If a proposed scenario tests a guardrail, the expected behavior is refusal in the appropriate register.
+5. **Escalation must emit tokens**. §H mandates the summary begins with `HANDOFF:` or `COMPLAINT:`. Any test scenario for escalation must assert on this token in the post-call summary.
+
+## Common misuses to catch
+
+| User asks | Push back |
+|---|---|
+| "Test the agent's discount negotiation" | The prompt forbids discounts. The correct test is: user asks, agent refuses firmly. |
+| "Have the agent recommend a mechanic" | Out of scope. Agent must deflect (§G4). |
+| "Book a 6 PM slot" | Bookable hours are 9 AM – 4:30 PM. Correct behavior: refuse, offer nearest available (§B3). |
+| "Have the agent say the price in Telugu numerals" | §V1 forbids Telugu numeric words on voice; English spelled-out only. |
+| "Reply with markdown in a voice test" | §V1 forbids markdown on voice. |
+
+If the user's requested scenario contradicts the prompt, **do not comply silently**. Say: "Prompt §X forbids this; I'll draft the scenario to verify the refusal instead."
+
+## Cross-reference discipline
+
+When drafting an expected reply:
+- Quote the prompt section it derives from: *"per §V7 (voice opening), expected: '…' "*.
+- If your expected reply differs from what's currently in `OMNIDIM_PROMPT.md`, that's a prompt-change proposal, not a scenario spec — flag it as such.
+
+## When to update the prompt vs when to update scenarios
+
+If your test scenarios catch a systemic gap:
+- **Prompt fix**: if the rule doesn't exist in `OMNIDIM_PROMPT.md`. Follow `.agents/skills/update-omnidimension-agent/SKILL.md`.
+- **Scenario fix**: if the rule exists and the scenario just doesn't test it correctly.
+- **Both**: if the rule exists but is weakly worded.
+
+Never patch scenarios to hide a real prompt gap.
+
+## What this skill replaced
+
+Prior version referenced `c:\Users\SHAIK ATIF\Voice agent\OMNIDIM_PROMPT.md`. Now uses repo-relative paths.

@@ -1,64 +1,127 @@
-# Project Context: Unified Voice & Chat AI CRM (OmniDimension + n8n + Google Sheets)
+# Project Context — DynamicDetailing Voice AI CRM
 
-## 🎯 Project Overview
-We are building a highly capable Voice AI and WhatsApp Chatbot Customer Relationship Management (CRM) and Appointment Dashboard for clients (like car detailing studios, salons, or gyms). 
-* **Voice & Text Engine:** OmniDimension natively handles inbound calls AND inbound WhatsApp text chats. 
-* **Orchestration:** n8n (self-hosted/local for demo) handles all background CRM logic (logging to sheets, sending manager alerts).
-* **Backend/Database:** Google Sheets (The backbone for the live demo).
-* **Frontend:** Next.js (App Router) deployed on Vercel, using NextAuth.js (Google Auth) and the Google Sheets API.
-* **Messaging Platforms:** 
-  - **Demo Phase:** Connecting a personal WhatsApp number via QR Code ("Phone WhatsApp") to bypass Meta Sandbox business-verification restrictions.
-  - **Production Phase:** Will migrate to direct Meta Cloud Business API for official Utility Templates (Confirmations/Reminders).
+Last major update: **2026-09-19** (demo-prep pass).
 
-## 🏗️ System Architecture & Business Rules
-Because OmniDimension handles conversations natively, n8n's role is relegated to background automation. We have optimized the architecture to aggressively cut AI "bridging" costs.
+## What this project is
 
-### 1. The Voice Call Routing (Cost-Optimized)
-1. **Working-Hour Call Deflection:** Because the phone number is bought directly in OmniDimension, the AI *must* answer the call. If called during working hours, the AI immediately says: *"Please reach out to [Human Number] for inquiries,"* and hangs up.
-2. **The Call-Back Method (Handoffs):** The AI **never** uses the call transfer tool (which charges per minute for bridging). If a human is requested, the AI notes the details, says *"Our manager will call you back,"* hangs up, and flags the summary as `HANDOFF`. 
-   - *Time Logic:* It says "tomorrow" if evening, or "once shop opens" if morning.
-3. **Complaints:** Past service issues are handled via Call-Back, but flagged as `COMPLAINT`.
+A voice + text AI agent named **Siri** for **DynamicDetailing Studio** (auto detailing, Jubilee Hills, Hyderabad). Runs on OmniDimension. Backed by n8n workflows that write to Google Sheets and send Telegram alerts. Read by a Next.js dashboard on Vercel that the shop owner will use.
 
-### 2. The Text Chat Flow (Native WhatsApp)
-* Customer texts the connected WhatsApp number.
-* OmniDimension receives it natively and replies directly. 
-* IF TEXT CHAT (Tanglish/English input):
-  1. Reply STRICTLY in Tanglish (Latin script). NEVER use Telugu script!
-  2. Write numbers visually: ₹19,999, 9:00 AM, 7893 6865 81. Do NOT spell out numbers!
-  3. Keep messages short and use *single asterisk* bold formatting.
-  4. HANDLE INQUIRIES 24/7 — working-hour deflection does NOT apply to text chat.
-  5. IF TEXT CHAT ENDS: Right before saying your final goodbye or closing the chat, you MUST silently call 'log_text_summary' to save the conversation details.
-* *Note: Text chats remain inside the OmniDimension inbox. There is no webhook to log text chats to Google Sheets currently.*
+The client is a car detailing studio owner. The immediate goal is a **demo to that one client**. Post-demo, this scales to 2–3 more small businesses (salons, gyms).
 
-### 3. The Orchestration (n8n Switch Logic)
-When the AI hangs up, OmniDimension fires a webhook to n8n with the summary:
-1. **Google Sheets:** n8n logs every call. It sets the status to "Handoff Required", "Priority Complaint", or "Completed".
-2. **Switch Node (WhatsApp Alerts):** 
-   - If `HANDOFF`, n8n pings the Meta API to send an immediate WhatsApp alert to the Manager's phone. 
-   - If `COMPLAINT`, n8n stops (leaving it on the dashboard without buzzing the manager's phone).
+## Language mix
 
-### 4. The Next.js Dashboard (Stage 2)
-The Next.js dashboard uses Google Auth. The backend API fetches the Google Sheet but filters the data so a logged-in client only sees their specific customers. The UI features:
-* **Action Required Tab:** Highlights `HANDOFF` and `COMPLAINT` logs.
-* **Upcoming Appointments View:** Pulls directly from the booked calendar slots.
+- Tanglish (Telugu-English in Latin script): **~70 %**
+- Hinglish (Hindi-English in Latin script): **~15 %**
+- English: **~15 %**
 
----
+Voice may also come in Telugu or Hindi native scripts. Agent MUST mirror script.
 
-## 🚀 Current Status & Next Steps
-* **What's done (Stage 1 / Demo Prep):** 
-  - The OmniDimension agent (`#252539`) has been injected with all 10 core rules (Language, Latency, Business Rules).
-  - The `n8n-workflow.json` has been finalized with the Switch logic for Handoffs vs Complaints.
-  - The `demo_matrix.md` and `n8n_setup_guide.md` artifacts have been generated for the live presentation.
+## What's live right now
 
-* **Recent Fixes & Deep Debugging (Today's Comprehensive Update):**
-  - **Prompt Anti-Anchoring Refactoring:** Identified that Telugu script anchored the AI to voice-only translation modes. Overhauled `OMNIDIM_PROMPT.md` to enforce Latin-script (Tanglish/English) and updated the welcome message to Tanglish as a neutral language anchor.
-  - **Legacy Script Patch:** Rewrote `update_agent_prompt.py` to pull strictly from `OMNIDIM_PROMPT.md`, permanently closing the loophole of reverting to the buggy `DynamicDetailing.md`.
-  - **E2E Framework Scaling:** Built Playwright `run_e2e_tests.py` and scaled the automated test suite to **10 robust scenarios** covering Privacy Refusals, Out-of-Scope (Engine Repairs), Angry Customers, and Guardrails (Anti-Discounting). Fixed the Playwright timeout by increasing inter-message delay to 30s.
-  - **Automated CSV Reporting:** Built `e2e_reporter.py` to pull actual call transcripts via OmniDimension API and verify webhook status directly against the Google Sheets CSV. Generates `e2e_test_report_analyzed.csv` loaded with AI evaluations.
-  - **n8n Google Sheets Resiliency:** Fixed the webhook crash (Issue B) via the n8n API. The Google Sheets node now accepts empty strings (`|| 'N/A'`) so general enquiries map cleanly to the database without throwing errors.
-  - **n8n Dynamic Calendar Sync:** Fixed the Calendar Double-Booking bug. Injected a Javascript Code Node in n8n to dynamically parse Google Calendar events, subtract busy slots from a master list, and return only truly free slots to the AI.
-  - **Skills Architecture Secured:** Created `N8N_WORKFLOW.md` to document the exact n8n webhook schema. Updated the `n8n-omnidim-sync` AI Skill to mandate reading and updating `N8N_WORKFLOW.md` as the absolute source of truth.
+- **OmniDim Agent ID `252539`** — receives voice + text, uses `OMNIDIM_PROMPT.md` v2 as its context.
+- **n8n workflow v2** (`v2-demo-ready-2026-09-19`) — 4 webhooks: post-call, calendar tool (4 actions), manager alert, text summary. Telegram alerts (WhatsApp planned).
+- **Google Sheet** (`1AqiavwsMmv_GCW0Cvr57lieFMOgOhoNLi77tiXPGDso`) — operational store. Not authoritative for auth; only for CRM data.
+- **Next.js dashboard** — deployed to Vercel (URL TBD). Uses a localStorage stub for auth (post-demo replace with NextAuth).
 
-* **What's next (Stage 2):** 
-  - The user will execute the live demo.
-  - After a successful demo, we will begin the Next.js CRM Dashboard frontend and Meta Business API verification.
+## What's staged but not deployed
+
+Between the current disk state and the live systems, these things need to happen (see `NEXT_STEPS_VERIFICATION.md`):
+
+- Push prompt v2 to OmniDim → `python push_real_prompt.py`
+- Import `n8n-workflow.json` v2 into n8n dashboard
+- Configure OmniDim Custom Tools + Extracted Variables
+- Rotate OmniDim API key (old key was leaked in git history)
+- Set up Telegram bot (BotFather) — human step, ~10 min
+
+## The stack
+
+```
+Caller ──▶ OmniDim (voice + text, Siri persona)
+         ├─▶ Custom Tool "manage_calendar" ──▶ n8n webhook ──▶ Google Calendar
+         │                                                  └─▶ Google Sheet
+         ├─▶ Custom Tool "manager_alert" ──▶ n8n webhook ──▶ Telegram bot
+         └─▶ post-call webhook ──▶ n8n ──▶ Sheet + (if HANDOFF/COMPLAINT) Telegram
+
+Next.js /api/dashboard ──▶ Google Sheet (via gviz JSON) ──▶ Owner's browser
+```
+
+Details in `N8N_WORKFLOW.md`. Failure modes in `.agents/failure_triage_v2.md`.
+
+## What's broken / weak (as of last audit)
+
+**Fixed today** (2026-09-19):
+- Voice format bleeding to text and vice versa
+- Handoff token never emitted → n8n escalation blind
+- No availability check before booking → double-bookings
+- No reschedule capability → hallucinated confirmations
+- Language leaks (Kannada/Gujarati script fragments)
+- Anonymous name accepted → untraceable bookings
+- Google Sheet ID was a placeholder → all writes silently failed
+- Silent defaults in dashboard ("Positive" for missing sentiment, "Atif" for missing name)
+
+**Still weak, not blocking demo, tracked in `POST_DEMO_TODO.md`:**
+- Auth is a localStorage stub — anyone can "log in" as an allow-listed email
+- `lib/tenantConfig.ts` imports allow-list into client bundle → info disclosure
+- No Sentry / uptime monitoring
+- No CI
+- Dashboard is ~600-line monolith (splittable post-demo)
+- Meta WhatsApp Cloud API not set up yet (using Telegram as demo stand-in)
+
+## Budget & scale
+
+- OmniDim $36/mo + OmniDim phone number $5/mo
+- Hostinger KVM1 for n8n (~$5/mo)
+- Vercel free tier (fine for ~250 clients at expected load)
+- Telegram: free
+- WhatsApp Cloud API: pending Meta Business Manager
+- **Total pre-WhatsApp: ~$47/mo**
+
+Details in `POST_DEMO_TODO.md`.
+
+## Compliance snapshot
+
+- DPDP (India Digital Personal Data Protection Act, 2025):
+  - Recording notice added to voice welcome greeting.
+  - Text greeting mentions chat is saved.
+  - Full policy page TBD post-demo.
+- No credit card / OTP / Aadhaar storage (guardrail G4 in prompt).
+
+## The 8 defect categories from the last independent analysis
+
+From `.agents/failure_triage_v2.md` (693 scenarios → 124 defects on 2026-09-19):
+
+| Category | Critical | High | Medium | Low |
+|---|---|---|---|---|
+| Booking flow | 5 | 4 | 3 | 1 |
+| Modification / Reschedule | 4 | 4 | 3 | 0 |
+| Pricing / Payment | 3 | 4 | 2 | 0 |
+| Complaint / Escalation | 4 | 5 | 4 | 3 |
+| Guardrails / Privacy | 5 | 4 | 4 | 2 |
+| Intent / Multi-part | 2 | 5 | 4 | 4 |
+| Facts / Service info | 1 | 5 | 3 | 2 |
+| Media / Edge cases | 0 | 12 | 20 | 6 |
+
+All 20 CRITICAL and ~60 % of HIGH are addressed in prompt v2 + n8n v2. Remaining HIGH + all MEDIUM/LOW are for post-demo iteration.
+
+## The 10 systemic issues from the earlier (Gemini/Antigravity) counsel run
+
+Archived at `.agents/.archive/counsel_context.md`. Historic value only. My 2026-09-19 independent analysis confirmed 8 of 10 and found 5 new ones. Do not treat that file as active.
+
+## People
+
+- **Shaik Atif** — owner / super-admin (`shaikatif@gmail.com`).
+- **Client**: DynamicDetailing Studio owner (contact TBD by Shaik).
+- **Manager**: recipient of Telegram alerts (Shaik receives during demo).
+
+## Load-bearing decisions log
+
+- 2026-09-19: dropped Supabase in favor of Google Sheets only for demo scale.
+- 2026-09-19: Telegram for handoff alerts as WhatsApp Cloud API stand-in.
+- 2026-09-19: `OMNIDIM_PROMPT.md` split physically into §V (voice) and §T (text) sections to stop format bleed.
+- 2026-09-19: Rescheduling implemented via `lookup_by_phone` + `reschedule` calendar actions.
+- 2026-09-19: Anonymous names rejected server-side in n8n `Validate + Overlap Guard` node.
+- Older decisions: see `production_plan.md`.
+
+## When updating this file
+
+Append a dated line to the decisions log. Never rewrite existing decisions — preserve the trail.

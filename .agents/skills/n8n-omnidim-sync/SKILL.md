@@ -1,46 +1,126 @@
 ---
 name: n8n-omnidim-sync
-description: Standard operating procedure for synchronizing payload schemas and webhook URLs between OmniDimension Custom Tools and n8n Workflows to prevent integration breakage.
+description: Rules for keeping OmniDim Custom Tools, n8n webhook payloads, and the n8n-workflow.json schema in lockstep. Prevents integration drift.
 ---
 
-# 🔄 OmniDimension & n8n Sync Protocol
+# n8n ↔ OmniDim Sync Protocol
 
-When building or modifying integrations between OmniDimension and n8n, it is extremely common for schema mismatches to break the pipeline. Follow these rules whenever you touch either system.
+**Load this skill any time you touch either:**
+- A Custom Tool parameter in the OmniDim agent
+- A webhook payload field in `n8n-workflow.json`
+- A field name in `N8N_WORKFLOW.md`
+- A column in the Google Sheet consumed by n8n
 
-**CRITICAL MANDATE:** 
-ALWAYS use @[c:\Users\SHAIK ATIF\Voice agent\N8N_WORKFLOW.md] as the main thumb reference for understanding the current n8n architecture. Whenever you (the AI) update, patch, or suggest changes to the n8n workflow, you MUST update that file so it remains the absolute source of truth.
+## The invariant
 
-## 1. Bi-Directional Schema Updates
+Every named field must be **traceable end-to-end**:
 
-Whenever a user requests a change to a data field, you MUST update both sides:
-*   **OmniDimension Side:** The inputs defined in the Agent's "Custom Tools" settings or the `omnidim_api_config.md` artifact.
-*   **n8n Side:** The `n8n-workflow.json` file where `={{ $json.body.FIELD_NAME }}` expressions pull data from the webhook.
+```
+OmniDim Custom Tool parameter name
+   ↓ (identical name)
+n8n webhook body.<field>
+   ↓ (referenced in a Code / Sheets node)
+Google Sheet column name  OR  Calendar event field
+   ↓ (read by)
+Next.js dashboard (lib/googleSheets.ts)
+```
 
-**Example Scenario:** The user wants to start tracking the customer's "Car Model" during bookings.
-*   **OmniDim Action:** Add a new `car_model` string input to the `manage_calendar` tool.
-*   **n8n Action:** Update the Google Calendar "Create Event" node in `n8n-workflow.json` to append `\nCar: {{$json.body.car_model}}` to the description.
+If any hop uses a different spelling, the field is silently null.
 
-## 2. Naming Conventions
+## When you're about to touch either side
 
-*   All fields sent from OmniDimension to n8n must be `snake_case` (e.g., `phone_number`, `service_requested`).
-*   Never use spaces or hyphens in JSON keys.
-*   If you rename a tool parameter in OmniDimension, search `n8n-workflow.json` for the old variable name (e.g., `$json.body.old_name`) and replace it with the new name.
+### Before editing
+1. `git diff HEAD~5 -- n8n-workflow.json N8N_WORKFLOW.md OMNIDIM_PROMPT.md` — see recent related changes.
+2. Read the current `N8N_WORKFLOW.md` — it is source of truth for the workflow's shape.
+3. Read the relevant section of `n8n-workflow.json` — do not trust the doc alone.
 
-## 3. Tool Webhook URL Synchronization
+### While editing
+Update in this order to catch inconsistencies early:
 
-OmniDimension routes custom tools via Webhooks. Because local development often relies on `ngrok` or `localtunnel`, the base URL changes frequently.
-*   If the n8n tunnel URL changes, you MUST remind the user to update the "Webhook URL" field for ALL custom tools in the OmniDimension dashboard.
-*   The path must exactly match the Webhook Node's path in n8n (e.g., `/webhook/omnidim-calendar-tool`).
+1. **`N8N_WORKFLOW.md`** — write the doc first. If you can't cleanly describe the change, don't ship it.
+2. **`n8n-workflow.json`** — implement.
+3. **`OMNIDIM_PROMPT.md`** (if the agent needs to know) — reference the field.
+4. **`NEXT_STEPS_VERIFICATION.md`** — tell the human what dashboard UI updates are still needed on the OmniDim side.
 
-## 4. Post-Call vs Custom Tool Payloads
+### After editing
+Verify:
+1. **JSON parses**: `node -e 'JSON.parse(require("fs").readFileSync("n8n-workflow.json","utf8"))'` → no throw.
+2. **Field grep**: `grep -o '\$json\.body\.[a-z_]\+' n8n-workflow.json | sort -u` — every field name matches what the docs describe.
+3. **Doc grep**: every field named in `N8N_WORKFLOW.md` should appear in `n8n-workflow.json`.
 
-*   **Post-Call Webhook (Native):** OmniDimension sends a massive default payload for Voice Calls at the end of the call, including `duration`, `recording_url`, `call_report`, and `summary`. Do not try to alter the schema of the native post-call webhook from the OmniDimension side; instead, adapt the n8n side to handle it.
-*   **Custom Tools:** You fully control these payloads. Ensure inputs are marked `Required` if n8n logic depends on them.
+## Naming conventions (enforced)
 
-## 5. Verification Checklist
+- **snake_case** for all JSON keys crossing the wire. Never camelCase, never kebab-case, never spaces.
+- **English** field names. No Tanglish/Hindi in schema. Content in schema fields may be non-English; keys never are.
+- **Phone**: always `phone` or `phone_number` (both accepted in v2 normalizers). Always 10-digit local, stripped of `+91`.
+- **Date**: always ISO `YYYY-MM-DD`.
+- **Time**: always `HH:MM` 24-hour, IST.
+- **Action verbs**: `check_slots`, `book`, `reschedule`, `lookup_by_phone`. Never `checkSlot`, `bookAppt`.
 
-Before ending your turn after an integration change, verify:
-- [ ] Are all new fields defined in the OmniDimension tool instructions?
-- [ ] Are all new fields correctly referenced with `{{ $json.body.field_name }}` in n8n?
-- [ ] Did you check for case-sensitivity mismatches (e.g., `Date` vs `date`)?
-- [ ] Did you update the `omnidim_api_config.md` documentation so the user knows what to put in the dashboard?
+## Payload shapes to memorize
+
+### OmniDim → n8n `/webhook/omnidim-post-call`
+```
+{
+  body: {
+    caller_number: string,           // may be missing on web calls
+    phone_number: string,             // fallback
+    summary: string,                  // "HANDOFF: …" or "COMPLAINT: …" prefix triggers alert
+    duration: string,
+    call_report: {
+      extracted_variables: {
+        customer_name, phone_number, service_requested,
+        preferred_date_time, complaint_details, handoff_reason,
+        language_detected, sentiment
+      }
+    }
+  }
+}
+```
+
+### OmniDim → n8n `/webhook/omnidim-calendar-tool`
+```
+{ body: { action: "check_slots" | "book" | "reschedule" | "lookup_by_phone",
+          date, time, name, phone, service_requested,
+          new_date, new_time, language } }
+```
+
+### n8n → OmniDim (Custom Tool response)
+Must include `{ success: boolean, message: string }`. Additional fields per action documented in `N8N_WORKFLOW.md`.
+
+## What you must never do
+
+- **Never** silently rename a field on one side without updating the other.
+- **Never** hardcode Sheet IDs, Meta phone IDs, or tokens. Use `$env.<name>`.
+- **Never** commit a `n8n-workflow.json` with hardcoded credentials — n8n's Import UI strips them but git history keeps them.
+- **Never** modify a Custom Tool's schema via SDK; instruct the human to do it in the UI.
+- **Never** claim the workflow works without a curl smoke-test.
+
+## Smoke tests to include in your handoff
+
+Any change to `omnidim-calendar-tool`:
+```bash
+curl -X POST https://<n8n-host>/webhook/omnidim-calendar-tool \
+  -H "Content-Type: application/json" \
+  -d '{"action":"check_slots","date":"YYYY-MM-DD"}'
+```
+
+Any change to `omnidim-post-call`:
+```bash
+curl -X POST https://<n8n-host>/webhook/omnidim-post-call \
+  -H "Content-Type: application/json" \
+  -d '{"body":{"caller_number":"9999999999","summary":"HANDOFF: test","call_report":{"extracted_variables":{"customer_name":"Test"}}}}'
+```
+
+Both should hit the Sheet within 3 seconds. If Telegram is wired, escalation smoke test should ping the group.
+
+## When webhook base URL changes
+
+If you switched n8n hosts (VPS move, ngrok tunnel restart, port change):
+1. Update every Custom Tool's webhook URL in the OmniDim dashboard.
+2. Update `NEXT_STEPS_VERIFICATION.md` with the new URL.
+3. Don't leave stale URLs in docs.
+
+## What this skill replaced
+
+Same-named skill with `SHAIK ATIF` broken paths. Rewrite adds the smoke-test loop and the naming discipline that produced the 2026-09-19 v2 workflow.
