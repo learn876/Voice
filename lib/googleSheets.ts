@@ -68,12 +68,12 @@ export async function getTenantSheetData(sheetId: string) {
         return null;
       };
 
-      const customerName = getField("customer_name", "name", "caller_name") || "Atif";
+      const customerName = getField("customer_name", "name", "caller_name");
       const phoneNumber = getField("phone_number", "from_number", "number") || "Web Call";
-      const serviceRequested = getField("service_requested", "service") || "PPF";
+      const serviceRequested = getField("service_requested", "service");
       const bookingTime = getField("preferred_date_time", "booking_time", "date_time");
-      const summary = getField("summary", "call_summary") || "Enquired for detailing services";
-      const sentiment = getField("sentiment", "call_sentiment") || "Positive";
+      const summary = getField("summary", "call_summary");
+      const sentiment = getField("sentiment", "call_sentiment");
       const transcript = getField("full_conversation", "transcript") || "";
       const complaintDetails = getField("complaint_details");
       const durationStr = getField("call_duration_in_minutes", "duration") || "";
