@@ -1,4 +1,4 @@
-import { CallLogItem, AppointmentItem, WalletItem } from "@/hooks/useRealtimeDashboard";
+import { CallLogItem, AppointmentItem, WalletItem } from "@/types/dashboard";
 
 /**
  * Fetch all CRM dashboard data directly from a tenant's Google Sheet

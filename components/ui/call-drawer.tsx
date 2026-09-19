@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CallLogItem } from "@/hooks/useRealtimeDashboard";
+import { CallLogItem } from "@/types/dashboard";
 import { SentimentPill } from "./sentiment-pill";
 import {
   X,

@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 import { useCallback } from "react";
-import { CallLogItem, AppointmentItem, WalletItem } from "@/hooks/useRealtimeDashboard";
+import { CallLogItem, AppointmentItem, WalletItem } from "@/types/dashboard";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 

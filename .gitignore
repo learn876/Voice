@@ -13,8 +13,10 @@ __pycache__/
 *~
 Thumbs.db
 
-# Backups + agent runtime artifacts
+# Backups + archives + agent runtime artifacts
 .backups/
+.archive/
+.agents/.archive/
 .agents/slices/
 .agents/findings/
 .agents/*.output

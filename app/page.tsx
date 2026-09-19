@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { LoginView } from "@/components/auth/LoginView";
 import { useGoogleSheetsDashboard } from "@/hooks/useGoogleSheetsDashboard";
-import { CallLogItem } from "@/hooks/useRealtimeDashboard";
+import { CallLogItem } from "@/types/dashboard";
 import { Sidebar } from "@/components/dashboard/Sidebar";
 import { Header } from "@/components/dashboard/Header";
 import { CallDrawer } from "@/components/ui/call-drawer";

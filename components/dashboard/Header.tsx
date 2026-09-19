@@ -9,7 +9,7 @@ import {
   Shield,
   User,
 } from "lucide-react";
-import { WalletItem } from "@/hooks/useRealtimeDashboard";
+import { WalletItem } from "@/types/dashboard";
 import { AuthUser } from "@/context/AuthContext";
 import { Tenant } from "@/lib/tenantConfig";
 
