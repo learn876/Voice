@@ -29,7 +29,7 @@ export const TENANTS: Record<string, Tenant> = {
     name: "DynamicDetailing Studio",
     category: "Auto Detailing & Ceramic Studio",
     agentId: 249198,
-    sheetId: process.env.GOOGLE_SHEET_ID_DETAILING || "1AqiavwsMmv_GCW0Cvr57lieFMOgOhoNLi77tiXPGDso",
+    sheetId: process.env.GOOGLE_SHEET_ID_DETAILING || "15MdlMbCtfuaQnIzv3Qb5IMsEyVR5Yenpkm494JMa-l0",
     authorizedEmails: parseEnvList(process.env.AUTHORIZED_DETAILING_EMAILS, [
       "owner@dynamicdetailing.com",
       "detailing@gmail.com",

@@ -58,8 +58,11 @@ export async function getTenantSheetData(sheetId: string) {
       const getField = (...keys: string[]) => {
         for (const k of keys) {
           const colIdx = headerMap[k.toLowerCase()];
-          if (colIdx !== undefined && c[colIdx]?.v !== undefined && c[colIdx]?.v !== null) {
-            const val = String(c[colIdx].v).trim();
+          if (colIdx !== undefined && c[colIdx] !== undefined && c[colIdx] !== null) {
+            // Use formatted string (f) first if available (handles gviz numbers/dates), then raw value (v)
+            const raw = c[colIdx]?.f ?? c[colIdx]?.v;
+            if (raw === undefined || raw === null) continue;
+            const val = String(raw).trim();
             if (val !== "" && val.toUpperCase() !== "NULL" && val.toUpperCase() !== "NA") {
               return val;
             }
@@ -77,7 +80,7 @@ export async function getTenantSheetData(sheetId: string) {
       const transcript = getField("full_conversation", "transcript") || "";
       const complaintDetails = getField("complaint_details");
       const durationStr = getField("call_duration_in_minutes", "duration") || "";
-      const createdAt = getField("call_date", "timestamp", "create_date") || new Date().toISOString();
+      const createdAt = getField("created_at", "call_date", "timestamp", "create_date") || new Date().toISOString();
       const callId = getField("call_id") || `call-${idx + 1}`;
 
       const isTestStr = getField("is_test");
@@ -88,11 +91,11 @@ export async function getTenantSheetData(sheetId: string) {
       const scenarioCategory = getField("scenario_category") || (isTest ? "Automated Test" : undefined);
       
       let handoffReason = undefined;
-      if (summary.includes("HANDOFF") || complaintDetails) {
+      if ((summary || "").includes("HANDOFF") || complaintDetails) {
         handoffReason = complaintDetails || "User requested human escalation";
       }
 
-      const combinedText = `${summary} ${serviceRequested}`.toLowerCase();
+      const combinedText = `${summary || ""} ${serviceRequested || ""}`.toLowerCase();
       const isHighTicket = combinedText.includes("ppf") || combinedText.includes("ceramic") || combinedText.includes("full detail");
 
       return {

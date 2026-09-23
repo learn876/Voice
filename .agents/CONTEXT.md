@@ -25,7 +25,7 @@ Voice may also come in Telugu or Hindi native scripts. Agent MUST mirror script.
 
 ## What's staged but not deployed
 
-Between the current disk state and the live systems, these things need to happen (see `NEXT_STEPS_VERIFICATION.md`):
+Between the current disk state and the live systems, these things need to happen (see `docs/planning/NEXT_STEPS_VERIFICATION.md`):
 
 - Push prompt v2 to OmniDim → `python push_real_prompt.py`
 - Import `n8n-workflow.json` v2 into n8n dashboard
@@ -59,7 +59,7 @@ Details in `N8N_WORKFLOW.md`. Failure modes in `.agents/failure_triage_v2.md`.
 - Google Sheet ID was a placeholder → all writes silently failed
 - Silent defaults in dashboard ("Positive" for missing sentiment, "Atif" for missing name)
 
-**Still weak, not blocking demo, tracked in `POST_DEMO_TODO.md`:**
+**Still weak, not blocking demo, tracked in `docs/planning/POST_DEMO_TODO.md`:**
 - Auth is a localStorage stub — anyone can "log in" as an allow-listed email
 - `lib/tenantConfig.ts` imports allow-list into client bundle → info disclosure
 - No Sentry / uptime monitoring
@@ -76,7 +76,7 @@ Details in `N8N_WORKFLOW.md`. Failure modes in `.agents/failure_triage_v2.md`.
 - WhatsApp Cloud API: pending Meta Business Manager
 - **Total pre-WhatsApp: ~$47/mo**
 
-Details in `POST_DEMO_TODO.md`.
+Details in `docs/planning/POST_DEMO_TODO.md`.
 
 ## Compliance snapshot
 
@@ -120,7 +120,7 @@ Archived at `.agents/.archive/counsel_context.md`. Historic value only. My 2026-
 - 2026-09-19: `OMNIDIM_PROMPT.md` split physically into §V (voice) and §T (text) sections to stop format bleed.
 - 2026-09-19: Rescheduling implemented via `lookup_by_phone` + `reschedule` calendar actions.
 - 2026-09-19: Anonymous names rejected server-side in n8n `Validate + Overlap Guard` node.
-- Older decisions: see `production_plan.md`.
+- Older decisions: see `docs/planning/production_plan.md`.
 
 ## When updating this file
 

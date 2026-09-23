@@ -32,7 +32,7 @@ Pushing to OmniDim is a destructive act: it invalidates the live agent for anyon
 1. **Diff**: `git diff OMNIDIM_PROMPT.md` — read it. Make sure you didn't accidentally delete a section.
 2. **Header check**: `grep '^## ' OMNIDIM_PROMPT.md` — should show every intended section.
 3. **Commit**: real commit message describing *why*, not *what*. Reference specific defect ids from `.agents/failure_triage_v2.md` if applicable.
-4. **Write for the human**: in `NEXT_STEPS_VERIFICATION.md` (or your response), state clearly:
+4. **Write for the human**: in `docs/planning/NEXT_STEPS_VERIFICATION.md` (or your response), state clearly:
    ```
    1. Ensure OMNIDIM_API_KEY is in .env.local
    2. Run: python push_real_prompt.py
@@ -54,7 +54,7 @@ If the prompt change requires a new/renamed tool parameter (e.g., adding `servic
 1. Update `OMNIDIM_PROMPT.md` to reference the new parameter.
 2. Update `N8N_WORKFLOW.md` to document the new schema.
 3. Update `n8n-workflow.json` to consume it (`{{ $json.body.new_field }}`).
-4. In `NEXT_STEPS_VERIFICATION.md`, tell the human to update the Custom Tool definition in the OmniDim dashboard manually.
+4. In `docs/planning/NEXT_STEPS_VERIFICATION.md`, tell the human to update the Custom Tool definition in the OmniDim dashboard manually.
 
 All three files must agree. Missing one → integration silently breaks.
 

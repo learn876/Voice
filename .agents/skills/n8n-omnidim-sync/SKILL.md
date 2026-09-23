@@ -40,7 +40,7 @@ Update in this order to catch inconsistencies early:
 1. **`N8N_WORKFLOW.md`** — write the doc first. If you can't cleanly describe the change, don't ship it.
 2. **`n8n-workflow.json`** — implement.
 3. **`OMNIDIM_PROMPT.md`** (if the agent needs to know) — reference the field.
-4. **`NEXT_STEPS_VERIFICATION.md`** — tell the human what dashboard UI updates are still needed on the OmniDim side.
+4. **`docs/planning/NEXT_STEPS_VERIFICATION.md`** — tell the human what dashboard UI updates are still needed on the OmniDim side.
 
 ### After editing
 Verify:
@@ -118,7 +118,7 @@ Both should hit the Sheet within 3 seconds. If Telegram is wired, escalation smo
 
 If you switched n8n hosts (VPS move, ngrok tunnel restart, port change):
 1. Update every Custom Tool's webhook URL in the OmniDim dashboard.
-2. Update `NEXT_STEPS_VERIFICATION.md` with the new URL.
+2. Update `docs/planning/NEXT_STEPS_VERIFICATION.md` with the new URL.
 3. Don't leave stale URLs in docs.
 
 ## What this skill replaced

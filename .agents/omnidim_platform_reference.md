@@ -75,14 +75,14 @@ Local knowledge (from `.agents/skills/n8n-omnidim-sync/SKILL.md`, `N8N_WORKFLOW.
 
 ## 4. Simulation API
 
-The primary reference for this section is the already-maintained file `c:\Users\ShaikAti\OneDrive - Molina Healthcare\Automation\Testing\voice\SIMULATION_API_REFERENCE.md`. That file cites `https://docs.omnidim.io/docs/api-reference/simulation/listSimulations`. Below are **additions / extensions** learned from local scripts, not restated content.
+The primary reference for this section is the already-maintained file `c:\Users\ShaikAti\OneDrive - Molina Healthcare\Automation\Testing\voice\docs\architecture\SIMULATION_API_REFERENCE.md`. That file cites `https://docs.omnidim.io/docs/api-reference/simulation/listSimulations`. Below are **additions / extensions** learned from local scripts, not restated content.
 
-### Base + Auth (from `run_simulations.py:12-13`, `SIMULATION_API_REFERENCE.md`)
+### Base + Auth (from `run_simulations.py:12-13`, `docs/architecture/SIMULATION_API_REFERENCE.md`)
 - Base URL: `https://backend.omnidim.io/api/v1`
 - Auth: `Authorization: Bearer <API_KEY>`
 - Bearer keys are personal per-account tokens (example key format visible in `run_simulations.py:11` — 43-char base62 token).
 
-### Endpoints (already in `SIMULATION_API_REFERENCE.md`)
+### Endpoints (already in `docs/architecture/SIMULATION_API_REFERENCE.md`)
 See that file, section "API Endpoints (7 total)". No changes.
 
 ### Create payload — confirmed shape (`run_simulations.py:76-84`, `127-134`)
@@ -109,13 +109,13 @@ See that file, section "API Endpoints (7 total)". No changes.
 Response body contains `simulation.id` (`run_simulations.py:145` reads `data["simulation"]["id"]`).
 
 ### Start / Stop / Enhance-Prompt / Delete
-Already documented in `SIMULATION_API_REFERENCE.md`. No new local information.
+Already documented in `docs/architecture/SIMULATION_API_REFERENCE.md`. No new local information.
 
 ### Known 403 gotcha
-`403 Forbidden: You do not have permission to make changes to Call Simulation` — the Simulation write API is gated per account. `GET /simulations` still works. Fix: request enablement via OmniDim Discord (`SIMULATION_API_REFERENCE.md:202-205`, `run_simulations.py:184-189`).
+`403 Forbidden: You do not have permission to make changes to Call Simulation` — the Simulation write API is gated per account. `GET /simulations` still works. Fix: request enablement via OmniDim Discord (`docs/architecture/SIMULATION_API_REFERENCE.md:202-205`, `run_simulations.py:184-189`).
 
 ### Fetching results
-- `GET /simulations/{id}` returns the same object type as `POST /simulations` plus `status`, `progress`, `analyticsData`, `what_went_wrong`, `suggestions_for_improvement`, `prompt_suggestion`, `simulation_call_recording` (documented in `SIMULATION_API_REFERENCE.md:96-113`).
+- `GET /simulations/{id}` returns the same object type as `POST /simulations` plus `status`, `progress`, `analyticsData`, `what_went_wrong`, `suggestions_for_improvement`, `prompt_suggestion`, `simulation_call_recording` (documented in `docs/architecture/SIMULATION_API_REFERENCE.md:96-113`).
 - Polling cadence recommendation: `DOCS-INCOMPLETE-FIREWALL-BLOCKED`.
 
 ### Simulation Python SDK surface (from `run_simulations.py:69-91`)
@@ -148,8 +148,8 @@ client.simulation.enhance_prompt(sim_id)   # only after status=Completed
 - **Per endpoint:** `DOCS-INCOMPLETE-FIREWALL-BLOCKED`.
 - **Per API key:** `DOCS-INCOMPLETE-FIREWALL-BLOCKED`.
 - **Per agent:** `DOCS-INCOMPLETE-FIREWALL-BLOCKED`.
-- **Simulation concurrency (soft limit):** `concurrent_call_count` is documented as `1–3` in `SIMULATION_API_REFERENCE.md:69`; that is a per-simulation cap, not an account-wide rate limit.
-- **Simulation calls-per-scenario:** `1–3` (`SIMULATION_API_REFERENCE.md:68`).
+- **Simulation concurrency (soft limit):** `concurrent_call_count` is documented as `1–3` in `docs/architecture/SIMULATION_API_REFERENCE.md:69`; that is a per-simulation cap, not an account-wide rate limit.
+- **Simulation calls-per-scenario:** `1–3` (`docs/architecture/SIMULATION_API_REFERENCE.md:68`).
 
 ---
 
@@ -212,7 +212,7 @@ Prefer editing `OMNIDIM_PROMPT.md` and running `python update_agent_prompt.py`. 
 - **Language detection & lock:** Handled **inside the prompt** by SECTION A of `OMNIDIM_PROMPT.md` / `.agents/VOICECONFIG.md` (first-turn detection based on ≥70% token dominance, then locked for the call unless the caller code-switches for 2+ consecutive turns). This is prompt-level logic — whether OmniDim has a **platform-level** auto-detect setting that would be preferable is `DOCS-INCOMPLETE-FIREWALL-BLOCKED`.
 - **STT choice:** Soniox is used in this project (`.agents/VOICECONFIG.md:256`), which supports multilingual code-switching well. Configurable in the dashboard.
 - **TTS choice:** Cartesia (`.agents/VOICECONFIG.md:166, 179`). Prosody controlled via punctuation, not SSML.
-- **Voice providers accepted by the Simulation API:** `eleven_labs`, `play_ht`, `deepgram`, `cartesia`, `rime` (`SIMULATION_API_REFERENCE.md:92`).
+- **Voice providers accepted by the Simulation API:** `eleven_labs`, `play_ht`, `deepgram`, `cartesia`, `rime` (`docs/architecture/SIMULATION_API_REFERENCE.md:92`).
 - **Language-config field on the agent (SDK):** `DOCS-INCOMPLETE-FIREWALL-BLOCKED`. Our `update_agent_prompt.py` does not set language — Telugu/Hindi/English handling is entirely prompt-driven.
 
 ---
@@ -261,7 +261,7 @@ All items below could not be answered from local project files and could not be 
 
 ## Appendix — Local sources cited above (absolute paths)
 
-- `c:\Users\ShaikAti\OneDrive - Molina Healthcare\Automation\Testing\voice\SIMULATION_API_REFERENCE.md`
+- `c:\Users\ShaikAti\OneDrive - Molina Healthcare\Automation\Testing\voice\docs\architecture\SIMULATION_API_REFERENCE.md`
 - `c:\Users\ShaikAti\OneDrive - Molina Healthcare\Automation\Testing\voice\N8N_WORKFLOW.md`
 - `c:\Users\ShaikAti\OneDrive - Molina Healthcare\Automation\Testing\voice\n8n-workflow.json`
 - `c:\Users\ShaikAti\OneDrive - Molina Healthcare\Automation\Testing\voice\update_agent_prompt.py`

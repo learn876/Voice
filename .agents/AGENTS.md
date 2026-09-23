@@ -19,7 +19,7 @@ When you'll be touching either area, read the corresponding source-of-truth doc:
 | n8n workflow | `N8N_WORKFLOW.md` + `n8n-workflow.json` |
 | Dashboard | `app/page.tsx` + `lib/googleSheets.ts` + `lib/tenantConfig.ts` |
 | E2E harness | `e2e_tester/README.md` + `test_scenarios.json` |
-| Cost / plan | `production_plan.md` + `POST_DEMO_TODO.md` |
+| Cost / plan | `docs/planning/production_plan.md` + `docs/planning/POST_DEMO_TODO.md` |
 
 ## Never do
 

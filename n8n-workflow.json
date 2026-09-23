@@ -11,18 +11,748 @@
       "name": "1. Post-Call Webhook",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 1,
-      "position": [200, 300],
+      "position": [
+        200,
+        300
+      ],
       "webhookId": "omnidim-post-call"
     },
     {
       "parameters": {
-        "jsCode": "// Normalize post-call payload and detect handoff/complaint tokens.\nconst body = $input.first().json.body || {};\nconst extracted = (body.call_report && body.call_report.extracted_variables) || {};\nconst summary = String(body.summary || '');\n\nconst rawName = (extracted.customer_name || '').trim();\nconst BANNED_NAMES = ['anonymous','anon','n/a','na','none','test','ai','bot','siri','unknown','unnamed'];\nconst isPlaceholder = !rawName || BANNED_NAMES.includes(rawName.toLowerCase()) || rawName.length < 2;\nconst customerName = isPlaceholder ? 'MISSING' : rawName;\n\nconst rawPhone = String(body.caller_number || body.phone_number || extracted.phone_number || '').replace(/[^0-9]/g,'');\nconst phone = rawPhone.length >= 10 ? rawPhone.slice(-10) : 'MISSING';\n\nconst handoff = /^\\s*HANDOFF[:\\s]/i.test(summary);\nconst complaint = /^\\s*COMPLAINT[:\\s]/i.test(summary);\nconst needsAlert = handoff || complaint;\n\nconst status = complaint ? 'Priority Complaint' : (handoff ? 'Handoff Required' : 'Completed');\n\nreturn [{ json: {\n  customer_name: customerName,\n  phone_number: phone,\n  service_requested: (extracted.service_requested || 'N/A').trim(),\n  preferred_date_time: (extracted.preferred_date_time || 'N/A').trim(),\n  complaint_details: (extracted.complaint_details || '').trim(),\n  language_detected: (extracted.language_detected || '').trim(),\n  sentiment: (extracted.sentiment || '').trim(),\n  handoff_reason: needsAlert ? (extracted.handoff_reason || summary.split(':').slice(1).join(':').trim() || 'unspecified') : '',\n  duration: body.duration || '',\n  summary: summary,\n  status,\n  needs_alert: needsAlert,\n  is_placeholder_name: isPlaceholder,\n  call_id: body.id || body.call_id || '',\n  agent_id: body.agent_id || '',\n  channel: 'voice'\n} }];\n"
+        "jsCode": "// Normalize post-call payload and detect handoff/complaint tokens.\nconst body = $input.first().json.body || {};\nconst extracted = (body.call_report && body.call_report.extracted_variables) || {};\nconst summary = String(body.summary || '');\n\nconst rawName = (extracted.customer_name || '').trim();\nconst BANNED_NAMES = ['anonymous','anon','n/a','na','none','test','ai','bot','siri','unknown','unnamed'];\nconst isPlaceholder = !rawName || BANNED_NAMES.includes(rawName.toLowerCase()) || rawName.length < 2;\nconst customerName = isPlaceholder ? 'MISSING' : rawName;\n\nconst rawPhone = String(body.caller_number || body.phone_number || extracted.phone_number || '').replace(/[^0-9]/g,'');\nconst phone = rawPhone.length >= 10 ? rawPhone.slice(-10) : 'MISSING';\n\nconst handoff = /^\\s*HANDOFF[:\\s]/i.test(summary);\nconst complaint = /^\\s*COMPLAINT[:\\s]/i.test(summary);\nconst needsAlert = handoff || complaint;\n\nconst status = complaint ? 'Priority Complaint' : (handoff ? 'Handoff Required' : 'Completed');\n\nreturn [{ json: {\n  customer_name: customerName,\n  phone_number: phone,\n  service_requested: (extracted.service_requested || 'N/A').trim(),\n  preferred_date_time: (extracted.preferred_date_time || 'N/A').trim(),\n  complaint_details: (extracted.complaint_details || '').trim(),\n  language_detected: (extracted.language_detected || '').trim(),\n  sentiment: (extracted.sentiment || '').trim(),\n  handoff_reason: needsAlert ? (extracted.handoff_reason || summary.split(':').slice(1).join(':').trim() || 'unspecified') : '',\n  duration: body.duration || '',\n  summary: summary,\n  status,\n  needs_alert: needsAlert,\n  is_placeholder_name: isPlaceholder,\n  call_id: body.id || body.call_id || '',\n  agent_id: body.agent_id || '',\n  channel: 'voice',\n  transcript: body.full_conversation || (body.call_report && body.call_report.full_conversation) || body.transcript || ''\n} }];\n"
       },
       "id": "post-call-normalizer",
       "name": "Normalize Post-Call",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [420, 300]
+      "position": [
+        420,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEET_ID_DETAILING }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "call_id": "={{ $json.call_id }}",
+            "customer_name": "={{ $json.customer_name }}",
+            "phone_number": "={{ $json.phone_number }}",
+            "service_requested": "={{ $json.service_requested }}",
+            "preferred_date_time": "={{ $json.preferred_date_time }}",
+            "sentiment": "={{ $json.sentiment }}",
+            "language_detected": "={{ $json.language_detected }}",
+            "duration": "={{ $json.duration }}",
+            "channel": "={{ $json.channel }}",
+            "summary": "={{ $json.summary }}",
+            "complaint_details": "={{ $json.complaint_details }}",
+            "handoff_reason": "={{ $json.handoff_reason }}",
+            "status": "={{ $json.status }}",
+            "created_at": "={{ $now.toISO() }}",
+            "transcript": "={{ $json.transcript }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheet-append",
+      "name": "Log to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        640,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.needs_alert }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-needs-alert",
+      "name": "If HANDOFF or COMPLAINT",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        860,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.telegram.org/bot{{ $env.TG_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"chat_id\": \"{{ $env.TG_CHAT_ID }}\",\n  \"text\": \"\ud83d\udea8 *DynamicDetailing Alert*\\n\\n*Status:* {{ $json.status }}\\n*Caller:* {{ $json.customer_name }}\\n*Phone:* {{ $json.phone_number }}\\n*Language:* {{ $json.language_detected || 'unknown' }}\\n*Reason:* {{ $json.handoff_reason }}\\n*Summary:* {{ $json.summary }}\",\n  \"parse_mode\": \"Markdown\"\n}",
+        "options": {
+          "timeout": 10000
+        }
+      },
+      "id": "telegram-alert",
+      "name": "Telegram Manager Alert",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1080,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "omnidim-manager-alert",
+        "options": {},
+        "responseMode": "responseNode"
+      },
+      "id": "manager-alert-webhook",
+      "name": "2. Text Chat Manager Alert Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        620
+      ],
+      "webhookId": "omnidim-manager-alert"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize text-chat alert payload.\nconst body = $input.first().json.body || {};\nconst phone = String(body.phone_number || body.caller_number || '').replace(/[^0-9]/g,'').slice(-10) || 'MISSING';\nconst reason = (body.reason || body.complaint || 'user requested manager').toString().trim();\nconst name = (body.customer_name || body.name || 'Chat user').toString().trim();\nreturn [{ json: {\n  customer_name: name,\n  phone_number: phone,\n  status: 'Handoff Required (Text)',\n  handoff_reason: reason,\n  language_detected: body.language || '',\n  summary: `HANDOFF: text-chat requested manager. Reason: ${reason}`,\n  needs_alert: true,\n  channel: 'text'\n} }];\n"
+      },
+      "id": "text-alert-normalizer",
+      "name": "Normalize Text Alert",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"message\": \"Manager alerted.\"\n}",
+        "options": {}
+      },
+      "id": "text-alert-respond",
+      "name": "Respond to OmniDim (Text Alert)",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1300,
+        620
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "omnidim-calendar-tool",
+        "options": {},
+        "responseMode": "responseNode"
+      },
+      "id": "calendar-webhook",
+      "name": "3. Calendar Tool Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        940
+      ],
+      "webhookId": "omnidim-calendar-tool"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "typeValidation": "loose"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "check_slots",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "check_slots"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "typeValidation": "loose"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "book",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "book"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "typeValidation": "loose"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "reschedule",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "reschedule"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": false,
+                  "typeValidation": "loose"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.body.action }}",
+                    "rightValue": "lookup_by_phone",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "lookup_by_phone"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "cal-route",
+      "name": "Route Calendar Action",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3,
+      "position": [
+        420,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "={{ $json.body.date }}T03:30:00.000Z",
+          "timeMax": "={{ $json.body.date }}T13:30:00.000Z",
+          "singleEvents": true
+        }
+      },
+      "id": "cal-get-events-check",
+      "name": "Get Events for Date (Check Slots)",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        780
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Compute free slots between 9 AM and 4:30 PM IST, in 60-min windows.\n// Assumes calendar returns events in the same date window (IST 09:00-16:30 = UTC 03:30-11:00).\nconst master = ['09:00','10:00','10:30','11:00','12:00','13:00','14:00','15:00','15:30','16:00','16:30'];\nconst dateStr = $('Route Calendar Action').first().json.body.date;\nconst events = $input.all().map(x => x.json);\n\nfunction toISTHM(iso){\n  if(!iso) return null;\n  const d = new Date(iso);\n  const ist = new Date(d.getTime() + (330 - d.getTimezoneOffset()) * 60000);\n  return ist.toISOString().slice(11,16);\n}\n\nconst busy = events.map(ev => { let t = ev.Time || ev.time || ev.start?.dateTime || ev.start || ''; let m = String(t).match(/(\\d{1,2}):(\\d{2})/); if(!m) return null; let s = parseInt(m[1])*60 + parseInt(m[2]); let sH = String(Math.floor(s/60)).padStart(2,'0'); let sM = String(s%60).padStart(2,'0'); let e = s + 60; let eH = String(Math.floor(e/60)).padStart(2,'0'); let eM = String(e%60).padStart(2,'0'); return { start: sH+':'+sM, end: eH+':'+eM }; }).filter(b => b);\n\nfunction overlaps(slot, busy){\n  const [sH,sM] = slot.split(':').map(Number);\n  const slotStart = sH*60+sM;\n  const slotEnd = slotStart + 60;\n  return busy.some(b => {\n    const [bsH,bsM] = b.start.split(':').map(Number);\n    const [beH,beM] = b.end.split(':').map(Number);\n    const bStart = bsH*60+bsM, bEnd = beH*60+beM;\n    return slotStart < bEnd && slotEnd > bStart;\n  });\n}\n\nconst freeIST = master.filter(s => !overlaps(s, busy));\n// Format for user output\nconst pretty = freeIST.map(s => {\n  const [h,m] = s.split(':').map(Number);\n  const per = h < 12 ? 'AM' : 'PM';\n  const hh = h === 0 ? 12 : (h > 12 ? h - 12 : h);\n  return `${hh}:${String(m).padStart(2,'0')} ${per}`;\n});\n\nreturn [{ json: { success: true, date: dateStr, free_slots: pretty, free_slots_24h: freeIST, bookable_range: '9:00 AM - 4:30 PM', message: pretty.length ? `Available slots on ${dateStr}: ${pretty.join(', ')}` : `No free slots on ${dateStr}. Suggest another date.` } }];\n"
+      },
+      "id": "cal-compute-slots",
+      "name": "Compute Free Slots",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "cal-respond-check",
+      "name": "Respond Slots to OmniDim",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "={{ $json.body.date }}T03:30:00.000Z",
+          "timeMax": "={{ $json.body.date }}T13:30:00.000Z",
+          "singleEvents": true
+        }
+      },
+      "id": "cal-get-events-book",
+      "name": "Get Events for Date (Book Overlap Guard)",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        940
+      ],
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Overlap guard + validation for book action.\nconst body = $('Route Calendar Action').first().json.body || {};\nconst events = $input.all().map(x => x.json);\n\nconst BANNED = ['anonymous','anon','n/a','na','none','test','ai','bot','siri','unknown','unnamed'];\nconst name = String(body.name || '').trim();\nconst phone = String(body.phone || body.phone_number || '').replace(/[^0-9]/g,'').slice(-10);\nconst dateStr = body.date;\nconst timeStr = String(body.time || '').slice(0,5); // HH:MM\n\n// Validate\nconst errors = [];\nif (!name || BANNED.includes(name.toLowerCase().split(/[\\s(]/)[0]) || name.length < 2) errors.push('invalid_or_anonymous_name');\nif (phone.length !== 10) errors.push('invalid_phone');\nif (!dateStr || !/^\\d{4}-\\d{2}-\\d{2}$/.test(dateStr)) errors.push('invalid_date');\nif (!timeStr || !/^\\d{2}:\\d{2}$/.test(timeStr)) errors.push('invalid_time');\n\n// Bookable hours\nconst [th,tm] = timeStr.split(':').map(Number);\nconst minutes = th*60+tm;\nif (minutes < 540 || minutes > 990) errors.push('slot_outside_bookable_hours'); // 9:00-16:30\n\nif (errors.length){\n  return [{ json: { success: false, action: 'book', errors, message: `Cannot book: ${errors.join(', ')}` } }];\n}\n\n// Overlap check\n\nfunction parseMin(tStr){\n  if(!tStr) return null;\n  const match = String(tStr).match(/(\\d{1,2}):(\\d{2})/);\n  if(match) return parseInt(match[1])*60 + parseInt(match[2]);\n  return null;\n}\nconst reqStart = minutes;\nconst reqEnd = minutes + 60;\nconst busy = events.some(ev => {\n  let bs = parseMin(ev.Time || ev.time || ev.start?.dateTime || ev.start);\n  if (bs == null) return false;\n  let be = parseMin(ev.End || ev.end?.dateTime || ev.end) || (bs + 60);\n  return reqStart < be && reqEnd > bs;\n});\n\nif (busy){\n\n  return [{ json: { success: false, action: 'book', errors: ['slot_taken'], message: 'Requested slot is already booked. Please suggest another slot.' } }];\n}\n\nreturn [{ json: {\n  success: true, action: 'book', validated: true,\n  name, phone, date: dateStr, time: timeStr,\n  service_requested: body.service_requested || body.service || 'unspecified',\n  language: body.language || ''\n} }];\n"
+      },
+      "id": "cal-validate-book",
+      "name": "Validate + Overlap Guard (Book)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.success }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-book-valid",
+      "name": "If Book Valid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list"
+        },
+        "start": "={{ $json.date }}T{{ $json.time }}:00",
+        "end": "={{ DateTime.fromISO($json.date + 'T' + $json.time + ':00').plus({minutes: 60}).toFormat(\"yyyy-MM-dd'T'HH:mm:ss\") }}",
+        "additionalFields": {
+          "summary": "={{ $json.name }} ({{ $json.service_requested }})",
+          "description": "=Phone: {{ $json.phone }}\\nService: {{ $json.service_requested }}\\nBooked via OmniDim: {{ $now.toISO() }}",
+          "timeZone": "Asia/Kolkata"
+        }
+      },
+      "id": "cal-create-event",
+      "name": "Create Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEET_ID_DETAILING }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "customer_name": "={{ $('Validate + Overlap Guard (Book)').first().json.name }}",
+            "phone_number": "={{ $('Validate + Overlap Guard (Book)').first().json.phone }}",
+            "service_requested": "={{ $('Validate + Overlap Guard (Book)').first().json.service_requested }}",
+            "preferred_date_time": "={{ $('Validate + Overlap Guard (Book)').first().json.date }} {{ $('Validate + Overlap Guard (Book)').first().json.time }}",
+            "status": "Booked (in-call)",
+            "channel": "voice",
+            "language_detected": "={{ $('Validate + Overlap Guard (Book)').first().json.language }}",
+            "created_at": "={{ $now.toISO() }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheet-append-booking",
+      "name": "Log Booking to Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        1540,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"action\": \"book\",\n  \"message\": \"Booked\",\n  \"date\": \"{{ $('Validate + Overlap Guard (Book)').first().json.date }}\",\n  \"time\": \"{{ $('Validate + Overlap Guard (Book)').first().json.time }}\",\n  \"name\": \"{{ $('Validate + Overlap Guard (Book)').first().json.name }}\",\n  \"phone\": \"{{ $('Validate + Overlap Guard (Book)').first().json.phone }}\"\n}",
+        "options": {}
+      },
+      "id": "cal-respond-book-ok",
+      "name": "Respond Book Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        860
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "cal-respond-book-fail",
+      "name": "Respond Book Failure",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "={{ $now.minus({days: 30}).toISO() }}",
+          "timeMax": "={{ $now.plus({days: 90}).toISO() }}",
+          "q": "={{ $json.body.phone }}",
+          "singleEvents": true
+        }
+      },
+      "id": "cal-lookup-phone",
+      "name": "Lookup Events by Phone",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        1200
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Return the first upcoming event matching phone in description.\nconst body = $('Route Calendar Action').first().json.body || {};\nconst phone = String(body.phone || '').replace(/[^0-9]/g,'').slice(-10);\nconst events = $input.all().map(x => x.json).filter(ev => (ev.description || '').includes(phone));\n\nif (!events.length){\n  return [{ json: { success: false, action: 'lookup_by_phone', message: 'No booking found for this phone number.' } }];\n}\n\nevents.sort((a,b) => new Date(a.start?.dateTime || a.start) - new Date(b.start?.dateTime || b.start));\nconst ev = events[0];\nconst startISO = ev.start?.dateTime || ev.start;\nconst ist = new Date(new Date(startISO).getTime() + (330 - new Date(startISO).getTimezoneOffset())*60000);\nconst dateStr = ist.toISOString().slice(0,10);\nconst timeStr = ist.toISOString().slice(11,16);\n\n// Extract name and service from summary \"Name (service)\"\nconst m = (ev.summary || '').match(/^(.+?)\\s*\\((.+)\\)/);\nconst name = m ? m[1].trim() : (ev.summary || '').trim();\nconst service = m ? m[2].trim() : 'unspecified';\n\nreturn [{ json: {\n  success: true,\n  action: 'lookup_by_phone',\n  event_id: ev.id,\n  name,\n  phone,\n  date: dateStr,\n  time: timeStr,\n  service_requested: service,\n  message: `Found booking for ${name} on ${dateStr} at ${timeStr} for ${service}.`\n} }];\n"
+      },
+      "id": "cal-format-lookup",
+      "name": "Format Lookup Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        1200
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "cal-respond-lookup",
+      "name": "Respond Lookup",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        1200
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "={{ $now.minus({days: 30}).toISO() }}",
+          "timeMax": "={{ $now.plus({days: 90}).toISO() }}",
+          "q": "={{ $json.body.phone }}",
+          "singleEvents": true
+        }
+      },
+      "id": "cal-reschedule-lookup",
+      "name": "Reschedule: Lookup Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        660,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validate reschedule input and find the target event.\nconst body = $('Route Calendar Action').first().json.body || {};\nconst events = $input.all().map(x => x.json);\nconst phone = String(body.phone || '').replace(/[^0-9]/g,'').slice(-10);\nconst newDate = body.new_date;\nconst newTime = String(body.new_time || '').slice(0,5);\n\nconst errors = [];\nif (phone.length !== 10) errors.push('invalid_phone');\nif (!/^\\d{4}-\\d{2}-\\d{2}$/.test(newDate || '')) errors.push('invalid_new_date');\nif (!/^\\d{2}:\\d{2}$/.test(newTime)) errors.push('invalid_new_time');\nconst [th,tm] = (newTime || '00:00').split(':').map(Number);\nif (th*60+tm < 540 || th*60+tm > 990) errors.push('new_slot_outside_bookable_hours');\nif (errors.length) return [{ json: { success: false, action: 'reschedule', errors, message: `Cannot reschedule: ${errors.join(', ')}` } }];\n\nconst matched = events.filter(ev => (ev.description || '').includes(phone));\nif (!matched.length) return [{ json: { success: false, action: 'reschedule', message: 'No existing booking found for this phone number.' } }];\n\nmatched.sort((a,b) => new Date(a.start?.dateTime || a.start) - new Date(b.start?.dateTime || b.start));\nconst ev = matched[0];\nconst nameMatch = (ev.summary || '').match(/^(.+?)\\s*\\((.+)\\)/);\nconst name = nameMatch ? nameMatch[1].trim() : (ev.summary || '').trim();\nconst service = nameMatch ? nameMatch[2].trim() : 'unspecified';\n\nreturn [{ json: {\n  success: true, action: 'reschedule', validated: true,\n  event_id: ev.id,\n  name, phone, service_requested: service,\n  old_start: ev.start?.dateTime || ev.start,\n  new_date: newDate,\n  new_time: newTime,\n  language: body.language || ''\n} }];\n"
+      },
+      "id": "cal-validate-reschedule",
+      "name": "Validate + Find Event (Reschedule)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.success }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "if-reschedule-valid",
+      "name": "If Reschedule Valid",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        1400
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list"
+        },
+        "eventId": "={{ $json.event_id }}",
+        "updateFields": {
+          "start": "={{ $json.new_date }}T{{ $json.new_time }}:00",
+          "end": "={{ DateTime.fromISO($json.new_date + 'T' + $json.new_time + ':00').plus({minutes: 60}).toFormat(\"yyyy-MM-dd'T'HH:mm:ss\") }}",
+          "description": "=Phone: {{ $json.phone }}\\nService: {{ $json.service_requested }}\\nRescheduled via OmniDim: {{ $now.toISO() }}\\nOriginal: {{ $json.old_start }}",
+          "timeZone": "Asia/Kolkata"
+        }
+      },
+      "id": "cal-update-event",
+      "name": "Update Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        1320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $env.GOOGLE_SHEET_ID_DETAILING }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Sheet1",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "customer_name": "={{ $('Validate + Find Event (Reschedule)').first().json.name }}",
+            "phone_number": "={{ $('Validate + Find Event (Reschedule)').first().json.phone }}",
+            "service_requested": "={{ $('Validate + Find Event (Reschedule)').first().json.service_requested }}",
+            "preferred_date_time": "={{ $('Validate + Find Event (Reschedule)').first().json.new_date }} {{ $('Validate + Find Event (Reschedule)').first().json.new_time }}",
+            "status": "Rescheduled",
+            "language_detected": "={{ $('Validate + Find Event (Reschedule)').first().json.language }}",
+            "summary": "=Rescheduled from {{ $('Validate + Find Event (Reschedule)').first().json.old_start }}",
+            "created_at": "={{ $now.toISO() }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "sheet-append-reschedule",
+      "name": "Log Reschedule to Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.3,
+      "position": [
+        1540,
+        1320
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"action\": \"reschedule\",\n  \"name\": \"{{ $('Validate + Find Event (Reschedule)').first().json.name }}\",\n  \"phone\": \"{{ $('Validate + Find Event (Reschedule)').first().json.phone }}\",\n  \"new_date\": \"{{ $('Validate + Find Event (Reschedule)').first().json.new_date }}\",\n  \"new_time\": \"{{ $('Validate + Find Event (Reschedule)').first().json.new_time }}\",\n  \"message\": \"Rescheduled successfully.\"\n}",
+        "options": {}
+      },
+      "id": "cal-respond-reschedule-ok",
+      "name": "Respond Reschedule Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        1320
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      },
+      "id": "cal-respond-reschedule-fail",
+      "name": "Respond Reschedule Failure",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        1500
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": false,\n  \"error\": \"unknown_action\",\n  \"message\": \"Unknown action. Supported: check_slots, book, reschedule, lookup_by_phone.\"\n}",
+        "options": {}
+      },
+      "id": "cal-respond-fallback",
+      "name": "Respond Unknown Action",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        660,
+        1600
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "omnidim-text-summary",
+        "options": {},
+        "responseMode": "responseNode"
+      },
+      "id": "text-summary-webhook",
+      "name": "4. Text Chat Summary Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        200,
+        1780
+      ],
+      "webhookId": "omnidim-text-summary"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize text chat post-session payload (same shape as post-call, channel=text).\nconst body = $input.first().json.body || {};\nconst extracted = (body.call_report && body.call_report.extracted_variables) || body.extracted_variables || {};\nconst summary = String(body.summary || '');\nconst rawName = (extracted.customer_name || '').trim();\nconst BANNED = ['anonymous','anon','n/a','na','none','test','ai','bot','siri','unknown'];\nconst isPlaceholder = !rawName || BANNED.includes(rawName.toLowerCase()) || rawName.length < 2;\nconst customerName = isPlaceholder ? 'MISSING' : rawName;\nconst rawPhone = String(body.phone_number || extracted.phone_number || '').replace(/[^0-9]/g,'');\nconst phone = rawPhone.length >= 10 ? rawPhone.slice(-10) : 'MISSING';\nconst handoff = /^\\s*HANDOFF[:\\s]/i.test(summary);\nconst complaint = /^\\s*COMPLAINT[:\\s]/i.test(summary);\nconst needsAlert = handoff || complaint;\nconst status = complaint ? 'Priority Complaint' : (handoff ? 'Handoff Required' : 'Completed');\nreturn [{ json: {\n  customer_name: customerName,\n  phone_number: phone,\n  service_requested: (extracted.service_requested || 'N/A').trim(),\n  preferred_date_time: (extracted.preferred_date_time || 'N/A').trim(),\n  complaint_details: (extracted.complaint_details || '').trim(),\n  language_detected: (extracted.language_detected || '').trim(),\n  sentiment: (extracted.sentiment || '').trim(),\n  handoff_reason: needsAlert ? (extracted.handoff_reason || summary.split(':').slice(1).join(':').trim() || 'unspecified') : '',\n  duration: 'Text Chat',\n  summary,\n  status,\n  needs_alert: needsAlert,\n  is_placeholder_name: isPlaceholder,\n  call_id: body.id || body.session_id || '',\n  channel: 'text'\n} }];\n"
+      },
+      "id": "text-summary-normalizer",
+      "name": "Normalize Text Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        420,
+        1780
+      ]
     },
     {
       "parameters": {
@@ -58,463 +788,43 @@
         },
         "options": {}
       },
-      "id": "sheet-append",
-      "name": "Log to Google Sheets",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.3,
-      "position": [640, 300]
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {"caseSensitive": false, "typeValidation": "loose"},
-          "conditions": [{"leftValue": "={{ $json.needs_alert }}", "rightValue": true, "operator": {"type": "boolean", "operation": "true"}}],
-          "combinator": "and"
-        }
-      },
-      "id": "if-needs-alert",
-      "name": "If HANDOFF or COMPLAINT",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [860, 300]
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "=https://api.telegram.org/bot{{ $env.TG_BOT_TOKEN }}/sendMessage",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"chat_id\": \"{{ $env.TG_CHAT_ID }}\",\n  \"text\": \"🚨 *DynamicDetailing Alert*\\n\\n*Status:* {{ $json.status }}\\n*Caller:* {{ $json.customer_name }}\\n*Phone:* {{ $json.phone_number }}\\n*Language:* {{ $json.language_detected || 'unknown' }}\\n*Reason:* {{ $json.handoff_reason }}\\n*Summary:* {{ $json.summary }}\",\n  \"parse_mode\": \"Markdown\"\n}",
-        "options": {"timeout": 10000}
-      },
-      "id": "telegram-alert",
-      "name": "Telegram Manager Alert",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [1080, 220]
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "omnidim-manager-alert",
-        "options": {}
-      },
-      "id": "manager-alert-webhook",
-      "name": "2. Text Chat Manager Alert Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 1,
-      "position": [200, 620],
-      "webhookId": "omnidim-manager-alert"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Normalize text-chat alert payload.\nconst body = $input.first().json.body || {};\nconst phone = String(body.phone_number || body.caller_number || '').replace(/[^0-9]/g,'').slice(-10) || 'MISSING';\nconst reason = (body.reason || body.complaint || 'user requested manager').toString().trim();\nconst name = (body.customer_name || body.name || 'Chat user').toString().trim();\nreturn [{ json: {\n  customer_name: name,\n  phone_number: phone,\n  status: 'Handoff Required (Text)',\n  handoff_reason: reason,\n  language_detected: body.language || '',\n  summary: `HANDOFF: text-chat requested manager. Reason: ${reason}`,\n  needs_alert: true,\n  channel: 'text'\n} }];\n"
-      },
-      "id": "text-alert-normalizer",
-      "name": "Normalize Text Alert",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [420, 620]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={\n  \"success\": true,\n  \"message\": \"Manager alerted.\"\n}",
-        "options": {}
-      },
-      "id": "text-alert-respond",
-      "name": "Respond to OmniDim (Text Alert)",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1,
-      "position": [1300, 620]
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "omnidim-calendar-tool",
-        "options": {}
-      },
-      "id": "calendar-webhook",
-      "name": "3. Calendar Tool Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 1,
-      "position": [200, 940],
-      "webhookId": "omnidim-calendar-tool"
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {"conditions": {"options": {"caseSensitive": false, "typeValidation": "loose"}, "conditions": [{"leftValue": "={{ $json.body.action }}", "rightValue": "check_slots", "operator": {"type": "string", "operation": "equals"}}], "combinator": "and"}, "renameOutput": true, "outputKey": "check_slots"},
-            {"conditions": {"options": {"caseSensitive": false, "typeValidation": "loose"}, "conditions": [{"leftValue": "={{ $json.body.action }}", "rightValue": "book", "operator": {"type": "string", "operation": "equals"}}], "combinator": "and"}, "renameOutput": true, "outputKey": "book"},
-            {"conditions": {"options": {"caseSensitive": false, "typeValidation": "loose"}, "conditions": [{"leftValue": "={{ $json.body.action }}", "rightValue": "reschedule", "operator": {"type": "string", "operation": "equals"}}], "combinator": "and"}, "renameOutput": true, "outputKey": "reschedule"},
-            {"conditions": {"options": {"caseSensitive": false, "typeValidation": "loose"}, "conditions": [{"leftValue": "={{ $json.body.action }}", "rightValue": "lookup_by_phone", "operator": {"type": "string", "operation": "equals"}}], "combinator": "and"}, "renameOutput": true, "outputKey": "lookup_by_phone"}
-          ]
-        },
-        "options": {"fallbackOutput": "extra"}
-      },
-      "id": "cal-route",
-      "name": "Route Calendar Action",
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3,
-      "position": [420, 940]
-    },
-    {
-      "parameters": {
-        "operation": "getAll",
-        "calendar": {"__rl": true, "value": "primary", "mode": "list"},
-        "returnAll": true,
-        "options": {
-          "timeMin": "={{ $json.body.date }}T03:30:00.000Z",
-          "timeMax": "={{ $json.body.date }}T13:30:00.000Z",
-          "singleEvents": true
-        }
-      },
-      "id": "cal-get-events-check",
-      "name": "Get Events for Date (Check Slots)",
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.1,
-      "position": [660, 780]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Compute free slots between 9 AM and 4:30 PM IST, in 60-min windows.\n// Assumes calendar returns events in the same date window (IST 09:00-16:30 = UTC 03:30-11:00).\nconst master = ['09:00','10:00','10:30','11:00','12:00','13:00','14:00','15:00','16:00','16:30'];\nconst dateStr = $('Route Calendar Action').first().json.body.date;\nconst events = $input.all().map(x => x.json);\n\nfunction toISTHM(iso){\n  if(!iso) return null;\n  const d = new Date(iso);\n  const ist = new Date(d.getTime() + (330 - d.getTimezoneOffset()) * 60000);\n  return ist.toISOString().slice(11,16);\n}\n\nconst busy = events.map(ev => ({ start: toISTHM(ev.start?.dateTime || ev.start), end: toISTHM(ev.end?.dateTime || ev.end) })).filter(b => b.start && b.end);\n\nfunction overlaps(slot, busy){\n  const [sH,sM] = slot.split(':').map(Number);\n  const slotStart = sH*60+sM;\n  const slotEnd = slotStart + 60;\n  return busy.some(b => {\n    const [bsH,bsM] = b.start.split(':').map(Number);\n    const [beH,beM] = b.end.split(':').map(Number);\n    const bStart = bsH*60+bsM, bEnd = beH*60+beM;\n    return slotStart < bEnd && slotEnd > bStart;\n  });\n}\n\nconst freeIST = master.filter(s => !overlaps(s, busy));\n// Format for user output\nconst pretty = freeIST.map(s => {\n  const [h,m] = s.split(':').map(Number);\n  const per = h < 12 ? 'AM' : 'PM';\n  const hh = h === 0 ? 12 : (h > 12 ? h - 12 : h);\n  return `${hh}:${String(m).padStart(2,'0')} ${per}`;\n});\n\nreturn [{ json: { success: true, date: dateStr, free_slots: pretty, free_slots_24h: freeIST, bookable_range: '9:00 AM - 4:30 PM', message: pretty.length ? `Available slots on ${dateStr}: ${pretty.join(', ')}` : `No free slots on ${dateStr}. Suggest another date.` } }];\n"
-      },
-      "id": "cal-compute-slots",
-      "name": "Compute Free Slots",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [880, 780]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={{ JSON.stringify($json) }}",
-        "options": {}
-      },
-      "id": "cal-respond-check",
-      "name": "Respond Slots to OmniDim",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1,
-      "position": [1100, 780]
-    },
-    {
-      "parameters": {
-        "operation": "getAll",
-        "calendar": {"__rl": true, "value": "primary", "mode": "list"},
-        "returnAll": true,
-        "options": {
-          "timeMin": "={{ $json.body.date }}T03:30:00.000Z",
-          "timeMax": "={{ $json.body.date }}T13:30:00.000Z",
-          "singleEvents": true
-        }
-      },
-      "id": "cal-get-events-book",
-      "name": "Get Events for Date (Book Overlap Guard)",
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.1,
-      "position": [660, 940]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Overlap guard + validation for book action.\nconst body = $('Route Calendar Action').first().json.body || {};\nconst events = $input.all().map(x => x.json);\n\nconst BANNED = ['anonymous','anon','n/a','na','none','test','ai','bot','siri','unknown','unnamed'];\nconst name = String(body.name || '').trim();\nconst phone = String(body.phone || body.phone_number || '').replace(/[^0-9]/g,'').slice(-10);\nconst dateStr = body.date;\nconst timeStr = String(body.time || '').slice(0,5); // HH:MM\n\n// Validate\nconst errors = [];\nif (!name || BANNED.includes(name.toLowerCase().split(/[\\s(]/)[0]) || name.length < 2) errors.push('invalid_or_anonymous_name');\nif (phone.length !== 10) errors.push('invalid_phone');\nif (!dateStr || !/^\\d{4}-\\d{2}-\\d{2}$/.test(dateStr)) errors.push('invalid_date');\nif (!timeStr || !/^\\d{2}:\\d{2}$/.test(timeStr)) errors.push('invalid_time');\n\n// Bookable hours\nconst [th,tm] = timeStr.split(':').map(Number);\nconst minutes = th*60+tm;\nif (minutes < 540 || minutes > 990) errors.push('slot_outside_bookable_hours'); // 9:00-16:30\n\nif (errors.length){\n  return [{ json: { success: false, action: 'book', errors, message: `Cannot book: ${errors.join(', ')}` } }];\n}\n\n// Overlap check\nfunction toISTMin(iso){\n  if(!iso) return null;\n  const d = new Date(iso);\n  const ist = new Date(d.getTime() + (330 - d.getTimezoneOffset()) * 60000);\n  return ist.getUTCHours()*60 + ist.getUTCMinutes();\n}\nconst reqStart = minutes;\nconst reqEnd = minutes + 60;\nconst busy = events.some(ev => {\n  const bs = toISTMin(ev.start?.dateTime || ev.start);\n  const be = toISTMin(ev.end?.dateTime || ev.end);\n  if (bs == null || be == null) return false;\n  return reqStart < be && reqEnd > bs;\n});\n\nif (busy){\n  return [{ json: { success: false, action: 'book', errors: ['slot_taken'], message: 'Requested slot is already booked. Please suggest another slot.' } }];\n}\n\nreturn [{ json: {\n  success: true, action: 'book', validated: true,\n  name, phone, date: dateStr, time: timeStr,\n  service_requested: body.service_requested || body.service || 'unspecified',\n  language: body.language || ''\n} }];\n"
-      },
-      "id": "cal-validate-book",
-      "name": "Validate + Overlap Guard (Book)",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [880, 940]
-    },
-    {
-      "parameters": {
-        "conditions": {"options": {"caseSensitive": false}, "conditions": [{"leftValue": "={{ $json.success }}", "rightValue": true, "operator": {"type": "boolean", "operation": "true"}}], "combinator": "and"}
-      },
-      "id": "if-book-valid",
-      "name": "If Book Valid",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [1100, 940]
-    },
-    {
-      "parameters": {
-        "calendar": {"__rl": true, "value": "primary", "mode": "list"},
-        "start": "={{ $json.date }}T{{ $json.time }}:00",
-        "end": "={{ DateTime.fromISO($json.date + 'T' + $json.time + ':00').plus({minutes: 60}).toFormat(\"yyyy-MM-dd'T'HH:mm:ss\") }}",
-        "additionalFields": {
-          "summary": "={{ $json.name }} ({{ $json.service_requested }})",
-          "description": "=Phone: {{ $json.phone }}\\nService: {{ $json.service_requested }}\\nBooked via OmniDim: {{ $now.toISO() }}",
-          "timeZone": "Asia/Kolkata"
-        }
-      },
-      "id": "cal-create-event",
-      "name": "Create Calendar Event",
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.1,
-      "position": [1320, 860]
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {"__rl": true, "value": "={{ $env.GOOGLE_SHEET_ID_DETAILING }}", "mode": "id"},
-        "sheetName": {"__rl": true, "value": "Sheet1", "mode": "name"},
-        "columns": {"mappingMode": "defineBelow", "value": {
-          "customer_name": "={{ $('Validate + Overlap Guard (Book)').first().json.name }}",
-          "phone_number": "={{ $('Validate + Overlap Guard (Book)').first().json.phone }}",
-          "service_requested": "={{ $('Validate + Overlap Guard (Book)').first().json.service_requested }}",
-          "preferred_date_time": "={{ $('Validate + Overlap Guard (Book)').first().json.date }} {{ $('Validate + Overlap Guard (Book)').first().json.time }}",
-          "status": "Booked (in-call)",
-          "channel": "voice",
-          "language_detected": "={{ $('Validate + Overlap Guard (Book)').first().json.language }}",
-          "created_at": "={{ $now.toISO() }}"
-        }},
-        "options": {}
-      },
-      "id": "sheet-append-booking",
-      "name": "Log Booking to Sheets",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.3,
-      "position": [1540, 860]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={\n  \"success\": true,\n  \"action\": \"book\",\n  \"message\": \"Booked\",\n  \"date\": \"{{ $('Validate + Overlap Guard (Book)').first().json.date }}\",\n  \"time\": \"{{ $('Validate + Overlap Guard (Book)').first().json.time }}\",\n  \"name\": \"{{ $('Validate + Overlap Guard (Book)').first().json.name }}\",\n  \"phone\": \"{{ $('Validate + Overlap Guard (Book)').first().json.phone }}\"\n}",
-        "options": {}
-      },
-      "id": "cal-respond-book-ok",
-      "name": "Respond Book Success",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1,
-      "position": [1760, 860]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={{ JSON.stringify($json) }}",
-        "options": {}
-      },
-      "id": "cal-respond-book-fail",
-      "name": "Respond Book Failure",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1,
-      "position": [1320, 1040]
-    },
-    {
-      "parameters": {
-        "operation": "getAll",
-        "calendar": {"__rl": true, "value": "primary", "mode": "list"},
-        "returnAll": true,
-        "options": {
-          "timeMin": "={{ $now.minus({days: 30}).toISO() }}",
-          "timeMax": "={{ $now.plus({days: 90}).toISO() }}",
-          "q": "={{ $json.body.phone }}",
-          "singleEvents": true
-        }
-      },
-      "id": "cal-lookup-phone",
-      "name": "Lookup Events by Phone",
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.1,
-      "position": [660, 1200]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Return the first upcoming event matching phone in description.\nconst body = $('Route Calendar Action').first().json.body || {};\nconst phone = String(body.phone || '').replace(/[^0-9]/g,'').slice(-10);\nconst events = $input.all().map(x => x.json).filter(ev => (ev.description || '').includes(phone));\n\nif (!events.length){\n  return [{ json: { success: false, action: 'lookup_by_phone', message: 'No booking found for this phone number.' } }];\n}\n\nevents.sort((a,b) => new Date(a.start?.dateTime || a.start) - new Date(b.start?.dateTime || b.start));\nconst ev = events[0];\nconst startISO = ev.start?.dateTime || ev.start;\nconst ist = new Date(new Date(startISO).getTime() + (330 - new Date(startISO).getTimezoneOffset())*60000);\nconst dateStr = ist.toISOString().slice(0,10);\nconst timeStr = ist.toISOString().slice(11,16);\n\n// Extract name and service from summary \"Name (service)\"\nconst m = (ev.summary || '').match(/^(.+?)\\s*\\((.+)\\)/);\nconst name = m ? m[1].trim() : (ev.summary || '').trim();\nconst service = m ? m[2].trim() : 'unspecified';\n\nreturn [{ json: {\n  success: true,\n  action: 'lookup_by_phone',\n  event_id: ev.id,\n  name,\n  phone,\n  date: dateStr,\n  time: timeStr,\n  service_requested: service,\n  message: `Found booking for ${name} on ${dateStr} at ${timeStr} for ${service}.`\n} }];\n"
-      },
-      "id": "cal-format-lookup",
-      "name": "Format Lookup Result",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [880, 1200]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={{ JSON.stringify($json) }}",
-        "options": {}
-      },
-      "id": "cal-respond-lookup",
-      "name": "Respond Lookup",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1,
-      "position": [1100, 1200]
-    },
-    {
-      "parameters": {
-        "operation": "getAll",
-        "calendar": {"__rl": true, "value": "primary", "mode": "list"},
-        "returnAll": true,
-        "options": {
-          "timeMin": "={{ $now.minus({days: 30}).toISO() }}",
-          "timeMax": "={{ $now.plus({days: 90}).toISO() }}",
-          "q": "={{ $json.body.phone }}",
-          "singleEvents": true
-        }
-      },
-      "id": "cal-reschedule-lookup",
-      "name": "Reschedule: Lookup Event",
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.1,
-      "position": [660, 1400]
-    },
-    {
-      "parameters": {
-        "jsCode": "// Validate reschedule input and find the target event.\nconst body = $('Route Calendar Action').first().json.body || {};\nconst events = $input.all().map(x => x.json);\nconst phone = String(body.phone || '').replace(/[^0-9]/g,'').slice(-10);\nconst newDate = body.new_date;\nconst newTime = String(body.new_time || '').slice(0,5);\n\nconst errors = [];\nif (phone.length !== 10) errors.push('invalid_phone');\nif (!/^\\d{4}-\\d{2}-\\d{2}$/.test(newDate || '')) errors.push('invalid_new_date');\nif (!/^\\d{2}:\\d{2}$/.test(newTime)) errors.push('invalid_new_time');\nconst [th,tm] = (newTime || '00:00').split(':').map(Number);\nif (th*60+tm < 540 || th*60+tm > 990) errors.push('new_slot_outside_bookable_hours');\nif (errors.length) return [{ json: { success: false, action: 'reschedule', errors, message: `Cannot reschedule: ${errors.join(', ')}` } }];\n\nconst matched = events.filter(ev => (ev.description || '').includes(phone));\nif (!matched.length) return [{ json: { success: false, action: 'reschedule', message: 'No existing booking found for this phone number.' } }];\n\nmatched.sort((a,b) => new Date(a.start?.dateTime || a.start) - new Date(b.start?.dateTime || b.start));\nconst ev = matched[0];\nconst nameMatch = (ev.summary || '').match(/^(.+?)\\s*\\((.+)\\)/);\nconst name = nameMatch ? nameMatch[1].trim() : (ev.summary || '').trim();\nconst service = nameMatch ? nameMatch[2].trim() : 'unspecified';\n\nreturn [{ json: {\n  success: true, action: 'reschedule', validated: true,\n  event_id: ev.id,\n  name, phone, service_requested: service,\n  old_start: ev.start?.dateTime || ev.start,\n  new_date: newDate,\n  new_time: newTime,\n  language: body.language || ''\n} }];\n"
-      },
-      "id": "cal-validate-reschedule",
-      "name": "Validate + Find Event (Reschedule)",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [880, 1400]
-    },
-    {
-      "parameters": {
-        "conditions": {"options": {"caseSensitive": false}, "conditions": [{"leftValue": "={{ $json.success }}", "rightValue": true, "operator": {"type": "boolean", "operation": "true"}}], "combinator": "and"}
-      },
-      "id": "if-reschedule-valid",
-      "name": "If Reschedule Valid",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2,
-      "position": [1100, 1400]
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "calendar": {"__rl": true, "value": "primary", "mode": "list"},
-        "eventId": "={{ $json.event_id }}",
-        "updateFields": {
-          "start": "={{ $json.new_date }}T{{ $json.new_time }}:00",
-          "end": "={{ DateTime.fromISO($json.new_date + 'T' + $json.new_time + ':00').plus({minutes: 60}).toFormat(\"yyyy-MM-dd'T'HH:mm:ss\") }}",
-          "description": "=Phone: {{ $json.phone }}\\nService: {{ $json.service_requested }}\\nRescheduled via OmniDim: {{ $now.toISO() }}\\nOriginal: {{ $json.old_start }}",
-          "timeZone": "Asia/Kolkata"
-        }
-      },
-      "id": "cal-update-event",
-      "name": "Update Calendar Event",
-      "type": "n8n-nodes-base.googleCalendar",
-      "typeVersion": 1.1,
-      "position": [1320, 1320]
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {"__rl": true, "value": "={{ $env.GOOGLE_SHEET_ID_DETAILING }}", "mode": "id"},
-        "sheetName": {"__rl": true, "value": "Sheet1", "mode": "name"},
-        "columns": {"mappingMode": "defineBelow", "value": {
-          "customer_name": "={{ $('Validate + Find Event (Reschedule)').first().json.name }}",
-          "phone_number": "={{ $('Validate + Find Event (Reschedule)').first().json.phone }}",
-          "service_requested": "={{ $('Validate + Find Event (Reschedule)').first().json.service_requested }}",
-          "preferred_date_time": "={{ $('Validate + Find Event (Reschedule)').first().json.new_date }} {{ $('Validate + Find Event (Reschedule)').first().json.new_time }}",
-          "status": "Rescheduled",
-          "language_detected": "={{ $('Validate + Find Event (Reschedule)').first().json.language }}",
-          "summary": "=Rescheduled from {{ $('Validate + Find Event (Reschedule)').first().json.old_start }}",
-          "created_at": "={{ $now.toISO() }}"
-        }},
-        "options": {}
-      },
-      "id": "sheet-append-reschedule",
-      "name": "Log Reschedule to Sheets",
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.3,
-      "position": [1540, 1320]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={\n  \"success\": true,\n  \"action\": \"reschedule\",\n  \"name\": \"{{ $('Validate + Find Event (Reschedule)').first().json.name }}\",\n  \"phone\": \"{{ $('Validate + Find Event (Reschedule)').first().json.phone }}\",\n  \"new_date\": \"{{ $('Validate + Find Event (Reschedule)').first().json.new_date }}\",\n  \"new_time\": \"{{ $('Validate + Find Event (Reschedule)').first().json.new_time }}\",\n  \"message\": \"Rescheduled successfully.\"\n}",
-        "options": {}
-      },
-      "id": "cal-respond-reschedule-ok",
-      "name": "Respond Reschedule Success",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1,
-      "position": [1760, 1320]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={{ JSON.stringify($json) }}",
-        "options": {}
-      },
-      "id": "cal-respond-reschedule-fail",
-      "name": "Respond Reschedule Failure",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1,
-      "position": [1320, 1500]
-    },
-    {
-      "parameters": {
-        "respondWith": "json",
-        "responseBody": "={\n  \"success\": false,\n  \"error\": \"unknown_action\",\n  \"message\": \"Unknown action. Supported: check_slots, book, reschedule, lookup_by_phone.\"\n}",
-        "options": {}
-      },
-      "id": "cal-respond-fallback",
-      "name": "Respond Unknown Action",
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1,
-      "position": [660, 1600]
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "omnidim-text-summary",
-        "options": {}
-      },
-      "id": "text-summary-webhook",
-      "name": "4. Text Chat Summary Webhook",
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 1,
-      "position": [200, 1780],
-      "webhookId": "omnidim-text-summary"
-    },
-    {
-      "parameters": {
-        "jsCode": "// Normalize text chat post-session payload (same shape as post-call, channel=text).\nconst body = $input.first().json.body || {};\nconst extracted = (body.call_report && body.call_report.extracted_variables) || body.extracted_variables || {};\nconst summary = String(body.summary || '');\nconst rawName = (extracted.customer_name || '').trim();\nconst BANNED = ['anonymous','anon','n/a','na','none','test','ai','bot','siri','unknown'];\nconst isPlaceholder = !rawName || BANNED.includes(rawName.toLowerCase()) || rawName.length < 2;\nconst customerName = isPlaceholder ? 'MISSING' : rawName;\nconst rawPhone = String(body.phone_number || extracted.phone_number || '').replace(/[^0-9]/g,'');\nconst phone = rawPhone.length >= 10 ? rawPhone.slice(-10) : 'MISSING';\nconst handoff = /^\\s*HANDOFF[:\\s]/i.test(summary);\nconst complaint = /^\\s*COMPLAINT[:\\s]/i.test(summary);\nconst needsAlert = handoff || complaint;\nconst status = complaint ? 'Priority Complaint' : (handoff ? 'Handoff Required' : 'Completed');\nreturn [{ json: {\n  customer_name: customerName,\n  phone_number: phone,\n  service_requested: (extracted.service_requested || 'N/A').trim(),\n  preferred_date_time: (extracted.preferred_date_time || 'N/A').trim(),\n  complaint_details: (extracted.complaint_details || '').trim(),\n  language_detected: (extracted.language_detected || '').trim(),\n  sentiment: (extracted.sentiment || '').trim(),\n  handoff_reason: needsAlert ? (extracted.handoff_reason || summary.split(':').slice(1).join(':').trim() || 'unspecified') : '',\n  duration: 'Text Chat',\n  summary,\n  status,\n  needs_alert: needsAlert,\n  is_placeholder_name: isPlaceholder,\n  call_id: body.id || body.session_id || '',\n  channel: 'text'\n} }];\n"
-      },
-      "id": "text-summary-normalizer",
-      "name": "Normalize Text Summary",
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [420, 1780]
-    },
-    {
-      "parameters": {
-        "operation": "append",
-        "documentId": {"__rl": true, "value": "={{ $env.GOOGLE_SHEET_ID_DETAILING }}", "mode": "id"},
-        "sheetName": {"__rl": true, "value": "Sheet1", "mode": "name"},
-        "columns": {"mappingMode": "defineBelow", "value": {
-          "call_id": "={{ $json.call_id }}",
-          "customer_name": "={{ $json.customer_name }}",
-          "phone_number": "={{ $json.phone_number }}",
-          "service_requested": "={{ $json.service_requested }}",
-          "preferred_date_time": "={{ $json.preferred_date_time }}",
-          "sentiment": "={{ $json.sentiment }}",
-          "language_detected": "={{ $json.language_detected }}",
-          "duration": "={{ $json.duration }}",
-          "channel": "={{ $json.channel }}",
-          "summary": "={{ $json.summary }}",
-          "complaint_details": "={{ $json.complaint_details }}",
-          "handoff_reason": "={{ $json.handoff_reason }}",
-          "status": "={{ $json.status }}",
-          "created_at": "={{ $now.toISO() }}"
-        }},
-        "options": {}
-      },
       "id": "sheet-append-text",
       "name": "Log Text Summary to Sheets",
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.3,
-      "position": [640, 1780]
+      "position": [
+        640,
+        1780
+      ]
     },
     {
       "parameters": {
-        "conditions": {"options": {"caseSensitive": false, "typeValidation": "loose"}, "conditions": [{"leftValue": "={{ $json.needs_alert }}", "rightValue": true, "operator": {"type": "boolean", "operation": "true"}}], "combinator": "and"}
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.needs_alert }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
       },
       "id": "if-text-alert",
       "name": "If Text HANDOFF or COMPLAINT",
       "type": "n8n-nodes-base.if",
       "typeVersion": 2,
-      "position": [860, 1780]
+      "position": [
+        860,
+        1780
+      ]
     },
     {
       "parameters": {
@@ -522,14 +832,19 @@
         "url": "=https://api.telegram.org/bot{{ $env.TG_BOT_TOKEN }}/sendMessage",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"chat_id\": \"{{ $env.TG_CHAT_ID }}\",\n  \"text\": \"🚨 *Text Chat Alert*\\n\\n*Status:* {{ $json.status }}\\n*Caller:* {{ $json.customer_name }}\\n*Phone:* {{ $json.phone_number }}\\n*Language:* {{ $json.language_detected || 'unknown' }}\\n*Reason:* {{ $json.handoff_reason }}\\n*Summary:* {{ $json.summary }}\",\n  \"parse_mode\": \"Markdown\"\n}",
-        "options": {"timeout": 10000}
+        "jsonBody": "={\n  \"chat_id\": \"{{ $env.TG_CHAT_ID }}\",\n  \"text\": \"\ud83d\udea8 *Text Chat Alert*\\n\\n*Status:* {{ $json.status }}\\n*Caller:* {{ $json.customer_name }}\\n*Phone:* {{ $json.phone_number }}\\n*Language:* {{ $json.language_detected || 'unknown' }}\\n*Reason:* {{ $json.handoff_reason }}\\n*Summary:* {{ $json.summary }}\",\n  \"parse_mode\": \"Markdown\"\n}",
+        "options": {
+          "timeout": 10000
+        }
       },
       "id": "telegram-text-alert",
       "name": "Telegram Text Alert",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
-      "position": [1080, 1700]
+      "position": [
+        1080,
+        1700
+      ]
     },
     {
       "parameters": {
@@ -541,63 +856,376 @@
       "name": "Respond Text Summary",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [1300, 1780]
+      "position": [
+        1300,
+        1780
+      ]
     }
   ],
   "connections": {
-    "1. Post-Call Webhook": {"main": [[{"node": "Normalize Post-Call", "type": "main", "index": 0}]]},
-    "Normalize Post-Call": {"main": [[{"node": "Log to Google Sheets", "type": "main", "index": 0}]]},
-    "Log to Google Sheets": {"main": [[{"node": "If HANDOFF or COMPLAINT", "type": "main", "index": 0}]]},
-    "If HANDOFF or COMPLAINT": {"main": [[{"node": "Telegram Manager Alert", "type": "main", "index": 0}], []]},
-
-    "2. Text Chat Manager Alert Webhook": {"main": [[{"node": "Normalize Text Alert", "type": "main", "index": 0}]]},
-    "Normalize Text Alert": {"main": [[{"node": "Telegram Manager Alert", "type": "main", "index": 0}, {"node": "Log to Google Sheets", "type": "main", "index": 0}]]},
-    "Telegram Manager Alert": {"main": [[{"node": "Respond to OmniDim (Text Alert)", "type": "main", "index": 0}]]},
-
-    "3. Calendar Tool Webhook": {"main": [[{"node": "Route Calendar Action", "type": "main", "index": 0}]]},
-    "Route Calendar Action": {"main": [
-      [{"node": "Get Events for Date (Check Slots)", "type": "main", "index": 0}],
-      [{"node": "Get Events for Date (Book Overlap Guard)", "type": "main", "index": 0}],
-      [{"node": "Reschedule: Lookup Event", "type": "main", "index": 0}],
-      [{"node": "Lookup Events by Phone", "type": "main", "index": 0}],
-      [{"node": "Respond Unknown Action", "type": "main", "index": 0}]
-    ]},
-
-    "Get Events for Date (Check Slots)": {"main": [[{"node": "Compute Free Slots", "type": "main", "index": 0}]]},
-    "Compute Free Slots": {"main": [[{"node": "Respond Slots to OmniDim", "type": "main", "index": 0}]]},
-
-    "Get Events for Date (Book Overlap Guard)": {"main": [[{"node": "Validate + Overlap Guard (Book)", "type": "main", "index": 0}]]},
-    "Validate + Overlap Guard (Book)": {"main": [[{"node": "If Book Valid", "type": "main", "index": 0}]]},
-    "If Book Valid": {"main": [
-      [{"node": "Create Calendar Event", "type": "main", "index": 0}],
-      [{"node": "Respond Book Failure", "type": "main", "index": 0}]
-    ]},
-    "Create Calendar Event": {"main": [[{"node": "Log Booking to Sheets", "type": "main", "index": 0}]]},
-    "Log Booking to Sheets": {"main": [[{"node": "Respond Book Success", "type": "main", "index": 0}]]},
-
-    "Lookup Events by Phone": {"main": [[{"node": "Format Lookup Result", "type": "main", "index": 0}]]},
-    "Format Lookup Result": {"main": [[{"node": "Respond Lookup", "type": "main", "index": 0}]]},
-
-    "Reschedule: Lookup Event": {"main": [[{"node": "Validate + Find Event (Reschedule)", "type": "main", "index": 0}]]},
-    "Validate + Find Event (Reschedule)": {"main": [[{"node": "If Reschedule Valid", "type": "main", "index": 0}]]},
-    "If Reschedule Valid": {"main": [
-      [{"node": "Update Calendar Event", "type": "main", "index": 0}],
-      [{"node": "Respond Reschedule Failure", "type": "main", "index": 0}]
-    ]},
-    "Update Calendar Event": {"main": [[{"node": "Log Reschedule to Sheets", "type": "main", "index": 0}]]},
-    "Log Reschedule to Sheets": {"main": [[{"node": "Respond Reschedule Success", "type": "main", "index": 0}]]},
-
-    "4. Text Chat Summary Webhook": {"main": [[{"node": "Normalize Text Summary", "type": "main", "index": 0}]]},
-    "Normalize Text Summary": {"main": [[{"node": "Log Text Summary to Sheets", "type": "main", "index": 0}]]},
-    "Log Text Summary to Sheets": {"main": [[{"node": "If Text HANDOFF or COMPLAINT", "type": "main", "index": 0}]]},
-    "If Text HANDOFF or COMPLAINT": {"main": [
-      [{"node": "Telegram Text Alert", "type": "main", "index": 0}],
-      [{"node": "Respond Text Summary", "type": "main", "index": 0}]
-    ]},
-    "Telegram Text Alert": {"main": [[{"node": "Respond Text Summary", "type": "main", "index": 0}]]}
+    "1. Post-Call Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Post-Call",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Post-Call": {
+      "main": [
+        [
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If HANDOFF or COMPLAINT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log to Google Sheets": {},
+    "If HANDOFF or COMPLAINT": {
+      "main": [
+        [
+          {
+            "node": "Telegram Manager Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "2. Text Chat Manager Alert Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Text Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Text Alert": {
+      "main": [
+        [
+          {
+            "node": "Telegram Manager Alert",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Log to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Manager Alert": {
+      "main": [
+        [
+          {
+            "node": "Respond to OmniDim (Text Alert)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "3. Calendar Tool Webhook": {
+      "main": [
+        [
+          {
+            "node": "Route Calendar Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route Calendar Action": {
+      "main": [
+        [
+          {
+            "node": "Get Events for Date (Check Slots)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Events for Date (Book Overlap Guard)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Reschedule: Lookup Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Lookup Events by Phone",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Unknown Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events for Date (Check Slots)": {
+      "main": [
+        [
+          {
+            "node": "Compute Free Slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute Free Slots": {
+      "main": [
+        [
+          {
+            "node": "Respond Slots to OmniDim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Events for Date (Book Overlap Guard)": {
+      "main": [
+        [
+          {
+            "node": "Validate + Overlap Guard (Book)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate + Overlap Guard (Book)": {
+      "main": [
+        [
+          {
+            "node": "If Book Valid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Book Valid": {
+      "main": [
+        [
+          {
+            "node": "Create Calendar Event",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Respond Book Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Book Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Calendar Event": {
+      "main": [
+        [
+          {
+            "node": "Log Booking to Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Booking to Sheets": {
+      "main": [
+        []
+      ]
+    },
+    "Lookup Events by Phone": {
+      "main": [
+        [
+          {
+            "node": "Format Lookup Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Lookup Result": {
+      "main": [
+        [
+          {
+            "node": "Respond Lookup",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reschedule: Lookup Event": {
+      "main": [
+        [
+          {
+            "node": "Validate + Find Event (Reschedule)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate + Find Event (Reschedule)": {
+      "main": [
+        [
+          {
+            "node": "If Reschedule Valid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Reschedule Valid": {
+      "main": [
+        [
+          {
+            "node": "Update Calendar Event",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Reschedule Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Calendar Event": {
+      "main": [
+        [
+          {
+            "node": "Log Reschedule to Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Reschedule to Sheets": {
+      "main": [
+        [
+          {
+            "node": "Respond Reschedule Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "4. Text Chat Summary Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Text Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Text Summary": {
+      "main": [
+        [
+          {
+            "node": "Log Text Summary to Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Text Summary to Sheets": {
+      "main": [
+        [
+          {
+            "node": "If Text HANDOFF or COMPLAINT",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Text HANDOFF or COMPLAINT": {
+      "main": [
+        [
+          {
+            "node": "Telegram Text Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Text Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Text Alert": {
+      "main": [
+        [
+          {
+            "node": "Respond Text Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
   },
-  "settings": {"executionOrder": "v1"},
+  "settings": {
+    "executionOrder": "v1"
+  },
   "staticData": null,
   "pinData": {},
-  "versionId": "v2-demo-ready-2026-09-19"
+  "versionId": "v2-demo-ready-2026-09-19",
+  "id": "5F1qU0CcqKI8nyCo"
 }
